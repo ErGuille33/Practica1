@@ -1,0 +1,4 @@
+include ':Logica'
+include ':desktopGame'
+include ':app'
+rootProject.name = "Practica1"
