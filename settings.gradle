@@ -1,3 +1,7 @@
+include ':androidgame'
+include ':PCEngine'
+include ':AndroidEngine'
+include ':Engine'
 include ':Logica'
 include ':desktopGame'
 include ':app'

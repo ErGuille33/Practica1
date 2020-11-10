@@ -5,6 +5,7 @@
       <module name="desktopGame" target="1.7" />
       <module name="Engine" target="1.7" />
       <module name="Logica" target="1.7" />
+      <module name="PCEngine" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
