@@ -39,16 +39,17 @@ public class PcEngine implements Engine {
 
     @Override
     public boolean run() {
-        JFrame frame = new JFrame("Windols");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        String emptyLabel = "Hola";
-        frame.pack();
-        frame.setVisible(true);
-        frame.setSize(1920,1080);
+        /*_frame = new JFrame("PC Engine");
+        _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        _frame.pack();
+        _frame.setVisible(true);
+        _frame.setSize(1920,1080);*/
+        _graphics = new PCGraphics();
         return true;
     }
 
     protected Graphics _graphics;
     protected Input _input;
+    protected JFrame _frame;
 
 }
