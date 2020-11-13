@@ -12,10 +12,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/AndroidEngine" />
-            <option value="$PROJECT_DIR$/AndroidGame" />
             <option value="$PROJECT_DIR$/Engine" />
             <option value="$PROJECT_DIR$/Logica" />
             <option value="$PROJECT_DIR$/PCEngine" />
+            <option value="$PROJECT_DIR$/androidgame" />
             <option value="$PROJECT_DIR$/desktopGame" />
           </set>
         </option>

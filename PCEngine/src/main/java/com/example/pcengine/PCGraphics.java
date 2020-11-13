@@ -29,7 +29,7 @@ public class PCGraphics implements Graphics {
     }
 
     public void setColor(String color) {
-        java.awt.Graphics g =
+
     }
     public void drawLine(int x1, int y1, int x2, int y2, boolean logicMetric) {
 

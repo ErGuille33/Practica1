@@ -8,11 +8,11 @@ public class Logica {
         _engine = engine;
     }
 
-    void run() {
+    public void run() {
         _engine.run();
     }
 
-    void update() {
+    public void update() {
         _engine.update();
     }
 
