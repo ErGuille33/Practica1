@@ -4,6 +4,7 @@ import com.example.engine.Font;
 import com.example.engine.Graphics;
 
 import java.awt.Color;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
@@ -14,21 +15,40 @@ public class PCGraphics implements Graphics {
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             pack();
             setVisible(true);
-            setSize(1920,1080);
+            setSize(800,600);
         }
 
-        public void paint(java.awt.Graphics g) {
-            super.paint(g);
-
-            fillRect(100,100, 600,400);
-
-            g.setColor(Color.yellow);
-            fillRect(100, 500,600, 1000);
+        public void render(java.awt.Graphics g) {
+            setColor("red");
+            fillRect(0,0, getWidth(),getHeight()/3);
+            setColor("yellow");
+            fillRect(0,getHeight()/3, getWidth(),(getHeight()/3)*2);
+            setColor("red");
+            fillRect(0,(getHeight()/3)*2, getWidth(), getHeight());
         }
     }
 
     public PCGraphics() {
         _frame = new MyJFrame();
+        _frame.setIgnoreRepaint(true);
+        _frame.createBufferStrategy(2);
+        _strat = _frame.getBufferStrategy();
+    }
+
+    public void render() {
+        do {
+            do {
+                java.awt.Graphics graphics = _strat.getDrawGraphics();
+                _graphics = graphics;
+                try {
+                    _frame.render(_graphics);
+                }
+                finally {
+                    _graphics.dispose();
+                }
+            } while(_strat.contentsRestored());
+            _strat.show();
+        } while(_strat.contentsLost());
     }
 
     public Font newFont(String filename, int size, boolean isBold) {
@@ -37,11 +57,11 @@ public class PCGraphics implements Graphics {
 
     public void clear(String color) {
         setColor(color);
-        _frame.getGraphics().clearRect(0,0, getWidth(), getHeight());
+        _graphics.clearRect(0,0, getWidth(), getHeight());
     }
 
     public void translate(int x,int y) {
-        _frame.getGraphics().translate(x, y);
+        _graphics.translate(x, y);
     }
     public void scale(int x, int y) {
 
@@ -57,7 +77,6 @@ public class PCGraphics implements Graphics {
     }
 
     public void setColor(String color) {
-        System.out.println(color);
         Color c = Color.white;
         switch (color.toLowerCase()) {
             case "black":
@@ -80,16 +99,20 @@ public class PCGraphics implements Graphics {
                 break;
             case "yellow":
                 c = Color.YELLOW;
+                break;
+            case "red":
+                c = Color.RED;
+                break;
         }
-        _frame.getGraphics().setColor(c);
+        _graphics.setColor(c);
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
-        _frame.getGraphics().drawLine(x1, y1, x2, y2);
+        _graphics.drawLine(x1, y1, x2, y2);
     }
 
     public void fillRect(int x1, int y1, int x2, int y2) {
-        _frame.getGraphics().fillRect(x1, y1, x2-x1, y2-y1);
+        _graphics.fillRect(x1, y1, x2-x1, y2-y1);
     }
 
     public void drawText(String text, int x, int y) {
@@ -104,5 +127,7 @@ public class PCGraphics implements Graphics {
     }
 
     MyJFrame _frame;
+    BufferStrategy _strat;
+    java.awt.Graphics _graphics;
 
 }

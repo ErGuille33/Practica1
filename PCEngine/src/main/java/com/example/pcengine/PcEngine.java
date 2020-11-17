@@ -39,17 +39,20 @@ public class PcEngine implements Engine {
 
     @Override
     public boolean run() {
-        /*_frame = new JFrame("PC Engine");
-        _frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        _frame.pack();
-        _frame.setVisible(true);
-        _frame.setSize(1920,1080);*/
+
         _graphics = new PCGraphics();
+
+        while(!_exit) {
+            update();
+            _graphics.render();
+        }
+
         return true;
     }
 
-    protected Graphics _graphics;
+    protected PCGraphics _graphics;
     protected Input _input;
     protected JFrame _frame;
+    boolean _exit = false;
 
 }
