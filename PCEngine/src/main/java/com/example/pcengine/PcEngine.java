@@ -45,6 +45,7 @@ public class PcEngine implements Engine {
         while(!_exit) {
             update();
             _graphics.render();
+
         }
 
         return true;

@@ -1,7 +1,7 @@
 package com.example.engine;
 
 public interface Graphics {
-    public Font newFont(String filename, int size, boolean isBold);
+    public Font newFont(String filename, float size, boolean isBold)throws Exception;
 
     public void clear(String color);
     public void translate(int x,int y);
@@ -18,5 +18,6 @@ public interface Graphics {
 
     public int getWidth();
     public int getHeight();
+
 
 }

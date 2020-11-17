@@ -1,9 +1,10 @@
 package com.example.pcengine;
 
-import com.example.engine.Font;
+import  com.example.pcengine.Font;
 import com.example.engine.Graphics;
 
 import java.awt.Color;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -42,6 +43,7 @@ public class PCGraphics implements Graphics {
                 _graphics = graphics;
                 try {
                     _frame.render(_graphics);
+                    drawText("De Don Benito al cielo", 200,300);
                 }
                 finally {
                     _graphics.dispose();
@@ -49,10 +51,12 @@ public class PCGraphics implements Graphics {
             } while(_strat.contentsRestored());
             _strat.show();
         } while(_strat.contentsLost());
+
     }
 
-    public Font newFont(String filename, int size, boolean isBold) {
-        return null;
+    public com.example.pcengine.Font newFont(String filename, float size, boolean isBold) throws Exception {
+        com.example.pcengine.Font _font = new com.example.pcengine.Font(filename,size,isBold);
+        return _font;
     }
 
     public void clear(String color) {
@@ -116,6 +120,15 @@ public class PCGraphics implements Graphics {
     }
 
     public void drawText(String text, int x, int y) {
+        try {
+            setColor("blue");
+            Font _font =  newFont("assets/Fuentes/BungeeHairline-Regular.ttf", 24, true);
+            _graphics.setFont(_font.f);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        _graphics.drawString(text, x, y);
 
     }
 
@@ -125,6 +138,7 @@ public class PCGraphics implements Graphics {
     public int getHeight() {
         return _frame.getHeight();
     }
+
 
     MyJFrame _frame;
     BufferStrategy _strat;
