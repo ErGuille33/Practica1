@@ -22,7 +22,11 @@ public class MainActivity extends AppCompatActivity {
 
         AndroidEngine engine = new AndroidEngine();
         Logica logic = new Logica(engine);
-        logic.run();
+        try {
+            logic.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }

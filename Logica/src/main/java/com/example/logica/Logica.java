@@ -1,6 +1,9 @@
 package com.example.logica;
 
 import com.example.engine.Engine;
+import com.github.cliftonlabs.json_simple.JsonException;
+
+import java.io.IOException;
 
 public class Logica {
 
@@ -8,7 +11,10 @@ public class Logica {
         _engine = engine;
     }
 
-    public void run() {
+    public void run() throws Exception {
+
+        jsonHandler = new JsonHandler(_engine);
+        jsonHandler.JsonParseFile();
         _engine.run();
     }
 
@@ -17,5 +23,6 @@ public class Logica {
     }
 
     Engine _engine;
+    JsonHandler jsonHandler;
 
 }
