@@ -1,46 +1,137 @@
 package com.example.logica;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Nivel {
 
-    Nivel(){
+    Nivel(int nLevel){
+        _nLevel = nLevel;
+    }
+
+    public void cargaNivel() throws Exception{
+
+        jsonHandler = new JsonHandler();
+        jsonHandler.JsonParseLevel(_nLevel,this);
+
+        System.out.println(" Nivel " + _nLevel);
+        System.out.println( " Paths: ");
+        for(int i = 0; i < paths.size(); i++) {
+            for(int j = 0; j < paths.get(i).vertices.size(); j++) {
+                System.out.print(" x: " + paths.get(i).vertices.get(j)._pos.get_x() + " y: " + paths.get(i).vertices.get(j)._pos.get_y());
+            }
+
+            for(int j = 0; j < paths.get(i).directions.size(); j++) {
+                System.out.print(" x: " + paths.get(i).directions.get(j)._pos.get_x() + " y: " + paths.get(i).directions.get(j)._pos.get_y());
+            }
+        }
+        System.out.println( " Items: ");
+        for(int i = 0; i < items.size(); i++) {
+
+                System.out.print(" x: " + items.get(i)._pos.get_x() + " y: " + items.get(i)._pos.get_y() + " radius " + items.get(i)._radius + " speed " + items.get(i)._speed + " angle " + items.get(i)._angle);
+        }
+        System.out.println( " Enemigos: " );
+        for(int i = 0; i < enemies.size(); i++) {
+
+            System.out.print(" x: " + enemies.get(i)._pos.get_x() + " y: " + enemies.get(i)._pos.get_y() + " length " +  enemies.get(i)._length + " angle " + enemies.get(i)._angle+ " speed " + enemies.get(i)._speed
+                    + "time1 " + enemies.get(i)._time1 + "time2" + enemies.get(i)._time2);
+        }
+        System.out.println( " Tiempo: " + _time);
 
     }
 
-    public String name;
+    //Atributos
+    public String _name;
 
-    public Paths[] paths = new Paths[25];
-    public Items[] items = new Items[50];
-    public Enemies[] enemies = new Enemies[50];
+    public ArrayList<Paths> paths = new ArrayList<Paths>();
+    public ArrayList<Items> items = new ArrayList<Items>();
+    public ArrayList<Enemies> enemies =  new ArrayList<Enemies>();
 
+    public int _nLevel;
+
+    public int _time;
+
+    JsonHandler jsonHandler;
+
+    //Métodos para poner los valores
+    public void setName(String name){
+        _name = name;
+    }
+
+    public void pushPathBack(){
+        paths.add(new Paths());
+    }
+
+    public void pushTickBack(int time){
+        _time = time;
+    }
+
+    public void pushItemsBack(float x, float y, int angle, int speed, int radius){
+        items.add(new Items(x,y,angle,speed,radius));
+    }
+
+    public void pushEnemiesBack(float x, float y, int length, int angle, int speed, float offsetX, float offsetY, float time1, float time2){
+        enemies.add(new Enemies(x,y,length,angle,speed, offsetX, offsetY,time1,time2));
+    }
+
+    public void pushVerticesBack(float x, float y){
+        paths.get(paths.size() - 1).vertices.add(new Vertice(x,y));
+    }
+
+    public void pushDireccionesBack(float x, float y){
+        paths.get(paths.size() - 1).directions.add(new Direciones(x,y));
+    }
+
+
+
+
+    //Clases usadas para los distintos atributos del nivel
     public class Paths{
-        public Vertice[] vertices = new Vertice[125];
-        public Direciones[] directions = new Direciones[125];
+        public ArrayList<Vertice> vertices = new ArrayList<Vertice>();
+        public ArrayList<Direciones> directions = new ArrayList<Direciones>();
     }
 
     public class Items{
-        public Coordenada pos;
-        public int radius;
-        public int speed;
-        public int angle;
+        Items(float x, float y, int angle, int speed, int radius){
+            _pos = new Coordenada(x,y);
+            _radius = radius;
+            _angle = angle;
+            _speed = speed;
+        }
+        public Coordenada _pos;
+        public int _radius;
+        public int _speed;
+        public int _angle;
     }
     public class Enemies{
-        public Coordenada pos;
-        public int lenght;
-        public int angle;
+        Enemies(float x, float y, int length, int angle, int speed, float offsetX, float offsetY, float time1, float time2){
+            _pos = new Coordenada(x,y);
+            _length = length;
+            _angle = angle;
+            _speed = speed;
+            _offset = new Coordenada(offsetX,offsetY);
+            _time1 = time1;
+            _time2 = time2;
+        }
+        public Coordenada _pos;
+        public int _length;
+        public int _angle;
 
-        public int speed;
-        public int offset;
-        public int time1;
-        public int time2;
+        public int _speed;
+        public Coordenada _offset;
+        public float _time1;
+        public float _time2;
 
     }
 
     public class Direciones{
-        public Coordenada pos;
+        Direciones(float x, float y){ _pos = new Coordenada(x,y); }
+        public Coordenada _pos;
     }
 
     public class Vertice{
-        public Coordenada pos;
+        Vertice(float x, float y){ _pos = new Coordenada(x,y); }
+        public Coordenada _pos;
     }
 
 }

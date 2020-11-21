@@ -13,8 +13,8 @@ public class Logica {
 
     public void run() throws Exception {
 
-        jsonHandler = new JsonHandler(_engine);
-        jsonHandler.JsonParseFile();
+        Nivel nivelActual = new Nivel(7);
+        nivelActual.cargaNivel();
         _engine.run();
     }
 
@@ -23,6 +23,6 @@ public class Logica {
     }
 
     Engine _engine;
-    JsonHandler jsonHandler;
+
 
 }
