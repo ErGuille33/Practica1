@@ -5,23 +5,25 @@ import com.example.engine.Graphics;
 
 import java.awt.Canvas;
 
-public class Logica {
+public class Logica implements com.example.engine.Logica {
 
-    public Logica(Engine engine) {
-        _engine = engine;
+    public Logica() {
+
     }
 
-    public void run() throws Exception {
-        //Nivel nivelActual = new Nivel(7);
-        //nivelActual.cargaNivel();
+    public void init() throws Exception {
+        Nivel nivelActual = new Nivel(7);
+        nivelActual.cargaNivel();
 
-        _engine.run();
+        //_engine.run();
         Vector2D cosa = new Vector2D(0,0);
         _cuadrao = new Cuadrao(10, 10, 20, 20, cosa, 0);
     }
 
-    public void update() {
-        _engine.update();
+
+    @Override
+    public void update(float deltaTime) {
+
     }
 
     public void render(Graphics g) {
@@ -30,7 +32,7 @@ public class Logica {
         _cuadrao.render(g);
     }
 
-    Engine _engine;
+
 
     Cuadrao _cuadrao;
 

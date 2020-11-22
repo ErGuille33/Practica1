@@ -1,13 +1,18 @@
 package com.example.androidengine;
 
+
+import android.content.res.AssetManager;
+
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
+import com.example.engine.Logica;
 
 import java.io.InputStream;
 
 public class AndroidEngine implements Engine {
 
+    public AndroidEngine(Logica _logic){logica = _logic;}
     @Override
     public Graphics getGraphics() {
         return null;
@@ -20,6 +25,7 @@ public class AndroidEngine implements Engine {
 
     @Override
     public InputStream openInputStream(String filename) {
+
         return null;
     }
 
@@ -29,10 +35,16 @@ public class AndroidEngine implements Engine {
     }
 
     @Override
-    public boolean run() {
-        System.out.println("Runeando aki el android gente");
-        return false;
+    public void render() {
+
     }
 
+    @Override
+    public boolean run() throws Exception {
+        System.out.println("Runeando aki el android gente");
+        logica.init();
+        return false;
+    }
+Logica logica;
 
 }

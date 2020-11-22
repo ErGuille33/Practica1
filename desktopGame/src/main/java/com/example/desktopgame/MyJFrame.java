@@ -13,15 +13,16 @@ class MyJFrame extends JFrame {
         pack();
         setVisible(true);
         setSize(800,600);
-        PcEngine engine = new PcEngine();
-        _logic = new Logica(engine);
+        _logic = new Logica();
+        engine = new PcEngine(_logic);
+
     }
 
     public boolean run() {
         _graphics = new PCGraphics(this);
 
         try {
-            _logic.run();
+            engine.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,5 +53,6 @@ class MyJFrame extends JFrame {
 
     PCGraphics _graphics;
     Logica _logic;
+    PcEngine engine;
     boolean _exit = false;
 }
