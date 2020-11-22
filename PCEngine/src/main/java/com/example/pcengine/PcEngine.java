@@ -39,21 +39,11 @@ public class PcEngine implements Engine {
 
     @Override
     public boolean run() {
-
-        _graphics = new PCGraphics();
-
-        while(!_exit) {
-            update();
-            _graphics.render();
-
-        }
-
         return true;
     }
 
     protected PCGraphics _graphics;
     protected Input _input;
-    protected JFrame _frame;
     boolean _exit = false;
 
 }

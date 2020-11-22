@@ -11,47 +11,12 @@ import javax.swing.JFrame;
 
 public class PCGraphics implements Graphics {
 
-    class MyJFrame extends JFrame {
-        public MyJFrame() {
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            pack();
-            setVisible(true);
-            setSize(800,600);
-        }
-
-        public void render(java.awt.Graphics g) {
-            setColor("red");
-            fillRect(0,0, getWidth(),getHeight()/3);
-            setColor("yellow");
-            fillRect(0,getHeight()/3, getWidth(),(getHeight()/3)*2);
-            setColor("red");
-            fillRect(0,(getHeight()/3)*2, getWidth(), getHeight());
-        }
+    public PCGraphics(JFrame frame) {
+        _frame = frame;
     }
 
-    public PCGraphics() {
-        _frame = new MyJFrame();
-        _frame.setIgnoreRepaint(true);
-        _frame.createBufferStrategy(2);
-        _strat = _frame.getBufferStrategy();
-    }
-
-    public void render() {
-        do {
-            do {
-                java.awt.Graphics graphics = _strat.getDrawGraphics();
-                _graphics = graphics;
-                try {
-                    _frame.render(_graphics);
-                    drawText("De Don Benito al cielo", 200,300);
-                }
-                finally {
-                    _graphics.dispose();
-                }
-            } while(_strat.contentsRestored());
-            _strat.show();
-        } while(_strat.contentsLost());
-
+    public void setGraphics(java.awt.Graphics graphics) {
+        _graphics = graphics;
     }
 
     public com.example.pcengine.Font newFont(String filename, float size, boolean isBold) throws Exception {
@@ -139,9 +104,7 @@ public class PCGraphics implements Graphics {
         return _frame.getHeight();
     }
 
-
-    MyJFrame _frame;
-    BufferStrategy _strat;
+    JFrame _frame;
     java.awt.Graphics _graphics;
 
 }

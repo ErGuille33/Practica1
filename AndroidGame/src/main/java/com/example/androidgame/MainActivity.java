@@ -6,27 +6,30 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.androidengine.AndroidEngine;
-import com.example.logica.Logica;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-
-        AndroidEngine engine = new AndroidEngine();
-        Logica logic = new Logica(engine);
-        try {
-            logic.run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        _surface = new MySurfaceView(this);
+        setContentView(_surface);
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        _surface.resume();
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+        _surface.pause();
+
+    }
+
+    protected MySurfaceView _surface;
 }

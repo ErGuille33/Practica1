@@ -3,12 +3,18 @@ package com.example.desktopgame;
 import com.example.logica.Logica;
 import com.example.pcengine.PcEngine;
 
+import java.awt.image.BufferStrategy;
+
 
 public class Main {
     public static void main(String[] args) throws Exception
     {
-        PcEngine engine = new PcEngine();
-        Logica logica = new Logica(engine);
-        logica.run();
+        MyJFrame frame = new MyJFrame();
+        frame.setIgnoreRepaint(true);
+        frame.createBufferStrategy(2);
+        BufferStrategy strat = frame.getBufferStrategy();
+
+        frame.run();
     }
+
 }
