@@ -7,10 +7,16 @@ import com.github.cliftonlabs.json_simple.JsonArray;
 import com.github.cliftonlabs.json_simple.JsonObject;
 import com.github.cliftonlabs.json_simple.Jsoner;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.util.Scanner;
 
 public class JsonHandler {
     JsonHandler() {
@@ -19,10 +25,22 @@ public class JsonHandler {
     //Esta clase parsea el archivo JSON indicado
     public void JsonParseLevel(int nLevel, Nivel nivelActual) throws Exception {
         //Lo utilizamos para sacar la ruta del proyecto
+        InputStream is = nivelActual.engine.openInputStream("levels.json");
 
-        try (FileReader fileReader = new FileReader("assets/levels.json")) {
 
-            JsonArray deserialize = (JsonArray) Jsoner.deserialize(fileReader);
+        ByteArrayOutputStream into = new ByteArrayOutputStream();
+        byte[] buf = new byte[4096];
+        for (int n; 0 < (n = is.read(buf));) {
+            into.write(buf, 0, n);
+        }
+        into.close();
+        String result = new String(into.toByteArray(), "UTF-8"); // Or whatever encoding
+
+        System.out.println(result);
+
+        try (FileReader fileReader = nivelActual.engine.openFileReader("levels.json")) {
+
+            JsonArray deserialize = (JsonArray) Jsoner.deserialize(result);
             JsonObject nivel = (JsonObject) deserialize.get(nLevel);
             JsonArray Paths = (JsonArray) nivel.get("paths");
 

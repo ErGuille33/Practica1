@@ -8,6 +8,7 @@ import com.example.engine.Logica;
 import java.awt.BorderLayout;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -26,7 +27,7 @@ public class PcEngine implements Engine {
     }
 
     public InputStream openInputStream(String filename) {
-        try (InputStream is = new FileInputStream(filename)) {
+        try (InputStream is = new FileInputStream("assets/" +filename)) {
             return is;
         }
         catch (Exception e) {
@@ -34,6 +35,12 @@ public class PcEngine implements Engine {
 
             return null;
         }
+    }
+
+    @Override
+    public FileReader openFileReader(String filename) throws FileNotFoundException {
+        FileReader fileReader = new FileReader("assets/" + filename);
+        return fileReader;
     }
 
     @Override

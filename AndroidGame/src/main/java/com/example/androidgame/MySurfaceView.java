@@ -19,6 +19,8 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         _ag = new AndroidGraphics();
         _logic = new Logica();
         engine = new AndroidEngine(_logic);
+        _logic.getEngine(engine);
+        engine.getContext(context);
 
 
     }

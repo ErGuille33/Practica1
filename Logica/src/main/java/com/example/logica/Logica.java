@@ -12,7 +12,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(7);
+        Nivel nivelActual = new Nivel(7,engine);
         nivelActual.cargaNivel();
 
         //_engine.run();
@@ -32,8 +32,12 @@ public class Logica implements com.example.engine.Logica {
         _cuadrao.render(g);
     }
 
+    public void getEngine(Engine _engine){
+        engine = _engine;
+    }
 
 
+    Engine engine;
     Cuadrao _cuadrao;
 
 }

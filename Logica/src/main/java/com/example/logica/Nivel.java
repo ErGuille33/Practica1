@@ -1,12 +1,15 @@
 package com.example.logica;
 
+import com.example.engine.Engine;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Nivel {
 
-    Nivel(int nLevel){
+    Nivel(int nLevel, Engine _engine){
         _nLevel = nLevel;
+        engine = _engine;
     }
 
     public void cargaNivel() throws Exception{
@@ -50,6 +53,8 @@ public class Nivel {
     public int _nLevel;
 
     public int _time;
+
+    Engine engine;
 
     JsonHandler jsonHandler;
 

@@ -1,6 +1,8 @@
 package com.example.androidengine;
 
 
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 
 import com.example.engine.Engine;
@@ -8,6 +10,9 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 import com.example.engine.Logica;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class AndroidEngine implements Engine {
@@ -24,7 +29,15 @@ public class AndroidEngine implements Engine {
     }
 
     @Override
-    public InputStream openInputStream(String filename) {
+    public InputStream openInputStream(String filename) throws IOException {
+
+        return context.getAssets().open(filename);
+    }
+
+    @Override
+    public FileReader openFileReader(String filename) throws IOException {
+        AssetFileDescriptor descriptor = context.getAssets().openFd(filename);
+        FileReader reader = new FileReader(descriptor.getFileDescriptor());
 
         return null;
     }
@@ -39,12 +52,17 @@ public class AndroidEngine implements Engine {
 
     }
 
+    public void getContext(Context _context){
+        context = _context;
+    }
+
     @Override
     public boolean run() throws Exception {
         System.out.println("Runeando aki el android gente");
         logica.init();
         return false;
     }
+    Context context;
 Logica logica;
 
 }

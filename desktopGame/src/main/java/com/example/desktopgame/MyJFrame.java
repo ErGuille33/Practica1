@@ -15,6 +15,7 @@ class MyJFrame extends JFrame {
         setSize(800,600);
         _logic = new Logica();
         engine = new PcEngine(_logic);
+        _logic.getEngine(engine);
 
     }
 
