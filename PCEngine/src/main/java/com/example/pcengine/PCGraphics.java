@@ -4,10 +4,13 @@ import  com.example.pcengine.Font;
 import com.example.engine.Graphics;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
+import sun.util.resources.cldr.fr.CalendarData_fr_MC;
 
 public class PCGraphics implements Graphics {
 
@@ -33,10 +36,10 @@ public class PCGraphics implements Graphics {
         _graphics.translate(x, y);
     }
     public void scale(int x, int y) {
-
+        ((Graphics2D) _graphics).scale(x, y);
     }
     public void rotate(int angle) {
-
+        ((Graphics2D) _graphics).rotate(Math.toDegrees(angle));
     }
     public void save() {
 

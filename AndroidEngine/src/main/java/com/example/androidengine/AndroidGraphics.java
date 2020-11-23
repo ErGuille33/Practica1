@@ -19,22 +19,23 @@ public class AndroidGraphics implements Graphics {
     }
 
     public void clear(String color) {
-
+        setColor(color);
+        fillRect(0,0, _c.getWidth(), _c.getHeight());
     }
     public void translate(int x,int y) {
-
+        _c.translate(x, y);
     }
     public void scale(int x, int y) {
-
+        _c.scale(x, y);
     }
     public void rotate(int angle) {
-
+        _c.rotate(angle);
     }
     public void save() {
-
+        _c.save();
     }
     public void restore() {
-
+        _c.restore();
     }
 
     public void setColor(String color) {
@@ -66,7 +67,7 @@ public class AndroidGraphics implements Graphics {
         }
     }
     public void drawLine(int x1, int y1, int x2, int y2) {
-
+        _c.drawLine(x1, y1, x2, y2, _p);
     }
     public void fillRect(int x1, int y1, int x2, int y2) {
         Rect r = new Rect(x1, y1, x2, y2);

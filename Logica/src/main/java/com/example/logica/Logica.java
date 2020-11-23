@@ -3,7 +3,7 @@ package com.example.logica;
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
 
-import java.awt.Canvas;
+import java.util.*;
 
 public class Logica implements com.example.engine.Logica {
 
@@ -12,12 +12,19 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(7,engine);
-        nivelActual.cargaNivel();
+        //Nivel nivelActual = new Nivel(7,engine);
+        //nivelActual.cargaNivel();
 
         //_engine.run();
         Vector2D cosa = new Vector2D(0,0);
-        _cuadrao = new Cuadrao(10, 10, 20, 20, cosa, 0);
+
+        _objects = new Vector<GameObject>(20 /*aqui habria que poner la cantidad de cosas que tenga el nivel*/);
+        Cuadrao cuadrao1 = new Cuadrao(10, 50, 20, 20, cosa, 0);
+        _objects.add(cuadrao1);
+        Cuadrao cuadrao2 = new Cuadrao(10, 80, 20, 20, cosa, 0);
+        _objects.add(cuadrao2);
+        Cuadrao cuadrao3 = new Cuadrao(10, 110, 20, 20, cosa, 0);
+        _objects.add(cuadrao3);
     }
 
 
@@ -27,17 +34,20 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void render(Graphics g) {
-        g.setColor("yellow");
+        g.setColor("black");
         g.fillRect(0,0, g.getWidth(), g.getHeight());
-        _cuadrao.render(g);
+        
+        for(int i = 0; i < _objects.size(); i++) {
+            _objects.elementAt(i).render(g);
+        }
+
     }
 
     public void getEngine(Engine _engine){
         engine = _engine;
     }
 
-
     Engine engine;
-    Cuadrao _cuadrao;
+    Vector<GameObject> _objects;
 
 }

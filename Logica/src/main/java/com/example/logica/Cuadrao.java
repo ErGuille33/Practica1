@@ -14,6 +14,7 @@ public class Cuadrao extends GameObject {
         g.drawLine(_x + _w, _y, _x + _w, _y + _h);
         g.drawLine(_x + _w, _y + _h, _x , _y + _h);
         g.drawLine(_x , _y + _h, _x, _y);
+
     }
 
     public void update() {
