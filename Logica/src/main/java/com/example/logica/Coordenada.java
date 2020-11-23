@@ -1,27 +1,27 @@
 package com.example.logica;
 
 public class Coordenada {
-    Coordenada(float x, float y){
+    Coordenada(double x, double y){
         _x = x;
         _y = y;
     }
 
-    public float get_x(){
+    public double get_x(){
         return _x;
     }
 
-    public float get_y(){
+    public double get_y(){
         return _y;
     }
 
-    public void set_y(float y){
+    public void set_y(double y){
         _y = y;
     }
 
-    public void set_x(float x){
+    public void set_x(double x){
         _x = x;
     }
 
-    private float _x;
-    private float _y;
+    private double _x;
+    private double _y;
 }

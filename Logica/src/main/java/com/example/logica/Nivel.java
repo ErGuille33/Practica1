@@ -37,7 +37,7 @@ public class Nivel {
         for(int i = 0; i < enemies.size(); i++) {
 
             System.out.print(" x: " + enemies.get(i)._pos.get_x() + " y: " + enemies.get(i)._pos.get_y() + " length " +  enemies.get(i)._length + " angle " + enemies.get(i)._angle+ " speed " + enemies.get(i)._speed
-                    + "time1 " + enemies.get(i)._time1 + "time2" + enemies.get(i)._time2);
+                    + "time1 " + enemies.get(i)._time1 + "time2" + enemies.get(i)._time2 + "offetx:" + enemies.get(i)._offset.get_x() + "offsety: " + enemies.get(i)._offset.get_y() );
         }
         System.out.println( " Tiempo: " + _time);
 
@@ -71,11 +71,11 @@ public class Nivel {
         _time = time;
     }
 
-    public void pushItemsBack(float x, float y, int angle, int speed, int radius){
+    public void pushItemsBack(float x, float y, float angle, float speed, float radius){
         items.add(new Items(x,y,angle,speed,radius));
     }
 
-    public void pushEnemiesBack(float x, float y, int length, int angle, int speed, float offsetX, float offsetY, float time1, float time2){
+    public void pushEnemiesBack(float x, float y, float length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
         enemies.add(new Enemies(x,y,length,angle,speed, offsetX, offsetY,time1,time2));
     }
 
@@ -97,19 +97,19 @@ public class Nivel {
     }
 
     public class Items{
-        Items(float x, float y, int angle, int speed, int radius){
+        Items(float x, float y, float angle, float speed, float radius){
             _pos = new Coordenada(x,y);
             _radius = radius;
             _angle = angle;
             _speed = speed;
         }
         public Coordenada _pos;
-        public int _radius;
-        public int _speed;
-        public int _angle;
+        public float _radius;
+        public float _speed;
+        public float _angle;
     }
     public class Enemies{
-        Enemies(float x, float y, int length, int angle, int speed, float offsetX, float offsetY, float time1, float time2){
+        Enemies(float x, float y, float length, float angle, float speed, float offsetX, float offsetY, float time1, float time2){
             _pos = new Coordenada(x,y);
             _length = length;
             _angle = angle;
@@ -119,10 +119,10 @@ public class Nivel {
             _time2 = time2;
         }
         public Coordenada _pos;
-        public int _length;
-        public int _angle;
+        public float _length;
+        public float _angle;
 
-        public int _speed;
+        public float _speed;
         public Coordenada _offset;
         public float _time1;
         public float _time2;

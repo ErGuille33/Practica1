@@ -12,8 +12,8 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        //Nivel nivelActual = new Nivel(7,engine);
-        //nivelActual.cargaNivel();
+        Nivel nivelActual = new Nivel(13,engine);
+        nivelActual.cargaNivel();
 
         //_engine.run();
         Vector2D cosa = new Vector2D(0,0);
