@@ -28,11 +28,15 @@ class MyJFrame extends JFrame {
             e.printStackTrace();
         }
         while(!_exit) {
-            //update();
+            update();
             render();
         }
 
         return true;
+    }
+
+    private void update() {
+        _logic.update(0);
     }
 
     public void render() {

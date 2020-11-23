@@ -71,9 +71,8 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
             Canvas canvas = _holder.lockCanvas();
             _ag.setCanvas(canvas);
-            //_logic.update();
+            _logic.update(0);
             _logic.render(_ag);
-            System.out.println("se supone que ha hecho el render");
             _holder.unlockCanvasAndPost(canvas);
 
         } // while

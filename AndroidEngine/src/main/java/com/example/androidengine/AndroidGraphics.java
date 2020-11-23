@@ -64,6 +64,9 @@ public class AndroidGraphics implements Graphics {
             case "red":
                 _p.setColor(Color.RED);
                 break;
+            case "white":
+                _p.setColor(Color.WHITE);
+                break;
         }
     }
     public void drawLine(int x1, int y1, int x2, int y2) {

@@ -6,6 +6,7 @@ import com.example.engine.Graphics;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -41,11 +42,12 @@ public class PCGraphics implements Graphics {
     public void rotate(int angle) {
         ((Graphics2D) _graphics).rotate(Math.toDegrees(angle));
     }
-    public void save() {
 
+    public void save() {
+        _state = ((Graphics2D) _graphics).getTransform();
     }
     public void restore() {
-
+        ((Graphics2D) _graphics).setTransform(_state);
     }
 
     public void setColor(String color) {
@@ -109,5 +111,6 @@ public class PCGraphics implements Graphics {
 
     JFrame _frame;
     java.awt.Graphics _graphics;
+    AffineTransform _state;
 
 }
