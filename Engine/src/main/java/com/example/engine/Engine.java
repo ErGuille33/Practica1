@@ -10,7 +10,7 @@ public interface Engine {
     Input getInput();
     InputStream openInputStream(String filename) throws IOException;
     FileReader openFileReader(String filename) throws IOException;
-    void update();
+    void update(double deltaTime);
 
     void render(Graphics g) throws Exception;
 

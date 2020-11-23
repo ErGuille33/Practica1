@@ -16,12 +16,11 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         super(context);
         _holder = getHolder();
 
-        _ag = new AndroidGraphics();
         _logic = new Logica();
-         engine = new AndroidEngine(_logic);
+         engine = new AndroidEngine(_logic, _holder);
         _logic.getEngine(engine);
         engine.getContext(context);
-        _ag.getContext(context);
+
 
 
     }
@@ -58,7 +57,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         while(_running && getWidth() == 0);
 
         try {
-            _logic.init();
+            engine.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,18 +65,6 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         _running = true;
         while(_running) {
 
-            while (!_holder.getSurface().isValid())
-                ;
-
-            Canvas canvas = _holder.lockCanvas();
-            _ag.setCanvas(canvas);
-            //_logic.update();
-            try {
-                engine.render(_ag);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            _holder.unlockCanvasAndPost(canvas);
 
         } // while
     }

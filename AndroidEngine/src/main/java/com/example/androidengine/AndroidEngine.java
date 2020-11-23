@@ -4,6 +4,9 @@ package com.example.androidengine;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Canvas;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
@@ -17,7 +20,10 @@ import java.io.InputStream;
 
 public class AndroidEngine implements Engine {
 
-    public AndroidEngine(Logica _logic){logica =_logic;}
+    public AndroidEngine(Logica _logic, SurfaceHolder holder){
+        logica =_logic;
+        _holder = holder;
+    }
 
     @Override
     public Graphics getGraphics() {
@@ -44,9 +50,10 @@ public class AndroidEngine implements Engine {
     }
 
     @Override
-    public void update() {
+    public void update(double deltaTime) {
 
     }
+
 
     @Override
     public void render(Graphics g) throws Exception {
@@ -62,9 +69,34 @@ public class AndroidEngine implements Engine {
     public boolean run() throws Exception {
         System.out.println("Runeando aki el android gente");
         logica.init();
+        boolean acabar = false;
+        _ag = new AndroidGraphics();
+        _ag.getContext(context);
+        double lastTime = System.nanoTime();
+        while(!acabar) {
+            double currentTime = System.nanoTime();
+            double deltaTime = (currentTime - lastTime) / 1e9;
+
+            update(deltaTime);
+
+
+            while (!_holder.getSurface().isValid())
+                ;
+            Canvas canvas = _holder.lockCanvas();
+            _ag.setCanvas(canvas);
+            render(_ag);
+            _holder.unlockCanvasAndPost(canvas);
+            lastTime = currentTime;
+
+
+        }
+
         return false;
     }
     Context context;
     Logica logica;
+    AndroidGraphics _ag;
+    SurfaceHolder _holder;
+    SurfaceView sv;
 
 }

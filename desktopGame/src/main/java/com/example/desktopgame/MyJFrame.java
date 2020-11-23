@@ -17,13 +17,13 @@ class MyJFrame extends JFrame {
         setSize(640,480);
 
         _logic = new Logica();
-        engine = new PcEngine(_logic);
+        engine = new PcEngine(_logic,this);
         _logic.getEngine(engine);
 
     }
 
     public boolean run() {
-        _graphics = new PCGraphics(this);
+
 
         try {
             engine.run();
@@ -32,28 +32,12 @@ class MyJFrame extends JFrame {
         }
         while(!_exit) {
             //update();
-            render();
+
         }
 
         return true;
     }
 
-    public void render() {
-        do {
-            do {
-                java.awt.Graphics graphics = getBufferStrategy().getDrawGraphics();
-                _graphics.setGraphics(graphics);
-                try {
-                    engine.render(_graphics);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    graphics.dispose();
-                }
-            } while(getBufferStrategy().contentsRestored());
-            getBufferStrategy().show();
-        } while(getBufferStrategy().contentsLost());
-    }
 
     Engine engine;
     PCGraphics _graphics;

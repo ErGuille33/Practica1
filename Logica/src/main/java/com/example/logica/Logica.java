@@ -21,12 +21,11 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void update() {
-        _engine.update();
+
     }
 
     @Override
     public void update(float deltaTime) {
-
     }
 
     public void render(Graphics g) throws Exception {
