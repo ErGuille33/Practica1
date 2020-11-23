@@ -11,9 +11,9 @@ public class Logica {
         _engine = engine;
     }
 
-    public void run() throws Exception {
-        //Nivel nivelActual = new Nivel(7);
-        //nivelActual.cargaNivel();
+    public void init() throws Exception {
+        Nivel nivelActual = new Nivel(13,engine);
+        nivelActual.cargaNivel();
 
         _engine.run();
         Vector2D cosa = new Vector2D(0,0);
@@ -30,8 +30,12 @@ public class Logica {
         _cuadrao.render(g);
     }
 
-    Engine _engine;
+    public void getEngine(Engine _engine){
+        engine = _engine;
+    }
 
+
+    Engine engine;
     Cuadrao _cuadrao;
 
 }

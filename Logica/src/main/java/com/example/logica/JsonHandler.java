@@ -2,14 +2,15 @@ package com.example.logica;
 
 import com.example.engine.Engine;
 
-import com.github.cliftonlabs.json_simple.JsonArray;
-import com.github.cliftonlabs.json_simple.JsonObject;
-import com.github.cliftonlabs.json_simple.Jsoner;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 
-
-import java.io.FileReader;
-
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
+
 
 public class JsonHandler {
     JsonHandler() {
@@ -18,104 +19,119 @@ public class JsonHandler {
     //Esta clase parsea el archivo JSON indicado
     public void JsonParseLevel(int nLevel, Nivel nivelActual) throws Exception {
         //Lo utilizamos para sacar la ruta del proyecto
+        InputStream is = nivelActual.engine.openInputStream("levels.json");
 
-        try (FileReader fileReader = new FileReader("assets/levels.json")) {
+        JSONParser jsonParser = new JSONParser();
 
-            JsonArray deserialize = (JsonArray) Jsoner.deserialize(fileReader);
-            JsonObject nivel = (JsonObject) deserialize.get(nLevel);
-            JsonArray Paths = (JsonArray) nivel.get("paths");
+        Object o = jsonParser.parse(new InputStreamReader(is));
+
+        try  {
+
+            //PAra que vaya en pc neter el fileReader en vez de result y cinebtar ki de arruba
+
+            JSONArray deserialize = (JSONArray) JSONValue.parse(o.toString());
+            JSONObject nivel = (JSONObject) deserialize.get(nLevel);
+            JSONArray Paths = (JSONArray) nivel.get("paths");
 
             //For de PAth
             for (int i = 0; i < Paths.size(); i++) {
                 //Push PAth
                 nivelActual.pushPathBack();
-                JsonObject Path0 = (JsonObject) Paths.get(i);
-                JsonArray Vertices = (JsonArray) Path0.get("vertices");
+                JSONObject Path0 = (JSONObject) Paths.get(i);
+                JSONArray Vertices = (JSONArray) Path0.get("vertices");
                 //For de vértices
                 for (int j = 0; j < Vertices.size(); j++) {
-                    JsonObject coord = (JsonObject) Vertices.get(j);
-                    nivelActual.pushVerticesBack(((BigDecimal) coord.get("x")).floatValue(), ((BigDecimal) coord.get("y")).floatValue());
+                    String aux1;
+                    String aux2;
+                    JSONObject coord = (JSONObject) Vertices.get(j);
+                    aux1 = String.valueOf(coord.get("x")) ;
+                    aux2 = (String) String.valueOf(coord.get("y"));
+                    nivelActual.pushVerticesBack(( Float.parseFloat(aux1)), Float.parseFloat(aux2));
                 }
                 //For direcciones
-                JsonArray Dir = (JsonArray) Path0.get("directions");
+                JSONArray Dir = (JSONArray) Path0.get("directions");
                 if(Dir != null) {
                     for (int l = 0; l < Dir.size(); l++) {
-                        JsonObject coord = (JsonObject) Dir.get(l);
-                        nivelActual.pushDireccionesBack(((BigDecimal) coord.get("x")).floatValue(), ((BigDecimal) coord.get("y")).floatValue());
+                        String aux1;
+                        String aux2;
+                        JSONObject coord = (JSONObject) Dir.get(l);
+                        aux1 = String.valueOf(coord.get("x"));
+                        aux2 = String.valueOf(coord.get("y"));
+                        nivelActual.pushDireccionesBack(( Float.parseFloat(aux1)), Float.parseFloat(aux2));
                     }
                 }
             }
             //For Items
 
-            JsonArray Items = (JsonArray) nivel.get("items");
+            JSONArray Items = (JSONArray) nivel.get("items");
             if(Items != null) {
                 for (int t = 0; t < Items.size(); t++) {
-                    JsonObject unit = (JsonObject) Items.get(t);
-                    BigDecimal radio = (BigDecimal) unit.get("radius");
-                    BigDecimal angle = (BigDecimal) unit.get("angle");
-                    BigDecimal speed = (BigDecimal) unit.get("speed");
-                    int radion = -1;
-                    int anglen = -1;
-                    int speedn = -1;
+                    JSONObject unit = (JSONObject) Items.get(t);
 
-                    if( radio != null) {
-                        radion = ((BigDecimal) unit.get("radius")).intValue();
+                    float radion = -1;
+                    float anglen = -1;
+                    float speedn = -1;
+
+                    if( unit.get("radio") != null) {
+                        radion = Float.parseFloat(String.valueOf(unit.get("radio")));
                     }
 
-                    if(angle != null) {
-                        anglen = ((BigDecimal) unit.get("angle")).intValue();
+                    if(unit.get("angle") != null) {
+                        anglen = Float.parseFloat(String.valueOf(unit.get("angle")));
                     }
-                    if(speed != null) {
-                        speedn = ((BigDecimal) unit.get("speed")).intValue();
+                    if(unit.get("speed") != null) {
+                        speedn = Float.parseFloat(String.valueOf(unit.get("speed")));
                     }
 
-                    nivelActual.pushItemsBack(((BigDecimal)unit.get("x")).floatValue(), ((BigDecimal)unit.get("y")).floatValue(), anglen,
+                    String aux1;
+                    String aux2;
+                    aux1 = String.valueOf(unit.get("x"));
+                    aux2 = String.valueOf(unit.get("y"));
+
+                    nivelActual.pushItemsBack((Float.parseFloat(aux1)), (Float.parseFloat(aux2)), anglen,
                             speedn, radion);
 
                 }
 
             }
-            JsonArray Enemies = (JsonArray) nivel.get("enemies");
+            JSONArray Enemies = (JSONArray) nivel.get("enemies");
             //For enemigos
             if(Enemies != null) {
                 for (int t = 0; t < Enemies.size(); t++) {
-                    JsonObject unit = (JsonObject) Enemies.get(t);
-                    BigDecimal length = (BigDecimal) unit.get("length");
-                    BigDecimal angle = (BigDecimal) unit.get("angle");
-                    BigDecimal speed = (BigDecimal) unit.get("speed");
-                    BigDecimal time1 = (BigDecimal) unit.get("time1");
-                    BigDecimal time2 = (BigDecimal) unit.get("time2");
-                    JsonObject offset = (JsonObject) unit.get("offset");
+                    JSONObject unit = (JSONObject) Enemies.get(t);
 
-                    int lengthn = -1;
-                    int anglen = -1;
-                    int speedn = -1;
+                    JSONObject offset = (JSONObject) unit.get("offset");
+
+                    float lengthn = -1;
+                    float anglen = -1;
+                    float speedn = -1;
                     float time1n = -1;
                     float time2n = -1;
-                    float offsetnX = -1;
-                    float offsetnY = -1;
+                    float aux1 = -1;
+                    float aux2 = -1;
 
-                    if(length != null) {
-                        lengthn = ((BigDecimal) unit.get("length")).intValue();
+                    if(unit.get("length") != null) {
+                        lengthn = Float.parseFloat(String.valueOf(unit.get("length")));
                     }
-                    if(angle != null) {
-                        anglen = ((BigDecimal) unit.get("angle")).intValue();
+                    if(unit.get("angle") != null) {
+                        anglen = Float.parseFloat(String.valueOf(unit.get("angle")));
                     }
-                    if(speed != null) {
-                        speedn = ((BigDecimal) unit.get("speed")).intValue();
+                    if(unit.get("speed") != null) {
+                        speedn = Float.parseFloat(String.valueOf(unit.get("speed")));
                     }
-                    if(time1 != null) {
-                        time1n = ((BigDecimal) unit.get("time1")).floatValue();
+                    if(unit.get("time1") != null) {
+                        time1n = Float.parseFloat(String.valueOf(unit.get("time1")));
                     }
-                    if(time2 != null) {
-                        time2n = ((BigDecimal) unit.get("time2")).floatValue();
+                    if(unit.get("time2") != null) {
+                        time2n = Float.parseFloat(String.valueOf(unit.get("time2")));
                     }
                     if(offset != null) {
-                        offsetnY = ((BigDecimal) offset.get("y")).floatValue();
-                        offsetnX = ((BigDecimal) offset.get("x")).floatValue();
+
+                        aux1 = Float.parseFloat(String.valueOf(offset.get("x")));
+                        aux2 = Float.parseFloat(String.valueOf(offset.get("y")));
                     }
-                    nivelActual.pushEnemiesBack(((BigDecimal) unit.get("x")).floatValue(), ((BigDecimal) unit.get("y")).floatValue(), lengthn, anglen, speedn,
-                            offsetnX, offsetnY, time1n, time2n);
+                    nivelActual.pushEnemiesBack((Float.parseFloat(String.valueOf(unit.get("x")))), ((Float.parseFloat(String.valueOf(unit.get("y"))))), lengthn, anglen, speedn,
+                            aux1, aux2, time1n, time2n);
                 }
             }
 
