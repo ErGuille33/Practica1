@@ -11,9 +11,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("se supone que ha asdasdasdasd el render");
-        _surface = new MySurfaceView(this);
 
+        _surface = new MySurfaceView(this);
         setContentView(_surface);
 
     }

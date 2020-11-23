@@ -7,7 +7,6 @@ public interface Engine {
     Input getInput();
     InputStream openInputStream(String filename);
     void update();
-    void render();
-    boolean run() throws Exception;
+    boolean run();
 
 }
