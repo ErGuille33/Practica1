@@ -20,13 +20,13 @@ public class JsonHandler {
     //Esta clase parsea el archivo JSON indicado
     public void JsonParseLevel(int nLevel, Nivel nivelActual) throws Exception {
         //Lo utilizamos para sacar la ruta del proyecto
-        InputStream is = nivelActual.engine.openInputStream("levels.json");
-
-        JSONParser jsonParser = new JSONParser();
-
-        Object o = jsonParser.parse(new InputStreamReader(is));
 
         try  {
+            InputStream is = nivelActual.engine.openInputStream("levels.json");
+
+            JSONParser jsonParser = new JSONParser();
+
+            Object o = jsonParser.parse(new InputStreamReader(is));
 
             //PAra que vaya en pc neter el fileReader en vez de result y cinebtar ki de arruba
 

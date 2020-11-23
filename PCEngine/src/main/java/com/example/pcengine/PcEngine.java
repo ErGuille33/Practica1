@@ -12,9 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.swing.JFrame;
-
-import sun.rmi.runtime.Log;
 
 public class PcEngine implements Engine {
 
@@ -49,6 +46,10 @@ public class PcEngine implements Engine {
         //Llamamos a la logica del update
     }
 
+    @Override
+    public void render() {
+
+    }
 
 
     @Override
