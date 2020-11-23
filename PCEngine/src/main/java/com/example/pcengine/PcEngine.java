@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+import javax.swing.JFrame;
 
 public class PcEngine implements Engine {
 

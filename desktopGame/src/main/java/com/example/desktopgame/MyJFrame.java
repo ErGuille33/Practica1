@@ -12,16 +12,12 @@ class MyJFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-<<<<<<< HEAD
+
         setSize(640,480);
+
         _logic = new Logica();
         engine = new PcEngine(_logic);
 
-=======
-        setSize(800,600);
-        PcEngine engine = new PcEngine();
-        _logic = new Logica(engine);
->>>>>>> parent of c022ff1... Cambiado el lugar del bucle principal a engine
     }
 
     public boolean run() {
