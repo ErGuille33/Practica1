@@ -46,9 +46,10 @@ public class PcEngine implements Engine {
         //Llamamos a la logica del update
     }
 
-    @Override
-    public void render() {
 
+    @Override
+    public void render(Graphics g) {
+        logica.render(g);
     }
 
 

@@ -44,7 +44,7 @@ class MyJFrame extends JFrame {
                 java.awt.Graphics graphics = getBufferStrategy().getDrawGraphics();
                 _graphics.setGraphics(graphics);
                 try {
-                    _logic.render(_graphics);
+                    engine.render(_graphics);
                     _graphics.drawText("De Don Benito al cielo", 200,300);
                 }
                 finally {

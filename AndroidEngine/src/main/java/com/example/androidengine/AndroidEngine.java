@@ -49,9 +49,10 @@ public class AndroidEngine implements Engine {
     }
 
     @Override
-    public void render() {
-
+    public void render(Graphics g) {
+        logica.render(g);
     }
+
 
     public void getContext(Context _context){
         context = _context;
