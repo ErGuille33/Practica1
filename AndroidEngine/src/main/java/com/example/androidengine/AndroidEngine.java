@@ -8,6 +8,7 @@ import android.content.res.AssetManager;
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
+import com.example.engine.Logica;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class AndroidEngine implements Engine {
+
+    public AndroidEngine(Logica _logic){logica =_logic;}
 
     @Override
     public Graphics getGraphics() {
@@ -60,6 +63,6 @@ public class AndroidEngine implements Engine {
         return false;
     }
     Context context;
-Logica logica;
+    Logica logica;
 
 }

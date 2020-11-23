@@ -3,6 +3,7 @@ package com.example.pcengine;
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
+import com.example.engine.Logica;
 
 import java.awt.BorderLayout;
 import java.io.FileInputStream;
@@ -13,7 +14,11 @@ import java.io.InputStream;
 
 import javax.swing.JFrame;
 
+import sun.rmi.runtime.Log;
+
 public class PcEngine implements Engine {
+
+    public PcEngine(Logica _logic){logica=_logic;}
 
     public Graphics getGraphics() {
         return _graphics;
@@ -44,7 +49,7 @@ public class PcEngine implements Engine {
         //Llamamos a la logica del update
     }
 
-    }
+
 
     @Override
     public boolean run() {
@@ -52,6 +57,7 @@ public class PcEngine implements Engine {
     }
 
     protected PCGraphics _graphics;
+    Logica logica;
     protected Input _input;
     boolean _exit = false;
 

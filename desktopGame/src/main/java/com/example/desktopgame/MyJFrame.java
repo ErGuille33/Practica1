@@ -1,5 +1,6 @@
 package com.example.desktopgame;
 
+import com.example.engine.Engine;
 import com.example.engine.Graphics;
 import com.example.logica.Logica;
 import com.example.pcengine.PCGraphics;
@@ -25,7 +26,7 @@ class MyJFrame extends JFrame {
         _graphics = new PCGraphics(this);
 
         try {
-            _logic.run();
+            _logic.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,6 +55,7 @@ class MyJFrame extends JFrame {
         } while(getBufferStrategy().contentsLost());
     }
 
+    Engine engine;
     PCGraphics _graphics;
     Logica _logic;
     boolean _exit = false;

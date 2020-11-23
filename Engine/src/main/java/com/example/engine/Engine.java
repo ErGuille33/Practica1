@@ -11,6 +11,9 @@ public interface Engine {
     InputStream openInputStream(String filename) throws IOException;
     FileReader openFileReader(String filename) throws IOException;
     void update();
-    boolean run();
+
+    void render();
+
+    boolean run() throws Exception;
 
 }

@@ -3,7 +3,6 @@ apply plugin: 'java-library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':Engine')
-    implementation 'net.sf.dozer:dozer:5.5.1'
     implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 

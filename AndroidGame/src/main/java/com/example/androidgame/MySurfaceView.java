@@ -15,11 +15,11 @@ public class MySurfaceView extends SurfaceView implements Runnable {
     public MySurfaceView(Context context) {
         super(context);
         _holder = getHolder();
-        AndroidEngine engine = new AndroidEngine();
-        _logic = new Logica(engine);
+
+        _logic = new Logica();
         _ag = new AndroidGraphics();
         _logic = new Logica();
-        engine = new AndroidEngine(_logic);
+        AndroidEngine engine = new AndroidEngine(_logic);
         _logic.getEngine(engine);
         engine.getContext(context);
 
@@ -58,7 +58,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         while(_running && getWidth() == 0);
 
         try {
-            _logic.run();
+            _logic.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
