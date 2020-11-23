@@ -48,7 +48,7 @@ public class PcEngine implements Engine {
 
 
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics g) throws Exception {
         logica.render(g);
     }
 

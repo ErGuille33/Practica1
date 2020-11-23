@@ -1,9 +1,11 @@
 package com.example.androidengine;
 
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import com.example.engine.Font;
 import com.example.engine.Graphics;
@@ -15,7 +17,13 @@ public class AndroidGraphics implements Graphics {
     }
 
     public Font newFont(String filename, float size, boolean isBold)throws Exception {
-        return null;
+        com.example.androidengine.Font font = new com.example.androidengine.Font("Fuentes/BungeeHairline-Regular.ttf",size,isBold,context);
+        _p.setTypeface(font.f);
+        _p.setFakeBoldText(true);
+        setColor("black");
+        _p.setTextSize(size);
+        return font;
+
     }
 
     public void clear(String color) {
@@ -73,9 +81,12 @@ public class AndroidGraphics implements Graphics {
         _c.drawRect(r, _p);
     }
 
+    @Override
     public void drawText(String text, int x, int y) {
-
+        _c.drawText(text, (int) x, y, _p);
     }
+
+
 
     public int getWidth() {
         return _c.getWidth();
@@ -84,7 +95,12 @@ public class AndroidGraphics implements Graphics {
         return _c.getHeight();
     }
 
+    public void getContext(Context _context){
+        context = _context;
+    }
+
     Canvas _c;
+    Context context;
     Paint _p = new Paint();
 
 }

@@ -21,6 +21,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
          engine = new AndroidEngine(_logic);
         _logic.getEngine(engine);
         engine.getContext(context);
+        _ag.getContext(context);
 
 
     }
@@ -71,8 +72,11 @@ public class MySurfaceView extends SurfaceView implements Runnable {
             Canvas canvas = _holder.lockCanvas();
             _ag.setCanvas(canvas);
             //_logic.update();
-            engine.render(_ag);
-            System.out.println("se supone que ha hecho el render");
+            try {
+                engine.render(_ag);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             _holder.unlockCanvasAndPost(canvas);
 
         } // while

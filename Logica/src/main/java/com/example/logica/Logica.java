@@ -17,6 +17,7 @@ public class Logica implements com.example.engine.Logica {
 
         Vector2D cosa = new Vector2D(0,0);
         _cuadrao = new Cuadrao(10, 10, 20, 20, cosa, 0);
+
     }
 
     public void update() {
@@ -28,9 +29,11 @@ public class Logica implements com.example.engine.Logica {
 
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g) throws Exception {
         g.setColor("yellow");
         g.fillRect(0,0, g.getWidth(), g.getHeight());
+        g.newFont("BungeeHairline-Regular.ttf",40,true);
+        g.drawText("Viva el vino", 100,100);
         _cuadrao.render(g);
     }
 

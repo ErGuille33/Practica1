@@ -12,7 +12,7 @@ public interface Engine {
     FileReader openFileReader(String filename) throws IOException;
     void update();
 
-    void render(Graphics g);
+    void render(Graphics g) throws Exception;
 
     boolean run() throws Exception;
 

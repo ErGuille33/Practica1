@@ -21,6 +21,7 @@ public class PCGraphics implements Graphics {
 
     public com.example.pcengine.Font newFont(String filename, float size, boolean isBold) throws Exception {
         com.example.pcengine.Font _font = new com.example.pcengine.Font(filename,size,isBold);
+        _graphics.setFont(_font.f);
         return _font;
     }
 
@@ -87,8 +88,7 @@ public class PCGraphics implements Graphics {
     public void drawText(String text, int x, int y) {
         try {
             setColor("blue");
-            Font _font =  newFont("assets/Fuentes/BungeeHairline-Regular.ttf", 24, true);
-            _graphics.setFont(_font.f);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
