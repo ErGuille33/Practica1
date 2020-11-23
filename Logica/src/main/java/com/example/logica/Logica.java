@@ -12,7 +12,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(7,engine);
+        Nivel nivelActual = new Nivel(13,engine);
         nivelActual.cargaNivel();
 
         //_engine.run();
