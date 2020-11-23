@@ -26,7 +26,7 @@ class MyJFrame extends JFrame {
         _graphics = new PCGraphics(this);
 
         try {
-            _logic.init();
+            engine.run();
         } catch (Exception e) {
             e.printStackTrace();
         }

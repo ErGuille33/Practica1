@@ -60,6 +60,7 @@ public class AndroidEngine implements Engine {
     @Override
     public boolean run() throws Exception {
         System.out.println("Runeando aki el android gente");
+        logica.init();
         return false;
     }
     Context context;

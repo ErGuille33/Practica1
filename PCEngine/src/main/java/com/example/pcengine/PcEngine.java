@@ -53,7 +53,8 @@ public class PcEngine implements Engine {
 
 
     @Override
-    public boolean run() {
+    public boolean run() throws Exception {
+        logica.init();
         return true;
     }
 
