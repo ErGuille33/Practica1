@@ -12,7 +12,7 @@ class MyJFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-        setSize(800,600);
+        setSize(640,480);
         _logic = new Logica();
         engine = new PcEngine(_logic);
 

@@ -18,6 +18,7 @@ public class JsonHandler {
 
     //Esta clase parsea el archivo JSON indicado
     public void JsonParseLevel(int nLevel, Nivel nivelActual) throws Exception {
+<<<<<<< Updated upstream
         //Lo utilizamos para sacar la ruta del proyecto
 
         try (FileReader fileReader = new FileReader("assets/levels.json")) {
@@ -25,6 +26,22 @@ public class JsonHandler {
             JsonArray deserialize = (JsonArray) Jsoner.deserialize(fileReader);
             JsonObject nivel = (JsonObject) deserialize.get(nLevel);
             JsonArray Paths = (JsonArray) nivel.get("paths");
+=======
+
+
+
+        try  {
+
+            InputStream is = nivelActual.engine.openInputStream("levels.json");
+
+            JSONParser jsonParser = new JSONParser();
+
+            Object o = jsonParser.parse(new InputStreamReader(is));
+
+            JSONArray deserialize = (JSONArray) JSONValue.parse(o.toString());
+            JSONObject nivel = (JSONObject) deserialize.get(nLevel);
+            JSONArray Paths = (JSONArray) nivel.get("paths");
+>>>>>>> Stashed changes
 
             //For de PAth
             for (int i = 0; i < Paths.size(); i++) {
