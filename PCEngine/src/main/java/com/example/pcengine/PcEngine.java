@@ -42,11 +42,7 @@ public class PcEngine implements Engine {
         return is;
     }
 
-    @Override
-    public FileReader openFileReader(String filename) throws FileNotFoundException {
 
-        return new FileReader("assets/" + filename);
-    }
 
     @Override
     public void update(double deltaTime) {
@@ -56,6 +52,7 @@ public class PcEngine implements Engine {
 
     @Override
     public void render(Graphics g) throws Exception {
+
         logica.render(g);
     }
 

@@ -5,7 +5,7 @@ public interface Graphics {
 
     public void clear(String color);
     public void translate(int x,int y);
-    public void scale(int x, int y);
+    public void scale(float x);
     public void rotate(int angle);
     public void save();
     public void restore();
@@ -18,6 +18,8 @@ public interface Graphics {
 
     public int getWidth();
     public int getHeight();
-
+    public int getBaseWidth();
+    public int getBaseHeight();
+    public float calculateSize();
 
 }

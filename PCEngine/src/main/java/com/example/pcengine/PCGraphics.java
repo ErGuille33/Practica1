@@ -1,13 +1,11 @@
 package com.example.pcengine;
 
-import  com.example.pcengine.Font;
 import com.example.engine.Graphics;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
+
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
@@ -33,10 +31,12 @@ public class PCGraphics implements Graphics {
     }
 
     public void translate(int x,int y) {
+
         _graphics.translate(x, y);
     }
-    public void scale(int x, int y) {
-        ((Graphics2D) _graphics).scale(x, y);
+
+    public void scale(float x) {
+        ((Graphics2D) _graphics).scale(-x, x);
     }
     public void rotate(int angle) {
         ((Graphics2D) _graphics).rotate(Math.toDegrees(angle));
@@ -111,6 +111,19 @@ public class PCGraphics implements Graphics {
 
     public int getBaseWidth() { return 640; }
     public int getBaseHeight() { return 480; }
+
+    @Override
+    public float calculateSize() {
+        float aux1 = 0;
+        float aux2 = 0;
+
+        aux1 = (float) getWidth()/ (float) getBaseWidth();
+        aux2 = (float) getHeight() / (float) getBaseHeight();
+
+        if(aux1 < aux2)
+            return aux1;
+        else return aux2;
+    }
 
     JFrame _frame;
     java.awt.Graphics _graphics;

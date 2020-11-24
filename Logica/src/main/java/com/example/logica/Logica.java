@@ -51,17 +51,18 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void render(Graphics g) throws Exception {
+
         g.setColor("black");
         g.fillRect(0,0, g.getWidth(), g.getHeight());
         g.translate(g.getWidth()/2, g.getHeight()/2);
+
+        g.rotate(180);
+        g.scale(g.calculateSize());
 
 
         for(int i = 0; i < _objects.size(); i++) {
             _objects.elementAt(i).render(g);
         }
-
-        g.newFont("BungeeHairline-Regular.ttf",40,true);
-        g.drawText("Viva el vino", 100,100);
 
     }
 

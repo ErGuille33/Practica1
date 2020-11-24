@@ -18,7 +18,6 @@ public class Character extends GameObject {
         g.drawLine((int)(_x + _w), (int)_y, (int)(_x + _w), (int)(_y + _h));
         g.drawLine((int)(_x + _w), (int)(_y + _h), (int)_x , (int)(_y + _h));
         g.drawLine((int)_x , (int)(_y + _h), (int)_x, (int)_y);
-
         g.restore();
     }
 

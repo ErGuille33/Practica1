@@ -23,18 +23,13 @@ class MyJFrame extends JFrame {
     }
 
     public boolean run() {
-
-
         try {
             engine.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
         while(!_exit) {
-            //update();
-
         }
-
         return true;
     }
 
