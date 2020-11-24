@@ -13,14 +13,14 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(13,_engine);
+        Nivel nivelActual = new Nivel(1,_engine);
         nivelActual.cargaNivel();
 
         _objects = new Vector<GameObject>(nivelActual.items.size()+nivelActual.enemies.size()+nivelActual.paths.size()+1);
         for(int i = 0; i < nivelActual.items.size(); i++) {
             Coin newcoin = new Coin(nivelActual.items.get(i)._pos.get_x(),
                     nivelActual.items.get(i)._pos.get_y(),
-                    20, 20);
+                    8, 8);
             _objects.add(newcoin);
         }
 
@@ -38,7 +38,7 @@ public class Logica implements com.example.engine.Logica {
         }
 
         Player player = new Player(nivelActual.paths.get(0).vertices.get(0)._pos.get_x(), nivelActual.paths.get(0).vertices.get(0)._pos.get_y(),
-                20, 20, new Vector2D(0,0));
+                8, 8, new Vector2D(8,8));
         _objects.add(player);
 
     }
@@ -51,17 +51,18 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void render(Graphics g) throws Exception {
+
         g.setColor("black");
         g.fillRect(0,0, g.getWidth(), g.getHeight());
         g.translate(g.getWidth()/2, g.getHeight()/2);
+
+        g.rotate(180);
+        g.scale(g.calculateSize());
 
 
         for(int i = 0; i < _objects.size(); i++) {
             _objects.elementAt(i).render(g);
         }
-
-        g.newFont("BungeeHairline-Regular.ttf",40,true);
-        g.drawText("Viva el vino", 100,100);
 
     }
 

@@ -41,14 +41,6 @@ public class AndroidEngine implements Engine {
     }
 
     @Override
-    public FileReader openFileReader(String filename) throws IOException {
-        AssetFileDescriptor descriptor = context.getAssets().openFd(filename);
-        FileReader reader = new FileReader(descriptor.getFileDescriptor());
-
-        return null;
-    }
-
-    @Override
     public void update(double deltaTime) {
         logica.update((float)deltaTime);
     }

@@ -20,9 +20,6 @@ public class MySurfaceView extends SurfaceView implements Runnable {
          engine = new AndroidEngine(_logic, _holder);
         _logic.getEngine(engine);
         engine.getContext(context);
-
-
-
     }
 
     public void resume() {
