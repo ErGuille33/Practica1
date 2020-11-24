@@ -18,8 +18,8 @@ public class Logica implements com.example.engine.Logica {
 
         _objects = new Vector<GameObject>(nivelActual.items.size()+nivelActual.enemies.size()+nivelActual.paths.size()+1);
         for(int i = 0; i < nivelActual.items.size(); i++) {
-            Coin newcoin = new Coin(nivelActual.items.get(i)._pos.get_x(),
-                    nivelActual.items.get(i)._pos.get_y(),
+            Coin newcoin = new Coin(nivelActual.items.get(i)._pos.get_x()-4,
+                    nivelActual.items.get(i)._pos.get_y()-4,
                     8, 8);
             _objects.add(newcoin);
         }
@@ -37,8 +37,8 @@ public class Logica implements com.example.engine.Logica {
             _objects.add(newenemy);
         }
 
-        Player player = new Player(nivelActual.paths.get(0).vertices.get(0)._pos.get_x(), nivelActual.paths.get(0).vertices.get(0)._pos.get_y(),
-                8, 8, new Vector2D(8,8));
+        Player player = new Player(nivelActual.paths.get(0).vertices.get(0)._pos.get_x()-4, nivelActual.paths.get(0).vertices.get(0)._pos.get_y()-4,
+                8, 8, new Vector2D(0,0));
         _objects.add(player);
 
     }

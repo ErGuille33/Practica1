@@ -11,7 +11,11 @@ public class Enemy extends GameObject {
 
     public void render(Graphics g) {
         g.setColor("red");
-        g.drawLine((int)_x, (int)_y, (int)(_x+(_length*Math.cos(_angle))), (int)(_y+(_length*Math.sin(_angle))));
+        g.save();
+        g.translate((int)-_x, (int)-_y);
+        g.rotate((int)_angle);
+        g.drawLine((int)-_length/2, 0, (int)_length/2, 0);
+        g.restore();
     }
 
     public void update(float deltaTime) {
