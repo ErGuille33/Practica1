@@ -11,20 +11,19 @@ public class Character extends GameObject {
     public void render(Graphics g) {
         g.save();
 
-        float _rx = (g.getWidth() * _x) / 640;
-        float _ry = (g.getWidth() * _y) / 480;
-
-        g.translate((int)_rx, (int)_ry);
+        g.translate((int)(_x+_w/2), (int)(_y+_h/2));
         g.rotate((int)_rot);
-        g.drawLine((int)_rx, (int)_ry, (int)(_rx + _w), (int)_ry);
-        g.drawLine((int)(_rx + _w), (int)_ry, (int)(_rx + _w), (int)(_ry + _h));
-        g.drawLine((int)(_rx + _w), (int)(_ry + _h), (int)_rx , (int)(_ry + _h));
-        g.drawLine((int)_rx , (int)(_ry + _h), (int)_rx, (int)_ry);
+        g.translate((int)(-_x-_w/2), (int)(-_y-_h/2));
+        g.drawLine((int)_x, (int)_y, (int)(_x + _w), (int)_y);
+        g.drawLine((int)(_x + _w), (int)_y, (int)(_x + _w), (int)(_y + _h));
+        g.drawLine((int)(_x + _w), (int)(_y + _h), (int)_x , (int)(_y + _h));
+        g.drawLine((int)_x , (int)(_y + _h), (int)_x, (int)_y);
+
         g.restore();
     }
 
     public void update(float deltaTime) {
-        //_rot += 50f*deltaTime;
+        _rot += 20f*deltaTime;
     }
 
 }
