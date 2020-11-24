@@ -31,19 +31,21 @@ public class PcEngine implements Engine {
     }
 
     public InputStream openInputStream(String filename) {
-        try (InputStream is = new FileInputStream("assets/" +filename)) {
-            return is;
+        InputStream is = null;
+        try {
+             is = new FileInputStream("assets/" +filename);
         }
         catch (Exception e) {
             System.err.println("Error cargando el archivo: " + e);
             return null;
         }
+        return is;
     }
 
     @Override
     public FileReader openFileReader(String filename) throws FileNotFoundException {
-        FileReader fileReader = new FileReader("assets/" + filename);
-        return fileReader;
+
+        return new FileReader("assets/" + filename);
     }
 
     @Override

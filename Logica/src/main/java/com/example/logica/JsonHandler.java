@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -21,7 +22,6 @@ public class JsonHandler {
 
         try  {
             InputStream is = nivelActual.engine.openInputStream("levels.json");
-
             JSONParser jsonParser = new JSONParser();
 
             Object o = jsonParser.parse(new InputStreamReader(is));
@@ -135,6 +135,7 @@ public class JsonHandler {
             if(nivel.get("time") != null) {
                 nivelActual.pushTickBack(Integer.parseInt((String) nivel.get("time")));
             }
+            is.close();
 
         }
         catch(Exception e)
