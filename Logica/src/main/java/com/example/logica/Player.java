@@ -11,4 +11,8 @@ public class Player extends Character {
         g.setColor("blue");
         super.render(g);
     }
+
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+    }
 }

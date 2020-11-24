@@ -11,4 +11,8 @@ public class Coin extends Character {
         g.setColor("yellow");
         super.render(g);
     }
+
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+    }
 }

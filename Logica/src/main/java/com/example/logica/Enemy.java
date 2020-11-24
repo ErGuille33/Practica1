@@ -14,7 +14,7 @@ public class Enemy extends GameObject {
         g.drawLine((int)_x, (int)_y, (int)(_x+(_length*Math.cos(_angle))), (int)(_y+(_length*Math.sin(_angle))));
     }
 
-    public void update() {
+    public void update(float deltaTime) {
 
     }
 

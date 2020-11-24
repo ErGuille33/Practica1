@@ -50,7 +50,7 @@ public class AndroidEngine implements Engine {
 
     @Override
     public void update(double deltaTime) {
-
+        logica.update((float)deltaTime);
     }
 
 
@@ -75,7 +75,7 @@ public class AndroidEngine implements Engine {
         while(!acabar) {
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
-
+            System.out.println(deltaTime);
             update(deltaTime);
 
 

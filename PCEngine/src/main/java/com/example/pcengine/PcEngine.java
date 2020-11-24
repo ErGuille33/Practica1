@@ -50,7 +50,7 @@ public class PcEngine implements Engine {
 
     @Override
     public void update(double deltaTime) {
-
+        logica.update((float)deltaTime);
     }
 
 
@@ -67,12 +67,12 @@ public class PcEngine implements Engine {
 
         boolean _running = true;
 
-
-        double lastTime = System.nanoTime();
-
+        long lastTime = System.nanoTime();
         while(_running){
-            double currentTime = System.nanoTime();
-            double deltaTime = (currentTime - lastTime) / 1e9;
+            long currentTime = System.nanoTime();
+            double nanoElapsedTime = currentTime - lastTime;
+            double deltaTime = nanoElapsedTime / 1e9;
+            lastTime = currentTime;
 
             update(deltaTime);
 
@@ -90,7 +90,7 @@ public class PcEngine implements Engine {
                 } while(_frame.getBufferStrategy().contentsRestored());
                 _frame.getBufferStrategy().show();
             } while(_frame.getBufferStrategy().contentsLost());
-            lastTime = currentTime;
+
         }
 
 

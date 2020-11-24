@@ -23,7 +23,6 @@ public class AndroidGraphics implements Graphics {
         setColor("black");
         _p.setTextSize(size);
         return font;
-
     }
 
     public void clear(String color) {
@@ -90,14 +89,15 @@ public class AndroidGraphics implements Graphics {
         _c.drawText(text, (int) x, y, _p);
     }
 
-
-
     public int getWidth() {
         return _c.getWidth();
     }
     public int getHeight() {
         return _c.getHeight();
     }
+
+    public int getBaseWidth() { return 640; }
+    public int getBaseHeight() { return 480; }
 
     public void getContext(Context _context){
         context = _context;

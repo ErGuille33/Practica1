@@ -34,7 +34,7 @@ public abstract class GameObject {
     }
 
     public abstract void render(Graphics g);
-    public abstract void update();
+    public abstract void update(float deltaTime);
 
     float _x, _y;
     float _w, _h;

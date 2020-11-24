@@ -22,7 +22,7 @@ public class Path extends GameObject {
         }
     }
 
-    public void update() {
+    public void update(float deltaTime) {
 
     }
 

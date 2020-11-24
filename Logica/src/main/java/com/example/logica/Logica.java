@@ -43,14 +43,10 @@ public class Logica implements com.example.engine.Logica {
 
     }
 
-    public void update() {
-
-    }
-
     @Override
     public void update(float deltaTime) {
         for(int i = 0; i < _objects.size(); i++) {
-            _objects.elementAt(i).update();
+            _objects.elementAt(i).update(deltaTime);
         }
     }
 
