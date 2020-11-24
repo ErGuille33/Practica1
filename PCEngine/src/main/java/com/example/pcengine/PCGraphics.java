@@ -27,7 +27,7 @@ public class PCGraphics implements Graphics {
 
     public void clear(String color) {
         setColor(color);
-        _graphics.clearRect(0,0, getWidth(), getHeight());
+        _graphics.clearRect(0,0, (int)getWidth(), (int)getHeight());
     }
 
     public void translate(int x,int y) {
@@ -39,7 +39,7 @@ public class PCGraphics implements Graphics {
         ((Graphics2D) _graphics).scale(-x, x);
     }
     public void rotate(int angle) {
-        ((Graphics2D) _graphics).rotate(Math.toDegrees(angle));
+        ((Graphics2D) _graphics).rotate((Math.toRadians(angle)));
     }
     public void save() {
         _state = ((Graphics2D) _graphics).getTransform();
@@ -102,10 +102,10 @@ public class PCGraphics implements Graphics {
 
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return _frame.getWidth();
     }
-    public int getHeight() {
+    public float getHeight() {
         return _frame.getHeight();
     }
 

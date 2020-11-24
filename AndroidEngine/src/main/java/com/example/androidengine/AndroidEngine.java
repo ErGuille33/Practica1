@@ -70,7 +70,6 @@ public class AndroidEngine implements Engine {
             System.out.println(deltaTime);
             update(deltaTime);
 
-
             while (!_holder.getSurface().isValid())
                 ;
             Canvas canvas = _holder.lockCanvas();

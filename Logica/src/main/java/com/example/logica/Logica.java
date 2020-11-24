@@ -13,7 +13,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(1,_engine);
+        Nivel nivelActual = new Nivel(0,_engine);
         nivelActual.cargaNivel();
 
         _objects = new Vector<GameObject>(nivelActual.items.size()+nivelActual.enemies.size()+nivelActual.paths.size()+1);
@@ -53,10 +53,10 @@ public class Logica implements com.example.engine.Logica {
     public void render(Graphics g) throws Exception {
 
         g.setColor("black");
-        g.fillRect(0,0, g.getWidth(), g.getHeight());
-        g.translate(g.getWidth()/2, g.getHeight()/2);
-
+        g.fillRect(0,0, (int) g.getWidth(),(int)  g.getHeight());
+        g.translate((int) g.getWidth()/2, (int) g.getHeight()/2);
         g.rotate(180);
+
         g.scale(g.calculateSize());
 
 

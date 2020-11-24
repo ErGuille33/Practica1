@@ -16,8 +16,8 @@ public interface Graphics {
 
     public void drawText(String text, int x, int y);
 
-    public int getWidth();
-    public int getHeight();
+    public float getWidth();
+    public float getHeight();
     public int getBaseWidth();
     public int getBaseHeight();
     public float calculateSize();

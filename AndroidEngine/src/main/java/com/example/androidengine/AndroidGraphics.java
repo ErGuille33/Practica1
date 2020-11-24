@@ -93,10 +93,10 @@ public class AndroidGraphics implements Graphics {
         _c.drawText(text, (int) x, y, _p);
     }
 
-    public int getWidth() {
+    public float getWidth() {
         return _c.getWidth();
     }
-    public int getHeight() {
+    public float getHeight() {
         return _c.getHeight();
     }
 
