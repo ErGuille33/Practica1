@@ -36,7 +36,7 @@ public class PCGraphics implements Graphics {
     }
 
     public void scale(float x) {
-        ((Graphics2D) _graphics).scale(-x, x);
+        ((Graphics2D) _graphics).scale(x, -x);
     }
     public void rotate(int angle) {
         ((Graphics2D) _graphics).rotate((Math.toRadians(angle)));

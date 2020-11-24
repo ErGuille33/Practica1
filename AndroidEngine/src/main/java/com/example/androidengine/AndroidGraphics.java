@@ -36,7 +36,7 @@ public class AndroidGraphics implements Graphics {
     @Override
     public void scale(float x) {
 
-            _c.scale(-x, x);
+            _c.scale(x, -x);
     }
 
     public void rotate(int angle) {
@@ -107,8 +107,8 @@ public class AndroidGraphics implements Graphics {
         float aux1 = 0;
         float aux2 = 0;
 
-        aux1 = (float) getWidth()/ (float) getBaseWidth();
-        aux2 = (float) getHeight() / (float) getBaseHeight();
+        aux1 =  getWidth()/ (float) getBaseWidth();
+        aux2 =  getHeight() / (float) getBaseHeight();
 
         if(aux1 < aux2)
             return aux1;
