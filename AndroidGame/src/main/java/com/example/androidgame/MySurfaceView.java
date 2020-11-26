@@ -27,6 +27,7 @@ public class MySurfaceView extends SurfaceView implements Runnable {
             _running = true;
             _renderThread = new Thread(this);
             _renderThread.start();
+
         }
     }
 
@@ -65,6 +66,8 @@ public class MySurfaceView extends SurfaceView implements Runnable {
 
         } // while
     }
+
+
 
     Logica _logic;
     AndroidGraphics _ag;

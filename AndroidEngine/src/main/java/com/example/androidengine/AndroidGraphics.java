@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 
 import com.example.engine.Font;
 import com.example.engine.Graphics;
@@ -106,8 +105,8 @@ public class AndroidGraphics implements Graphics {
         float aux1 = 0;
         float aux2 = 0;
 
-        aux1 = (float) getWidth()/ (float) getBaseWidth();
-        aux2 = (float) getHeight() / (float) getBaseHeight();
+        aux1 =  getWidth()/ (float) getBaseWidth();
+        aux2 =  getHeight() / (float) getBaseHeight();
 
         if(aux1 < aux2)
             return aux1;

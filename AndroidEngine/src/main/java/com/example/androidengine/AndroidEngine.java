@@ -56,14 +56,16 @@ public class AndroidEngine implements Engine {
         context = _context;
     }
 
+
     @Override
     public boolean run() throws Exception {
         System.out.println("Runeando aki el android gente");
-        logica.init();
+
         boolean acabar = false;
         _ag = new AndroidGraphics();
         _ag.getContext(context);
         double lastTime = System.nanoTime();
+        logica.init();
         while(!acabar) {
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
@@ -75,10 +77,11 @@ public class AndroidEngine implements Engine {
             _ag.setCanvas(canvas);
             render(_ag);
             _holder.unlockCanvasAndPost(canvas);
+
             lastTime = currentTime;
 
-
         }
+
 
         return false;
     }
