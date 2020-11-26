@@ -7,9 +7,15 @@ public class Vector2D {
         _y = y;
     }
     public void normalize(){
-        double mag = Math.sqrt((float)Math.pow( _x,2)+(float)Math.pow( _y,2));
-        _x = _x / (float) mag;
-        _y = _y / (float) mag;
+        float mag = (float)Math.sqrt((float)Math.pow( _x,2)+(float)Math.pow( _y,2));
+        _x = _x / mag;
+        _y = _y / mag;
     }
+
+    public float getX() { return _x; }
+    public float getY() { return _y; }
+    public void setX(float newx) { _x = newx;}
+    public void setY(float newy) { _y = newy; }
+
     float _x, _y;
 }
