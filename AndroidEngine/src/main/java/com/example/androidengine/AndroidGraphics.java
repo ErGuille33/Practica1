@@ -35,8 +35,7 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void scale(float x) {
-
-            _c.scale(-x, x);
+            _c.scale(x, -x);
     }
 
     public void rotate(int angle) {

@@ -67,7 +67,6 @@ public class AndroidEngine implements Engine {
         while(!acabar) {
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
-            System.out.println(deltaTime);
             update(deltaTime);
 
             while (!_holder.getSurface().isValid())
