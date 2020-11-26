@@ -59,12 +59,12 @@ public class MySurfaceView extends SurfaceView implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+/*
         _running = true;
         while(_running) {
 
-
         } // while
+ */
     }
 
 
