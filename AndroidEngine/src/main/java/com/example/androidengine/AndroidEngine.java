@@ -80,7 +80,7 @@ public class AndroidEngine implements Engine {
             _holder.unlockCanvasAndPost(canvas);
 
             lastTime = currentTime;
-            
+
         }
 
 

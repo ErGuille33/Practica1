@@ -13,7 +13,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(15,_engine);
+        Nivel nivelActual = new Nivel(0,_engine);
         nivelActual.cargaNivel();
 
         _objects = new Vector<GameObject>(nivelActual.items.size()+nivelActual.enemies.size()+nivelActual.paths.size()+1);
@@ -38,7 +38,7 @@ public class Logica implements com.example.engine.Logica {
         }
 
         Player player = new Player(nivelActual.paths.get(0).vertices.get(0)._pos.get_x()-4, nivelActual.paths.get(0).vertices.get(0)._pos.get_y()-4,
-                8, 8, new Vector2D(0,0));
+                8, 8, new Vector2D(0,0), nivelActual.paths);
         _objects.add(player);
 
     }
