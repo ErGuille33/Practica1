@@ -3,9 +3,13 @@ package com.example.androidgame;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+
+
+import com.example.androidengine.AndroidEngine;
+import com.example.logica.Logica;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,22 +17,31 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        _surface = new MySurfaceView(this);
+
+        _surface = new SurfaceView(this);
+
         setContentView(_surface);
+
+        _logic = new Logica();
+
+        engine = new AndroidEngine(_logic, _surface);
+        engine.getContext(this);
+
+        _logic.getEngine(engine);
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        _surface.resume();
+        engine.resume();
     }
 
     @Override
     protected void onPause() {
 
         super.onPause();
-        _surface.pause();
+        engine.pause();
 
     }
 
@@ -67,5 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
-    protected MySurfaceView _surface;
+    protected SurfaceView _surface;
+    protected AndroidEngine engine;
+    protected Logica _logic;
 }

@@ -58,7 +58,7 @@ public class PcEngine implements Engine {
 
 
     @Override
-    public boolean run() throws Exception {
+    public boolean running() throws Exception {
         logica.init();
         _graphics = new PCGraphics(_frame);
 

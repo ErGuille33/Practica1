@@ -1,8 +1,6 @@
 package com.example.androidengine;
 
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -12,16 +10,18 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 import com.example.engine.Logica;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AndroidEngine implements Engine {
+public class AndroidEngine implements Engine, Runnable {
 
-    public AndroidEngine(Logica _logic, SurfaceHolder holder){
+    public AndroidEngine(Logica _logic, SurfaceView sv){
+
         logica =_logic;
-        _holder = holder;
+        _sv = sv;
+
+        _holder = sv.getHolder();
+
     }
 
     @Override
@@ -51,22 +51,18 @@ public class AndroidEngine implements Engine {
         logica.render(g);
     }
 
-
-    public void getContext(Context _context){
-        context = _context;
-    }
-
-
     @Override
-    public boolean run() throws Exception {
-        System.out.println("Runeando aki el android gente");
+    public boolean running() throws Exception {
+        // while
 
-        boolean acabar = false;
         _ag = new AndroidGraphics();
         _ag.getContext(context);
-        double lastTime = System.nanoTime();
         logica.init();
-        while(!acabar) {
+        _running = true;
+        double lastTime = System.nanoTime();
+
+        while(_running) {
+
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
             update(deltaTime);
@@ -75,20 +71,76 @@ public class AndroidEngine implements Engine {
                 ;
             Canvas canvas = _holder.lockCanvas();
             _ag.setCanvas(canvas);
-            render(_ag);
+            try {
+                render(_ag);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             _holder.unlockCanvasAndPost(canvas);
 
             lastTime = currentTime;
-
         }
 
-
-        return false;
+        return true;
     }
+
+
+    public void getContext(Context _context){
+        context = _context;
+    }
+
+
+    @Override
+    public void run()  {
+
+        if (_renderThread != Thread.currentThread()) {
+            throw new RuntimeException("run() should not be called directly");
+        }
+
+        while(_running && _sv.getWidth() == 0);
+
+        System.out.println("Runeando aki el android gente");
+
+            try {
+                running();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    }
+
+    public void pause() {
+        if (_running) {
+            _running = false;
+            while (true) {
+                try {
+                    _renderThread.join();
+                    _renderThread = null;
+                    break;
+                } catch (InterruptedException ie) {
+                    // Esto no debería ocurrir nunca...
+                }
+            }
+        }
+    }
+
+    public void resume() {
+        if (!_running) {
+            _running = true;
+            _renderThread = new Thread(this);
+            _renderThread.start();
+        }
+    }
+
+
+
+    Thread _renderThread;
+
+    boolean _running = false;
+
     Context context;
     Logica logica;
     AndroidGraphics _ag;
     SurfaceHolder _holder;
-    SurfaceView sv;
+    SurfaceView _sv;
 
 }

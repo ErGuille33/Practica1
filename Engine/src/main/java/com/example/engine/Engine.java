@@ -14,6 +14,6 @@ public interface Engine {
 
     void render(Graphics g) throws Exception;
 
-    boolean run() throws Exception;
+    boolean running() throws Exception;
 
 }

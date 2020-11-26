@@ -19,12 +19,11 @@ class MyJFrame extends JFrame {
         _logic = new Logica();
         engine = new PcEngine(_logic,this);
         _logic.getEngine(engine);
-
     }
 
     public boolean run() {
         try {
-            engine.run();
+            engine.running();
         } catch (Exception e) {
             e.printStackTrace();
         }
