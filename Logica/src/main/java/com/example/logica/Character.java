@@ -6,6 +6,8 @@ public class Character extends GameObject {
 
     public Character(float x, float y, float w, float h, Vector2D vel) {
         super(x, y, w, h, vel);
+        logicX =_x + _w/2;
+        logicY = _y + _h/2;
     }
 
     public void render(Graphics g) {
@@ -23,8 +25,12 @@ public class Character extends GameObject {
 
     public void update(float deltaTime) {
         _rot += 70f*deltaTime;
+        _x = logicX - _w/2;
+        _y = logicY - _h/2;
     }
 
+    public float logicX ;
+    public float logicY;
 }
 
 
