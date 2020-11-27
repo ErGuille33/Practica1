@@ -5,6 +5,10 @@ import com.example.engine.Graphics;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import static com.example.logica.Collisions.sqrDistancePointPoint;
+import static com.example.logica.Collisions.segmentsIntersection;
+import static com.example.logica.Collisions.sqrDistancePointSegment;
+
 public class Player extends Character {
     public Player(float x, float y, int w, int h, Vector2D vel, ArrayList<Nivel.Paths> path) {
         super(x, y, w, h, vel);
@@ -31,14 +35,10 @@ public class Player extends Character {
         super.render(g);
     }
 
-    public static float sqrDistancePointPoint(Coordenada p1, Coordenada p2){
-        float ret = 0.0f;
-        ret = (float) Math.sqrt(Math.pow(p1.get_x() - p2.get_x(), 2) + Math.pow(p1.get_y() - p2.get_y(), 2));
-        return ret;
-    }
 
-    private void chooseNewPath(int nPa){
 
+    private void jump(){
+       
     }
 
     private void chooseNewSegmentAndDir(){
@@ -100,6 +100,8 @@ public class Player extends Character {
     private Nivel.Vertice nextVertice;
 
     private int vert1,vert2;
+
+
 
     //SI recorrera los vertices en sentido ascendente o descendente
     private boolean dirRegular = true;

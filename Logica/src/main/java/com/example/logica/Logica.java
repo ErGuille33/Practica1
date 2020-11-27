@@ -62,7 +62,6 @@ public class Logica implements com.example.engine.Logica {
 
         g.scale(g.calculateSize());
 
-
         for(int i = 0; i < _objects.size(); i++) {
             _objects.elementAt(i).render(g);
         }
