@@ -3,13 +3,14 @@ package com.example.logica;
 import com.example.engine.Graphics;
 
 public class Enemy extends GameObject {
-    public Enemy(float x, float y, float fx, float fy, float speed, float length, float angle, float time) {
+    public Enemy(float x, float y, float fx, float fy, float speed, float length, float angle, float time, float time2) {
         super(x, y, 0, 0, new Vector2D(0,0));
         _inix = x;
         _iniy = y;
         _length = length;
         _angle = angle;
         _time = time+1;
+        _time2 = time2+1;
         _fx = _x-(fx+1);
         _fy = _y-(fy+1);
         _speed = speed+1;
@@ -30,14 +31,24 @@ public class Enemy extends GameObject {
     public void update(float deltaTime) {
         _rot+=(_speed)*deltaTime;
 
-        _x -= _vel.getX()*deltaTime*(Math.abs((_inix - _fx)) * _time) * _dir;
-        _y -= _vel.getY()*deltaTime*(Math.abs((_iniy - _fy)) * _time) * _dir;
+        if(!_stop) {
+            _x -= _vel.getX() * deltaTime * (Math.abs(_inix - _fx) / _time) * _dir;
+            _y -= _vel.getY() * deltaTime * (Math.abs(_iniy - _fy) / _time) * _dir;
 
-        if(_x == _fx && _dir == 1)
-            _dir*=-1;
-        if(_x == _inix && _dir == -1)
-            _dir*=-1;
-        
+            _timer += deltaTime;
+            if (_timer > _time) {
+                _dir *= -1;
+                _timer = 0;
+                _stop = true;
+            }
+        }
+        else {
+            _stopTimer+=deltaTime;
+            if(_stopTimer > _time2) {
+                _stop = false;
+                _stopTimer = 0;
+            }
+        }
     }
 
     float _inix;
@@ -46,7 +57,10 @@ public class Enemy extends GameObject {
     float _angle;
     float _fx, _fy;
     float _time;
-    float _dist;
+    float _time2;
+    float _timer = 0;
+    float _stopTimer = 0;
     float _speed;
+    boolean _stop = false;
     int _dir = 1;
 }
