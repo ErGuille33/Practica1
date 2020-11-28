@@ -8,6 +8,7 @@ import java.util.Vector;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
 import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointSegment;
+import static com.example.logica.Collisions.getPerpecticularSegment;
 
 public class Player extends Character {
     public Player(float x, float y, int w, int h, Vector2D vel, ArrayList<Nivel.Paths> path) {
@@ -38,7 +39,7 @@ public class Player extends Character {
 
 
     private void jump(){
-       
+
     }
 
     private void chooseNewSegmentAndDir(){
@@ -75,6 +76,12 @@ public class Player extends Character {
         super.update(deltaTime);
         if(distancePlayer >= distanceSegment){
                 chooseNewSegmentAndDir();
+        }
+        if(distancePlayer >= distanceSegment/2){
+            actualSegmento = getPerpecticularSegment(actualSegmento, logicX,logicY);
+            _vel._x = actualSegmento.getVert2().get_x() - logicX;
+            _vel._y =  actualSegmento.getVert2().get_y() - logicY;
+            _vel.normalize();
         }
 
 
