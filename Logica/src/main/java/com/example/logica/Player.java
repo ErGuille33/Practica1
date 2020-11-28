@@ -36,8 +36,6 @@ public class Player extends Character {
         super.render(g);
     }
 
-
-
     private void jump(){
 
     }
