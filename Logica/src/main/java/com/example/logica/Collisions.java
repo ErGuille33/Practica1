@@ -19,38 +19,67 @@ public class  Collisions {
 
         if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
         {
+            p = new Coordenada(s1.getVert1().get_x() + (t * s1_x),s1.getVert1().get_y() + (t * s1_y));
             // Collision detected
-            p.set_x(s1.getVert1().get_x() + (t * s1_x));
-            p.set_y(s1.getVert1().get_y() + (t * s1_y));
         }
         return p;
     }
 
+
     public static float sqrDistancePointSegment(Segmento seg, Coordenada p){
-        float A = p.get_x() -  seg.getVert1().get_x(); // position of point rel one end of line
+
+        float A = p.get_x() - seg.getVert1().get_x();
         float B = p.get_y() - seg.getVert1().get_y();
-        float C = seg.getVert2().get_x() - seg.getVert1().get_x(); // vector along line
+        float C = seg.getVert2().get_x() - seg.getVert1().get_x();
         float D = seg.getVert2().get_y() - seg.getVert1().get_y();
-        float E = -D; // orthogonal vector
-        float F = C;
 
-        float dot = A * E + B * F;
-        float len_sq = E * E + F * F;
+        float dot = A * C + B * D;
+        float len_sq = C * C + D * D;
+        float param = -1;
+        if (len_sq != 0) //in case of 0 length line
+            param = dot / len_sq;
 
-        return (float) (Math.abs(dot) / Math.sqrt(len_sq));
+        float xx, yy;
+
+        if (param < 0) {
+            xx = seg.getVert1().get_x();
+            yy = seg.getVert1().get_y();
+        }
+        else if (param > 1) {
+            xx = seg.getVert2().get_x();
+            yy = seg.getVert2().get_y();
+        }
+        else {
+            xx = seg.getVert1().get_x() + param * C;
+            yy = seg.getVert1().get_y() + param * D;
+        }
+
+        float dx = p.get_x() - xx;
+        float dy = p.get_y() - yy;
+        return (float) Math.sqrt(dx * dx + dy * dy);
     }
 
     public static Segmento getPerpecticularSegment(Segmento seg, float x, float y) {
-        Segmento retSegment = new Segmento(y-(seg.getVert2().get_y() - seg.getVert1().get_y()), x+(seg.getVert2().get_x() - seg.getVert1().get_x()),
-                  y+(seg.getVert2().get_y() - seg.getVert1().get_y()),x -(seg.getVert2().get_x() - seg.getVert1().get_x()));
+
+        float angle = angle(seg.getVert1().get_x(),seg.getVert1().get_y(),seg.getVert2().get_x(),seg.getVert2().get_y());
+        float distance = 300;
+        float x1 = x + (float)Math.sin(angle) * distance;
+        float y1 = y + (float)Math.cos(angle) * distance;
+
+        float x2 = x + (float)Math.sin(angle) * -distance;
+        float y2 = y + (float)Math.cos(angle) * -distance;
+
+        Segmento retSegment = new Segmento(x1,y1,x2,y2,0);
         return retSegment;
+
     }
 
     public static float angle (float x1, float y1, float x2, float y2) {
         float xdiff = x1 - x2;
         float ydiff = y1 - y2;
         //double tan = xdiff / ydiff;
-        float atan = (float) Math.atan2(ydiff, xdiff);
+        float atan = (float )Math.atan2(ydiff, xdiff);
         return atan;
     }
+
 }

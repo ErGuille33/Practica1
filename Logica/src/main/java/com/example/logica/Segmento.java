@@ -1,9 +1,10 @@
 package com.example.logica;
 
 public class Segmento {
-    public Segmento(float x1, float y1,float x2, float y2){
+    public Segmento(float x1, float y1,float x2, float y2, int _path){
             vert1 = new Coordenada(x1,y1);
             vert2 = new Coordenada(x2,y2);
+            path = _path;
     }
 
     public void setVert1(float x, float y){
@@ -21,9 +22,12 @@ public class Segmento {
 
     }
 
+    public int getPath(){return path;}
+
     public Coordenada getVert2(){
         return vert2;
     }
     private Coordenada vert1;
     private Coordenada vert2;
+    private int path;
 }
