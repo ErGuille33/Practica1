@@ -39,4 +39,18 @@ public class  Collisions {
 
         return (float) (Math.abs(dot) / Math.sqrt(len_sq));
     }
+
+    public static Segmento getPerpecticularSegment(Segmento seg, float x, float y) {
+        Segmento retSegment = new Segmento(y-(seg.getVert2().get_y() - seg.getVert1().get_y()), x+(seg.getVert2().get_x() - seg.getVert1().get_x()),
+                  y+(seg.getVert2().get_y() - seg.getVert1().get_y()),x -(seg.getVert2().get_x() - seg.getVert1().get_x()));
+        return retSegment;
+    }
+
+    public static float angle (float x1, float y1, float x2, float y2) {
+        float xdiff = x1 - x2;
+        float ydiff = y1 - y2;
+        //double tan = xdiff / ydiff;
+        float atan = (float) Math.atan2(ydiff, xdiff);
+        return atan;
+    }
 }
