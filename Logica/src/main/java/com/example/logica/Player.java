@@ -91,7 +91,7 @@ public class Player extends Character {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
-                    if (collisionDistance <= 10) {
+                    if (collisionDistance <= 5) {
                         actualPath = i;
                         actualSegmento = lpSegments.get(i).segments.get(j);
                         distanceSegment = 0;
@@ -102,6 +102,7 @@ public class Player extends Character {
                     }
                     j++;
                 }
+                j = 0;
                 i++;
             }
         }
