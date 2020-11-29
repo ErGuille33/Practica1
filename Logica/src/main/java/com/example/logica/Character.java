@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 public class Character extends GameObject {
 
@@ -27,6 +28,11 @@ public class Character extends GameObject {
         _rot += 70f*deltaTime;
         _x = logicX - _w/2;
         _y = logicY - _h/2;
+    }
+
+    public void handleInput(Input.TouchEvent e) {
+
+
     }
 
     public float logicX ;

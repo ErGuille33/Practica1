@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,10 @@ public class Path extends GameObject {
     }
 
     public void update(float deltaTime) {
+
+    }
+
+    public void handleInput(Input.TouchEvent e) {
 
     }
 

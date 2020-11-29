@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 public class Enemy extends GameObject {
     public Enemy(float x, float y, float fx, float fy, float speed, float length, float angle, float time, float time2) {
@@ -9,8 +10,8 @@ public class Enemy extends GameObject {
         _iniy = y;
         _length = length;
         _angle = angle;
-        _time = time+1;
-        _time2 = time2+1;
+        _time = time;
+        _time2 = time2;
         _fx = _x-(fx+1);
         _fy = _y-(fy+1);
         _speed = speed+1;
@@ -49,6 +50,10 @@ public class Enemy extends GameObject {
                 _stopTimer = 0;
             }
         }
+    }
+
+    public void handleInput(Input.TouchEvent e) {
+
     }
 
     float _inix;

@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -156,6 +157,12 @@ public class Player extends Character {
         if(!isJumping) {
             distancePlayer += speed * deltaTime;
         }
+
+    }
+
+    @Override
+    public void handleInput(Input.TouchEvent e) {
+
 
     }
 

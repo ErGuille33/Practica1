@@ -56,12 +56,17 @@ public class PcEngine implements Engine {
         logica.render(g);
     }
 
+    public void handleInput() {
+        logica.handleInput(_input.getTouchEvents());
+    }
+
 
     @Override
     public boolean running() throws Exception {
         logica.init();
         _graphics = new PCGraphics(_frame);
-
+        _input = new PcInput();
+        _frame.addMouseListener(_input._handler);
         boolean _running = true;
 
         long lastTime = System.nanoTime();
@@ -72,6 +77,7 @@ public class PcEngine implements Engine {
             lastTime = currentTime;
 
             update(deltaTime);
+            handleInput();
 
             do {
                 do {
@@ -96,7 +102,7 @@ public class PcEngine implements Engine {
 
     protected PCGraphics _graphics;
     Logica logica;
-    protected Input _input;
+    protected PcInput _input;
     boolean _exit = false;
     java.awt.Graphics graphicsAwt;
 
