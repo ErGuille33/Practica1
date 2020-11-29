@@ -74,14 +74,14 @@ public class  Collisions {
 
     }
 
-    public static Coordenada PerpendicularClockwise(float x, float y)
+    public static Coordenada PerpendicularClockwise(float x1, float y1 , float x2, float y2)
     {
-        return new Coordenada(y, -x);
+        return new Coordenada(y2 - y1, -(x2-x1));
     }
 
-    public static Coordenada PerpendicularCounterClockwise(float x, float y)
+    public static Coordenada PerpendicularCounterClockwise(float x1, float y1 , float x2, float y2)
     {
-        return new Coordenada(-y, x);
+        return new Coordenada(-(y2 - y1), (x2-x1));
     }
 
     public static float angle (float x1, float y1, float x2, float y2) {
