@@ -9,8 +9,8 @@ public class Enemy extends GameObject {
         _iniy = y;
         _length = length;
         _angle = angle;
-        _time = time+1;
-        _time2 = time2+1;
+        _time = time;
+        _time2 = time2;
         _fx = _x-(fx+1);
         _fy = _y-(fy+1);
         _speed = speed+1;
