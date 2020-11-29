@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -87,6 +88,12 @@ public class Player extends Character {
         logicY += _vel._y * speed *  deltaTime;
 
         distancePlayer += speed * deltaTime;
+
+
+    }
+
+    @Override
+    public void handleInput(Input.TouchEvent e) {
 
 
     }

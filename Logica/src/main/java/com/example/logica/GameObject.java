@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 public abstract class GameObject {
 
@@ -35,6 +36,7 @@ public abstract class GameObject {
 
     public abstract void render(Graphics g);
     public abstract void update(float deltaTime);
+    public abstract void handleInput(Input.TouchEvent e);
 
     float _x, _y;
     float _w, _h;

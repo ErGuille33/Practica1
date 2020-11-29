@@ -2,8 +2,11 @@ package com.example.logica;
 
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
+import com.example.engine.Input;
 
 import java.awt.Canvas;
+import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Vector;
 
 public class Logica implements com.example.engine.Logica {
@@ -13,7 +16,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(12,_engine);
+        Nivel nivelActual = new Nivel(2,_engine);
         nivelActual.cargaNivel();
 
         _objects = new Vector<GameObject>(nivelActual.items.size()+nivelActual.enemies.size()+nivelActual.paths.size()+1);
@@ -67,6 +70,16 @@ public class Logica implements com.example.engine.Logica {
             _objects.elementAt(i).render(g);
         }
 
+    }
+
+    public void handleInput(List<Input.TouchEvent> te) {
+        for(int i = 0; i < _objects.size(); i++) {
+            for(int j = 0; j < te.size(); j++) {
+                Input.TouchEvent e = te.get(j);
+                _objects.elementAt(i).handleInput(e);
+            }
+        }
+        te.clear();
     }
 
     public void getEngine(Engine engine){
