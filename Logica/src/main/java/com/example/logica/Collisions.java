@@ -62,7 +62,7 @@ public class  Collisions {
     public static Segmento getPerpecticularSegment(Segmento seg, float x, float y) {
 
         float angle = angle(seg.getVert1().get_x(),seg.getVert1().get_y(),seg.getVert2().get_x(),seg.getVert2().get_y());
-        float distance = 300;
+        float distance = 400;
         float x1 = x + (float)Math.sin(angle) * distance;
         float y1 = y + (float)Math.cos(angle) * distance;
 
@@ -74,12 +74,21 @@ public class  Collisions {
 
     }
 
+    public static Coordenada PerpendicularClockwise(float x, float y)
+    {
+        return new Coordenada(y, -x);
+    }
+
+    public static Coordenada PerpendicularCounterClockwise(float x, float y)
+    {
+        return new Coordenada(-y, x);
+    }
+
     public static float angle (float x1, float y1, float x2, float y2) {
         float xdiff = x1 - x2;
         float ydiff = y1 - y2;
-        //double tan = xdiff / ydiff;
         float atan = (float )Math.atan2(ydiff, xdiff);
-        return atan;
+        return atan + (float) Math.PI/2;
     }
 
 }
