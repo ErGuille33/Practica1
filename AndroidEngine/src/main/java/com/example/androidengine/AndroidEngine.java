@@ -2,8 +2,10 @@ package com.example.androidengine;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.example.engine.Engine;
 import com.example.engine.Graphics;
@@ -45,6 +47,9 @@ public class AndroidEngine implements Engine, Runnable {
         logica.update((float)deltaTime);
     }
 
+    public void handleInput() {
+        logica.handleInput(_input.getTouchEvents());
+    }
 
     @Override
     public void render(Graphics g) throws Exception {
@@ -54,18 +59,19 @@ public class AndroidEngine implements Engine, Runnable {
     @Override
     public boolean running() throws Exception {
         // while
-
+        _input = new AndroidInput();
         _ag = new AndroidGraphics();
         _ag.getContext(context);
         logica.init();
         _running = true;
         double lastTime = System.nanoTime();
-
+        _sv.setOnTouchListener(_input._listener);
         while(_running) {
 
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
             update(deltaTime);
+            handleInput();
 
             while (!_holder.getSurface().isValid())
                 ;
@@ -142,5 +148,6 @@ public class AndroidEngine implements Engine, Runnable {
     AndroidGraphics _ag;
     SurfaceHolder _holder;
     SurfaceView _sv;
+    AndroidInput _input;
 
 }

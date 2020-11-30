@@ -2,20 +2,15 @@ package com.example.pcengine;
 
 import com.example.engine.Input;
 
-import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
-
 public class PcInput implements Input {
 
     class MouseEventHandler implements MouseListener {
-        public MouseEventHandler() {
-        }
+        public MouseEventHandler() {}
 
         public void mousePressed(MouseEvent e) {
             //TouchEvent aux = new TouchEvent(e.getButton(), TouchEvent.Type.PULSACION, e.getX(), e.getY());

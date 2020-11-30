@@ -162,7 +162,7 @@ public class Player extends Character {
 
     @Override
     public void handleInput(Input.TouchEvent e) {
-
+        
         if (!isJumping) {
             jump();
         }
