@@ -21,9 +21,8 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(0, _engine);
+        Nivel nivelActual = new Nivel(9, _engine);
         nivelActual.cargaNivel();
-
 
         _enemy = new ArrayList<Enemy>(nivelActual.enemies.size());
         nMonedas = nivelActual.items.size();
@@ -31,10 +30,12 @@ public class Logica implements com.example.engine.Logica {
         _paths = new ArrayList<Path>(nivelActual.paths.size());
         _deleteCoins = new ArrayList<Coin>(nivelActual.items.size());
 
+        auxSegmento = new Segmento(0, 0, 0, 0, 0);
+
         for (int i = 0; i < nivelActual.items.size(); i++) {
             Coin newcoin = new Coin(nivelActual.items.get(i)._pos.get_x() - 4,
                     nivelActual.items.get(i)._pos.get_y() - 4,
-                    8, 8, nivelActual.items.get(i)._radius,nivelActual.items.get(i)._speed,nivelActual.items.get(i)._angle);
+                    8, 8, nivelActual.items.get(i)._radius, nivelActual.items.get(i)._speed, nivelActual.items.get(i)._angle);
             _coins.add(newcoin);
         }
 
@@ -65,31 +66,43 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void handleCollisions() {
-        for (Coin c : _coins
-        ) {
-            aux.set_x(player.logicX);
-            aux.set_y(player.logicY);
-            aux1.set_x(c.logicX);
-            aux1.set_y(c.logicY);
-            if (sqrDistancePointPoint(aux, aux1) < distCollision && player.isJumping) {
-                c.destroyCoin();
 
+        aux.set_x(player.logicX);
+        aux.set_y(player.logicY);
+        for (Coin c : _coins) {
+            if (player.isJumping) {
+                aux1.set_x(c.logicX);
+                aux1.set_y(c.logicY);
+                if (sqrDistancePointPoint(aux, aux1) < distCollision) {
+                    c.destroyCoin();
+
+                }
             }
             if (c.finallyDestroy()) {
                 _deleteCoins.add(c);
                 monedasRecogidas += 1;
             }
         }
+        if (player.isJumping) {
+        for (Enemy e : _enemy) {
+
+                auxSegmento.setVert1(e._x, e._y);
+                auxSegmento.setVert2(e._fx, e._fy);
+                if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
+                    System.out.println("Ay mori nomaas");
+                }
+            }
+        }
     }
 
-    void destroyItems(){
-        for (Coin c: _deleteCoins){
+    void destroyItems() {
+        for (Coin c : _deleteCoins) {
             _coins.remove(c);
         }
     }
 
-    void compruebaVictoria(){
-        if(monedasRecogidas >= nMonedas){
+    void compruebaVictoria() {
+        if (monedasRecogidas >= nMonedas) {
             System.out.println("Has ganau");
         }
     }
@@ -177,8 +190,10 @@ public class Logica implements com.example.engine.Logica {
     int itemsSize = 0;
     Coordenada aux;
     Coordenada aux1;
+    Segmento auxSegmento;
     float distCollision = 20;
+    float distEnemyCollision = 10;
     int monedasRecogidas = 0;
-    int nMonedas ;
+    int nMonedas;
 
 }

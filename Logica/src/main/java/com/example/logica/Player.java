@@ -164,9 +164,7 @@ public class Player extends Character {
             intDir += 1;
             if(intDir > 1){
                 intJump = 0;
-
             }
-
         }
         logicX += _vel._x * speed * deltaTime;
         logicY += _vel._y * speed * deltaTime;

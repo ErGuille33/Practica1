@@ -30,7 +30,6 @@ public class Coin extends Character {
     public void update(float deltaTime) {
         super.update(deltaTime);
         if(destroyingCoin){
-            System.out.println(changeInSize);
             changeInSize += 0.05 * deltaTime;
             _w += changeInSize;
             _h += changeInSize;
