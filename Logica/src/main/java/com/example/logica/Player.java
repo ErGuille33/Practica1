@@ -19,7 +19,7 @@ public class Player extends Character {
         paths = path;
         actualPath = 0;
         distancePlayer = 0;
-        contSegmento = 0;
+        contSegmento = -1;
         setAllSegments();
         chooseNewSegmentAndDir();
     }
@@ -46,20 +46,23 @@ public class Player extends Character {
     }
 
     private void jump() {
-        if(auxJump){
+        if(intDir > 1){
+            intJump = 0;
+        }
+          if(intJump % 2 != 0){
             if (dirRegular)
-                auxCoord = PerpendicularClockwise(auxSegmento.getVert1().get_x(), auxSegmento.getVert1().get_y(), auxSegmento.getVert2().get_x(), auxSegmento.getVert2().get_y());
+                auxCoord = PerpendicularCounterClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
 
             else
-                auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
+                 auxCoord = PerpendicularCounterClockwise(auxSegmento.getVert1().get_x(), auxSegmento.getVert1().get_y(), auxSegmento.getVert2().get_x(), auxSegmento.getVert2().get_y());
         }
-        else {
-            if (!dirRegular)
-                auxCoord = PerpendicularClockwise(auxSegmento.getVert1().get_x(), auxSegmento.getVert1().get_y(), auxSegmento.getVert2().get_x(), auxSegmento.getVert2().get_y());
+         else {
+        if (!dirRegular)
+            auxCoord = PerpendicularClockwise(auxSegmento.getVert1().get_x(), auxSegmento.getVert1().get_y(), auxSegmento.getVert2().get_x(), auxSegmento.getVert2().get_y());
 
-            else
-                auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
-        }
+        else
+            auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
+          }
 
         if (paths.get(actualPath).directions.size() <= 0) {
             _vel._x = auxCoord.get_x();
@@ -77,7 +80,11 @@ public class Player extends Character {
         distancePlayer = 0;
         isJumping = true;
 
+        intJump +=1;
+        intDir = 0;
+
         auxJump = true;
+
 
     }
 
@@ -88,7 +95,7 @@ public class Player extends Character {
             if (contSegmento >= lpSegments.get(actualPath).segments.size() - 1) {
                 contSegmento = 0;
             } else contSegmento += 1;
-            actualSegmento = lpSegments.get(actualPath).segments.get(contSegmento) ;
+            actualSegmento = lpSegments.get(actualPath).segments.get(contSegmento);
             _vel._x = actualSegmento.getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getVert2().get_y() - logicY;
 
@@ -109,7 +116,8 @@ public class Player extends Character {
 
         distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
 
-        auxJump = false;
+
+
         distancePlayer = 0;
     }
 
@@ -127,10 +135,9 @@ public class Player extends Character {
                     if (collisionDistance <= 4) {
                         lastPath = actualPath;
                         actualPath = i;
-                        if(!dirRegular){
+                        if (!dirRegular) {
                             contSegmento = j - 1;
-                        }
-                        else  contSegmento = j;
+                        } else contSegmento = j;
                         distanceSegment = 1;
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
@@ -153,6 +160,11 @@ public class Player extends Character {
         }
         if (!isJumping && distancePlayer >= distanceSegment) {
             chooseNewSegmentAndDir();
+            intDir += 1;
+            if(intDir > 1){
+                intJump = 0;
+            }
+
         }
         logicX += _vel._x * speed * deltaTime;
         logicY += _vel._y * speed * deltaTime;
@@ -175,17 +187,19 @@ public class Player extends Character {
 
     private float distancePlayer = 0;
     private float distanceSegment = 0;
-    public int speed = 200;
+    public int speed = 250;
 
     private Segmento actualSegmento;
     private Segmento auxSegmento;
+    private Segmento[] pastSegments = new Segmento[2];
 
     private Coordenada auxCoord;
 
     private int actualPath;
     private int contSegmento = 0;
     private boolean auxJump = false;
-
+    private int intJump = 0;
+    private int intDir = 0;
 
 
     private boolean isJumping = false;
@@ -194,7 +208,7 @@ public class Player extends Character {
 
 
     //SI recorrera los vertices en sentido ascendente o descendente
-    private boolean dirRegular = false;
+    private boolean dirRegular = true;
 
     class levelPathSegments {
         public ArrayList<Segmento> segments = new ArrayList<Segmento>();
