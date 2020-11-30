@@ -12,7 +12,29 @@ public class Coin extends Character {
         super.render(g);
     }
 
+    public void destroyCoin(){
+        destroyingCoin = true;
+    }
+
+    public boolean finallyDestroy(){
+        return erase;
+    }
+
     public void update(float deltaTime) {
         super.update(deltaTime);
+        if(destroyingCoin){
+            System.out.println(changeInSize);
+            changeInSize += 0.05 * deltaTime;
+            _w += changeInSize;
+            _h += changeInSize;
+
+            if(changeInSize > 0.025){
+                erase = true;
+            }
+        }
+
     }
+    boolean destroyingCoin = false;
+    private boolean erase = false;
+    float changeInSize = 0;
 }

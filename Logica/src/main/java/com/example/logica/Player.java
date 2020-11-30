@@ -46,15 +46,15 @@ public class Player extends Character {
     }
 
     private void jump() {
-        if(intDir > 1){
-            intJump = 0;
-        }
-          if(intJump % 2 != 0){
+
+          if(intJump % 2 != 0 ){
             if (dirRegular)
                 auxCoord = PerpendicularCounterClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
 
+
             else
                  auxCoord = PerpendicularCounterClockwise(auxSegmento.getVert1().get_x(), auxSegmento.getVert1().get_y(), auxSegmento.getVert2().get_x(), auxSegmento.getVert2().get_y());
+
         }
          else {
         if (!dirRegular)
@@ -62,6 +62,7 @@ public class Player extends Character {
 
         else
             auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
+
           }
 
         if (paths.get(actualPath).directions.size() <= 0) {
@@ -82,9 +83,7 @@ public class Player extends Character {
 
         intJump +=1;
         intDir = 0;
-
         auxJump = true;
-
 
     }
 
@@ -132,7 +131,7 @@ public class Player extends Character {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
-                    if (collisionDistance <= 4) {
+                    if (collisionDistance <= 2) {
                         lastPath = actualPath;
                         actualPath = i;
                         if (!dirRegular) {
@@ -141,7 +140,7 @@ public class Player extends Character {
                         distanceSegment = 1;
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
-
+                        intDir = 0;
                         isJumping = false;
                         coll = true;
                     }
@@ -150,6 +149,8 @@ public class Player extends Character {
                 j = 0;
                 i++;
             }
+
+
         }
     }
 
@@ -163,6 +164,7 @@ public class Player extends Character {
             intDir += 1;
             if(intDir > 1){
                 intJump = 0;
+
             }
 
         }
@@ -191,7 +193,6 @@ public class Player extends Character {
 
     private Segmento actualSegmento;
     private Segmento auxSegmento;
-    private Segmento[] pastSegments = new Segmento[2];
 
     private Coordenada auxCoord;
 
@@ -202,7 +203,7 @@ public class Player extends Character {
     private int intDir = 0;
 
 
-    private boolean isJumping = false;
+    public boolean isJumping = false;
 
     private float collisionDistance = 0;
 
