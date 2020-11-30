@@ -34,7 +34,7 @@ public class Logica implements com.example.engine.Logica {
         for (int i = 0; i < nivelActual.items.size(); i++) {
             Coin newcoin = new Coin(nivelActual.items.get(i)._pos.get_x() - 4,
                     nivelActual.items.get(i)._pos.get_y() - 4,
-                    8, 8);
+                    8, 8, nivelActual.items.get(i)._radius,nivelActual.items.get(i)._speed,nivelActual.items.get(i)._angle);
             _coins.add(newcoin);
         }
 
