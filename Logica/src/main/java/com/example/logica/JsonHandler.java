@@ -69,8 +69,8 @@ public class JsonHandler {
                     float anglen = -1;
                     float speedn = -1;
 
-                    if( unit.get("radio") != null) {
-                        radion = Float.parseFloat(String.valueOf(unit.get("radio")));
+                    if( unit.get("radius") != null) {
+                        radion = Float.parseFloat(String.valueOf(unit.get("radius")));
                     }
 
                     if(unit.get("angle") != null) {
