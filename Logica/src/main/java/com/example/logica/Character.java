@@ -13,7 +13,6 @@ public class Character extends GameObject {
 
     public void render(Graphics g) {
         g.save();
-
         g.translate((int)(_x+_w/2), (int)(_y+_h/2));
         g.rotate((int)_rot);
         g.translate((int)(-_x-_w/2), (int)(-_y-_h/2));
