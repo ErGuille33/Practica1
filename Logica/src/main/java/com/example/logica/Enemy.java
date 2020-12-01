@@ -37,10 +37,10 @@ public class Enemy extends GameObject {
 
     public void update(float deltaTime) {
         _rot+=(_speed)*deltaTime;
-        _x1 = _x + (_length/2)*(float)Math.cos(_angle);
-        _y1 = _y + (_length/2)*(float)Math.sin(_angle);
-        _x2 = _x - (_length/2)*(float)Math.cos(_angle);
-        _y2 = _y - (_length/2)*(float)Math.sin(_angle);
+        _x1 = _x + (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
+        _y1 = _y + (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
+        _x2 = _x - (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
+        _y2 = _y - (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
 
         if(!_stop) {
             _x -= _vel.getX() * deltaTime * (Math.abs(_inix - _fx) / _time) * _dir;
