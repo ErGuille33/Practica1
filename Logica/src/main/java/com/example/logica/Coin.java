@@ -28,6 +28,10 @@ public class Coin extends Character {
 
     public void destroyCoin(){
         destroyingCoin = true;
+
+    }
+    public void pickedCoin(){
+        picked = true;
     }
 
     public boolean finallyDestroy(){
@@ -40,8 +44,9 @@ public class Coin extends Character {
             changeInSize += 0.05 * deltaTime;
             _w += changeInSize;
             _h += changeInSize;
+            cont++;
 
-            if(changeInSize > 0.025){
+            if(cont > 2500){
                 erase = true;
             }
         }
@@ -49,7 +54,9 @@ public class Coin extends Character {
     }
     boolean destroyingCoin = false;
     private boolean erase = false;
+    public boolean picked = false;
     float changeInSize = 0;
+    int cont = 0;
     float _radius;
     float _speed;
     float _angle;

@@ -76,16 +76,15 @@ public class Logica implements com.example.engine.Logica {
                 aux1.set_y(c.logicY);
                 if (sqrDistancePointPoint(aux, aux1) < distCollision) {
                     c.destroyCoin();
-
                 }
             }
             if (c.finallyDestroy()) {
                 _deleteCoins.add(c);
-                monedasRecogidas += 1;
+
             }
         }
-        if (player.isJumping) {
-/*            for (Enemy e : _enemy) {
+
+            for (Enemy e : _enemy) {
                 auxSegmento.setVert1(e._x, e._y);
                 auxSegmento.setVert2(e._fx, e._fy);
                 if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
@@ -98,12 +97,15 @@ public class Logica implements com.example.engine.Logica {
                         System.out.println("Fin de la partida, vuelta al menu inicial supongo");
                     }
                 }
-            }*/
-        }
+            }
     }
 
     void destroyItems() {
         for (Coin c : _deleteCoins) {
+            if(!c.picked) {
+                monedasRecogidas += 1;
+                c.pickedCoin();
+            }
             _coins.remove(c);
         }
     }
@@ -141,6 +143,7 @@ public class Logica implements com.example.engine.Logica {
                 _wait = false;
                 _waitTime = 0;
             }
+
         }
     }
 
@@ -222,7 +225,7 @@ public class Logica implements com.example.engine.Logica {
     ArrayList<Coin> _deleteCoins;
 
     Player player;
-    int itemsSize = 0;
+
     Coordenada aux;
     Coordenada aux1;
     Segmento auxSegmento;
@@ -231,7 +234,7 @@ public class Logica implements com.example.engine.Logica {
     int monedasRecogidas = 0;
     int nMonedas;
 
-    int _level = 19;
+    int _level = 0;
     int _lifes = 10;
 
     boolean _wait = false;

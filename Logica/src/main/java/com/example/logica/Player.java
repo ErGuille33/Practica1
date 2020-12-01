@@ -73,7 +73,6 @@ public class Player extends Character {
             auxCoord = actualSegmento.getDir();
         }
 
-
         setNewDir(auxCoord);
 
         speed = speed * 2;
@@ -81,26 +80,18 @@ public class Player extends Character {
         distancePlayer = 0;
         isJumping = true;
 
-        intJump += 1;
-        intDir = 0;
-        auxJump = true;
 
     }
 
     private void chooseNewSegmentAndDir() {
-        if(auxCol){
-            auxCol =false;
-        }
-        else {
-            auxSegmento = actualSegmento;
+
             if (dirRegular == true) {
                 actualSegmento = actualSegmento.getNextSegmento();
 
             } else {
                 actualSegmento = actualSegmento.getPreSegmento();
             }
-            setNewDir(auxSegmento);
-        }
+            setNewDir(actualSegmento);
 
     }
 
@@ -131,8 +122,7 @@ public class Player extends Character {
     }
 
     public void detectCollision() {
-        int lastPath;
-        float auxSeg = 0;
+
         boolean coll = false;
         int i = 0;
         int j = 0;
@@ -146,15 +136,12 @@ public class Player extends Character {
                         speed = speed / 2;
                         distanceSegment = 1;
                         distancePlayer = 0;
-                        auxCol = true;
                         dirRegular = !dirRegular;
-
                         actualSegmento = lpSegments.get(i).segments.get(j);
-
                         setNewDir(actualSegmento);
                         isJumping = false;
                         coll = true;
-                        auxCol = true;
+
                     }
                     j++;
                 }
@@ -173,10 +160,6 @@ public class Player extends Character {
         }
         if (!isJumping && distancePlayer >= distanceSegment) {
             chooseNewSegmentAndDir();
-            intDir += 1;
-            if (intDir > 1) {
-                intJump = 0;
-            }
         }
         logicX += _vel._x * speed * deltaTime;
         logicY += _vel._y * speed * deltaTime;
@@ -202,22 +185,14 @@ public class Player extends Character {
     public int speed = 250;
 
     private Segmento actualSegmento;
-    private Segmento auxSegmento;
-    private Coordenada actualDir;
 
     private Coordenada auxCoord;
 
     private int actualPath;
-    private boolean auxCol = false;
-    private boolean auxJump = false;
-    private int intJump = 0;
-    private int intDir = 0;
-
 
     public boolean isJumping = false;
 
     private float collisionDistance = 0;
-
 
     //SI recorrera los vertices en sentido ascendente o descendente
     private boolean dirRegular = true;

@@ -88,8 +88,6 @@ public class Nivel {
     }
 
 
-
-
     //Clases usadas para los distintos atributos del nivel
     public class Paths{
         public ArrayList<Vertice> vertices = new ArrayList<Vertice>();
