@@ -133,8 +133,14 @@ public class Logica implements com.example.engine.Logica {
             player._y > _engine.getGraphics().getHeight()/2 || player._y < -_engine.getGraphics().getHeight()/2)
             pasaNivel(true);
         destroyItems();
-        if(compruebaVictoria()) {
-            pasaNivel(false);
+        if(compruebaVictoria()) _wait = true;
+        if(_wait) {
+            _waitTime += deltaTime;
+            if(_waitTime >= 1) {
+                pasaNivel(false);
+                _wait = false;
+                _waitTime = 0;
+            }
         }
     }
 
@@ -227,5 +233,8 @@ public class Logica implements com.example.engine.Logica {
 
     int _level = 0;
     int _lifes = 10;
+
+    boolean _wait = false;
+    float _waitTime = 0;
 
 }
