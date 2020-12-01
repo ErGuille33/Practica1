@@ -5,6 +5,7 @@ public class Segmento {
             vert1 = new Coordenada(x1,y1);
             vert2 = new Coordenada(x2,y2);
             path = _path;
+            dir = new Coordenada(0,0);
     }
 
     public void setVert1(float x, float y){
@@ -34,6 +35,14 @@ public class Segmento {
        return nextSegmento;
     }
 
+    public void setDir(Coordenada _dir) {
+        this.dir =  _dir;
+    }
+
+    public Coordenada getDir(){
+        return dir;
+    }
+
     public Segmento getPreSegmento( ){
         return preSegmento ;
     }
@@ -48,5 +57,6 @@ public class Segmento {
     private Coordenada vert2;
     private Segmento nextSegmento;
     private Segmento preSegmento;
+    private Coordenada dir;
     private int path;
 }
