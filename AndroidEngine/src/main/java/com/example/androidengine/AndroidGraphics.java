@@ -92,9 +92,11 @@ public class AndroidGraphics implements Graphics {
     }
 
     public float getWidth() {
+        int aux = _c.getWidth();
         return _c.getWidth();
     }
     public float getHeight() {
+        int aux = _c.getHeight();
         return _c.getHeight();
     }
 

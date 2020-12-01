@@ -28,7 +28,7 @@ public class AndroidEngine implements Engine, Runnable {
 
     @Override
     public Graphics getGraphics() {
-        return null;
+        return _ag;
     }
 
     @Override
@@ -67,7 +67,8 @@ public class AndroidEngine implements Engine, Runnable {
         double lastTime = System.nanoTime();
         _sv.setOnTouchListener(_input._listener);
         while(_running) {
-
+            Canvas canvas = _holder.lockCanvas();
+            _ag.setCanvas(canvas);
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
             update(deltaTime);
@@ -75,8 +76,7 @@ public class AndroidEngine implements Engine, Runnable {
 
             while (!_holder.getSurface().isValid())
                 ;
-            Canvas canvas = _holder.lockCanvas();
-            _ag.setCanvas(canvas);
+
             try {
                 render(_ag);
             } catch (Exception e) {
