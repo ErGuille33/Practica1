@@ -83,20 +83,23 @@ public class Logica implements com.example.engine.Logica {
 
             }
         }
-
-            for (Enemy e : _enemy) {
-                auxSegmento.setVert1(e._x, e._y);
-                auxSegmento.setVert2(e._fx, e._fy);
-                if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
-                    _lifes--;
-                    if(_lifes > 0) {
-                        pasaNivel(true);
-                        System.out.println("Vidas: " + _lifes);
-                    }
-                    else {
-                        System.out.println("Fin de la partida, vuelta al menu inicial supongo");
+            if(_enemy != null) {
+                for (Enemy e : _enemy) {
+                    auxSegmento.setVert1(e._x, e._y);
+                    auxSegmento.setVert2(e._fx, e._fy);
+                    if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
+                        deadByEnemy =true;
+                        _lifes--;
+                        if (_lifes > 0) {
+                            System.out.println("Vidas: " + _lifes);
+                        } else {
+                            System.out.println("Fin de la partida, vuelta al menu inicial supongo");
+                        }
                     }
                 }
+            }
+            if(deadByEnemy){
+                pasaNivel(true);
             }
     }
 
@@ -134,6 +137,7 @@ public class Logica implements com.example.engine.Logica {
         if(player._x > _engine.getGraphics().getWidth()/2 || player._x < -_engine.getGraphics().getWidth()/2 ||
             player._y > _engine.getGraphics().getHeight()/2 || player._y < -_engine.getGraphics().getHeight()/2)
             pasaNivel(true);
+
         destroyItems();
         if(compruebaVictoria()) _wait = true;
         if(_wait) {
@@ -202,7 +206,7 @@ public class Logica implements com.example.engine.Logica {
         _deleteCoins.clear();
         nMonedas = 0;
         monedasRecogidas = 0;
-
+        deadByEnemy = false;
         if(!same) {
             _level++;
             if (_level > 20) System.out.println("Fin de la partida, vuelta al menu supongo");
@@ -230,11 +234,12 @@ public class Logica implements com.example.engine.Logica {
     Coordenada aux1;
     Segmento auxSegmento;
     float distCollision = 20;
-    float distEnemyCollision = 10;
+    float distEnemyCollision = 3;
     int monedasRecogidas = 0;
     int nMonedas;
+    boolean deadByEnemy = false;
 
-    int _level = 0;
+    int _level = 4;
     int _lifes = 10;
 
     boolean _wait = false;

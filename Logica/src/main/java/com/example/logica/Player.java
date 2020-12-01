@@ -141,7 +141,6 @@ public class Player extends Character {
                         setNewDir(actualSegmento);
                         isJumping = false;
                         coll = true;
-
                     }
                     j++;
                 }
@@ -169,11 +168,9 @@ public class Player extends Character {
 
     @Override
     public void handleInput(Input.TouchEvent e) {
-
         if (!isJumping) {
             jump();
         }
-
     }
 
     public ArrayList<Nivel.Paths> paths = new ArrayList<Nivel.Paths>();
