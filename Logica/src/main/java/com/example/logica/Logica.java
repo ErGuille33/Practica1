@@ -84,8 +84,8 @@ public class Logica implements com.example.engine.Logica {
         }
             if(_enemy != null) {
                 for (Enemy e : _enemy) {
-                    auxSegmento.setVert1(e._x, e._y);
-                    auxSegmento.setVert2(e._fx, e._fy);
+                    auxSegmento.setVert1(e._x1, e._y1);
+                    auxSegmento.setVert2(e._x2, e._y2);
                     if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
                         deadByEnemy =true;
                         player.dead = true;

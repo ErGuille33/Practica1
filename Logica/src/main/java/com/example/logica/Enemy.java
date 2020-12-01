@@ -18,6 +18,12 @@ public class Enemy extends GameObject {
         _vel.setX(_fx - _x);
         _vel.setY(_fy - _y);
         if(_vel.getX()!=0 && _vel.getY()!=0) _vel.normalize();
+
+        _x1 = _x + (_length/2)*(float)Math.cos(_angle);
+        _y1 = _y + (_length/2)*(float)Math.sin(_angle);
+        _x2 = _x - (_length/2)*(float)Math.cos(_angle);
+        _y2 = _y - (_length/2)*(float)Math.sin(_angle);
+
     }
 
     public void render(Graphics g) {
@@ -31,6 +37,10 @@ public class Enemy extends GameObject {
 
     public void update(float deltaTime) {
         _rot+=(_speed)*deltaTime;
+        _x1 = _x + (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
+        _y1 = _y + (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
+        _x2 = _x - (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
+        _y2 = _y - (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
 
         if(!_stop) {
             _x -= _vel.getX() * deltaTime * (Math.abs(_inix - _fx) / _time) * _dir;
@@ -53,7 +63,7 @@ public class Enemy extends GameObject {
     }
 
     public void handleInput(Input.TouchEvent e) {
-
+        System.out.println(_x1 + " " + _y1 + " " + _x2 + " " + _y2);
     }
 
     float _inix;
@@ -68,4 +78,6 @@ public class Enemy extends GameObject {
     float _speed;
     boolean _stop = false;
     int _dir = 1;
+
+    float _x1, _x2, _y1, _y2;
 }
