@@ -32,6 +32,10 @@ public class  Collisions {
         float B = p.get_y() - seg.getVert1().get_y();
         float C = seg.getVert2().get_x() - seg.getVert1().get_x();
         float D = seg.getVert2().get_y() - seg.getVert1().get_y();
+        float E = Math.abs( p.get_x() - seg.getVert2().get_x());
+        float F = Math.abs(p.get_y() - seg.getVert2().get_y());
+        float G = Math.abs( p.get_x() - seg.getVert1().get_x());
+        float H = Math.abs(p.get_y() - seg.getVert1().get_y());
 
         float dot = A * C + B * D;
         float len_sq = C * C + D * D;
@@ -56,6 +60,10 @@ public class  Collisions {
 
         float dx = p.get_x() - xx;
         float dy = p.get_y() - yy;
+        //Para que no detecte segmentos en la misma linea
+        if((G <= 1 && H <= 1) || (E <= 1 && F <= 1)){
+            return 1000;
+        }
         return (float) Math.sqrt(dx * dx + dy * dy);
     }
 

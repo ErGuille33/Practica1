@@ -87,6 +87,7 @@ public class Logica implements com.example.engine.Logica {
                     auxSegmento.setVert1(e._x1, e._y1);
                     auxSegmento.setVert2(e._x2, e._y2);
                     if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
+                        System.out.println(sqrDistancePointSegment(auxSegmento, aux));
                         deadByEnemy =true;
                         player.dead = true;
                         _lifes--;
@@ -245,12 +246,12 @@ public class Logica implements com.example.engine.Logica {
     Segmento auxSegmento;
 
     float distCollision = 20;
-    float distEnemyCollision = 3;
+    float distEnemyCollision = (float) 1;
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
 
-    int _level = 5;
+    int _level = 17;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;

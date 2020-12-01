@@ -67,20 +67,7 @@ public class Player extends Character {
         g.setColor("blue");
         if (dead) {
             //10 segmentos de 6 pixeles
-            g.save();
-            int i = 0;
-            for (Segmento s: destroyedSegments
-                 ) {
 
-                s.getVert1().set_x( s.getVert1().get_x() + randDir.get(i).get_x());
-                s.getVert1().set_y(s.getVert1().get_x() + randDir.get(i).get_y());
-
-                s.getVert2().set_x( s.getVert2().get_x() + randDir.get(i).get_x());
-                s.getVert2().set_y(s.getVert2().get_x() + randDir.get(i).get_y());
-                g.drawLine((int) (s.getVert1().get_x()), (int)(s.getVert1().get_y() ), (int) s.getVert2().get_x(), (int)( s.getVert2().get_y()));
-                i++;
-            }
-            g.restore();
         } else {
             super.render(g);
         }
@@ -150,7 +137,7 @@ public class Player extends Character {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
-                    if (collisionDistance <= 2) {
+                    if (collisionDistance <= 1) {
                         actualPath = i;
                         speed = speed / 2;
                         distanceSegment = 1;
@@ -171,16 +158,18 @@ public class Player extends Character {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if (isJumping) {
-            detectCollision();
-        }
-        if (!isJumping && distancePlayer >= distanceSegment) {
-            chooseNewSegmentAndDir();
-        }
-        logicX += _vel._x * speed * deltaTime;
-        logicY += _vel._y * speed * deltaTime;
+        if(!dead) {
+            if (isJumping) {
+                detectCollision();
+            }
+            if (!isJumping && distancePlayer >= distanceSegment) {
+                chooseNewSegmentAndDir();
+            }
+            logicX += _vel._x * speed * deltaTime;
+            logicY += _vel._y * speed * deltaTime;
 
-        distancePlayer += speed * deltaTime;
+            distancePlayer += speed * deltaTime;
+        }
         if (dead && !createdSegments) {
             createdSegments = true;
             createDestroyedSegments();

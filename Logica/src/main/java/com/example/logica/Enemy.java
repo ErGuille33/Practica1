@@ -63,7 +63,7 @@ public class Enemy extends GameObject {
     }
 
     public void handleInput(Input.TouchEvent e) {
-        System.out.println(_x1 + " " + _y1 + " " + _x2 + " " + _y2);
+
     }
 
     float _inix;
