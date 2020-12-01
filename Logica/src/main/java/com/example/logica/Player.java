@@ -63,9 +63,6 @@ public class Player extends Character {
     private void jump() {
         if(dirRegular)
         auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
-        else  auxCoord = PerpendicularCounterClockwise(actualSegmento.getPreSegmento().getVert1().get_x(), actualSegmento.getPreSegmento().getVert1().get_y(),
-                actualSegmento.getPreSegmento().getVert2().get_x(), actualSegmento.getPreSegmento().getVert2().get_y());
-
 
         setNewDir(auxCoord);
 
