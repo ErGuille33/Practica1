@@ -85,7 +85,7 @@ public class Logica implements com.example.engine.Logica {
             }
         }
         if (player.isJumping) {
-            for (Enemy e : _enemy) {
+/*            for (Enemy e : _enemy) {
                 auxSegmento.setVert1(e._x, e._y);
                 auxSegmento.setVert2(e._fx, e._fy);
                 if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
@@ -98,7 +98,7 @@ public class Logica implements com.example.engine.Logica {
                         System.out.println("Fin de la partida, vuelta al menu inicial supongo");
                     }
                 }
-            }
+            }*/
         }
     }
 
@@ -231,7 +231,7 @@ public class Logica implements com.example.engine.Logica {
     int monedasRecogidas = 0;
     int nMonedas;
 
-    int _level = 9;
+    int _level = 19;
     int _lifes = 10;
 
     boolean _wait = false;

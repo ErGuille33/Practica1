@@ -48,9 +48,10 @@ public class Player extends Character {
                     lpSegments.get(i).segments.get(j).setNextSegmento(lpSegments.get(i).segments.get(j + 1));
                     lpSegments.get(i).segments.get(j).setPreSegmento(lpSegments.get(i).segments.get(j - 1));
                 }
-                if (paths.get(actualPath).directions.size() > 0) {
+                if (paths.get(i).directions.size() > 0) {
                     lpSegments.get(i).segments.get(j).setDir(paths.get(i).directions.get(j)._pos);
                 }
+                lpSegments.get(i).segments.get(j).setInverted();
             }
         }
 
@@ -67,11 +68,7 @@ public class Player extends Character {
     private void jump() {
 
         if (paths.get(actualPath).directions.size() <= 0) {
-            if (dirRegular)
-                auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
-            else
-                auxCoord = PerpendicularCounterClockwise(actualSegmento.getPreSegmento().getVert1().get_x(), actualSegmento.getPreSegmento().getVert1().get_y(), actualSegmento.getPreSegmento().getVert2().get_x(),
-                        actualSegmento.getPreSegmento().getVert2().get_y());
+            auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
         } else {
             auxCoord = actualSegmento.getDir();
         }
@@ -91,15 +88,19 @@ public class Player extends Character {
     }
 
     private void chooseNewSegmentAndDir() {
-
-        auxSegmento = actualSegmento;
-        if (dirRegular == true) {
-            actualSegmento = actualSegmento.getNextSegmento();
-
-        } else {
-            actualSegmento = actualSegmento.getPreSegmento();
+        if(auxCol){
+            auxCol =false;
         }
-        setNewDir(auxSegmento);
+        else {
+            auxSegmento = actualSegmento;
+            if (dirRegular == true) {
+                actualSegmento = actualSegmento.getNextSegmento();
+
+            } else {
+                actualSegmento = actualSegmento.getPreSegmento();
+            }
+            setNewDir(auxSegmento);
+        }
 
     }
 
@@ -113,14 +114,18 @@ public class Player extends Character {
     }
 
     private void setNewDir(Segmento seg) {
-
-        _vel._x = actualSegmento.getVert2().get_x() - logicX;
-        _vel._y = actualSegmento.getVert2().get_y() - logicY;
+        if(dirRegular) {
+            _vel._x = actualSegmento.getVert2().get_x() - logicX;
+            _vel._y = actualSegmento.getVert2().get_y() - logicY;
+            distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
+        }
+        else{
+            _vel._x = actualSegmento.getInvertedSegmento().getVert2().get_x() - logicX;
+            _vel._y = actualSegmento.getInvertedSegmento().getVert2().get_y() - logicY;
+            distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getInvertedSegmento().getVert2());
+        }
 
         _vel.normalize();
-
-        distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
-
 
         distancePlayer = 0;
     }
@@ -137,19 +142,19 @@ public class Player extends Character {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
                     if (collisionDistance <= 2) {
-                        lastPath = actualPath;
                         actualPath = i;
                         speed = speed / 2;
                         distanceSegment = 1;
                         distancePlayer = 0;
                         auxCol = true;
                         dirRegular = !dirRegular;
-                        if (dirRegular)
-                            actualSegmento = lpSegments.get(i).segments.get(j);
-                        else actualSegmento = lpSegments.get(i).segments.get(j).getPreSegmento();
+
+                        actualSegmento = lpSegments.get(i).segments.get(j);
+
                         setNewDir(actualSegmento);
                         isJumping = false;
                         coll = true;
+                        auxCol = true;
                     }
                     j++;
                 }
@@ -198,6 +203,7 @@ public class Player extends Character {
 
     private Segmento actualSegmento;
     private Segmento auxSegmento;
+    private Coordenada actualDir;
 
     private Coordenada auxCoord;
 

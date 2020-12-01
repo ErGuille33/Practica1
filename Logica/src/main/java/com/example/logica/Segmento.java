@@ -6,6 +6,7 @@ public class Segmento {
             vert2 = new Coordenada(x2,y2);
             path = _path;
             dir = new Coordenada(0,0);
+
     }
 
     public void setVert1(float x, float y){
@@ -52,9 +53,17 @@ public class Segmento {
     public Coordenada getVert2(){
         return vert2;
     }
+    public void setInverted(){
+        invertedSegmento = new Segmento(vert2.get_x(),vert2.get_y(),vert1.get_x(),vert1.get_y(),path);
+    }
+    public Segmento getInvertedSegmento(){
+        return invertedSegmento;
+    }
 
     private Coordenada vert1;
     private Coordenada vert2;
+
+    private Segmento invertedSegmento;
     private Segmento nextSegmento;
     private Segmento preSegmento;
     private Coordenada dir;
