@@ -44,9 +44,8 @@ public class Coin extends Character {
             changeInSize += 0.05 * deltaTime;
             _w += changeInSize;
             _h += changeInSize;
-            cont++;
 
-            if(cont > 2500){
+            if(changeInSize > 0.025){
                 erase = true;
             }
         }
@@ -56,7 +55,7 @@ public class Coin extends Character {
     private boolean erase = false;
     public boolean picked = false;
     float changeInSize = 0;
-    int cont = 0;
+
     float _radius;
     float _speed;
     float _angle;

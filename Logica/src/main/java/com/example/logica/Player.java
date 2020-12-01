@@ -64,8 +64,12 @@ public class Player extends Character {
 
 
     public void render(Graphics g) {
-        g.setColor("blue");
+        g.setColor("cyan");
         if (dead) {
+            for (Line lin : destroyedSegments
+            ) {
+                lin.render(g);
+            }
             //10 segmentos de 6 pixeles
 
         } else {
@@ -83,7 +87,7 @@ public class Player extends Character {
 
         setNewDir(auxCoord);
 
-        speed = speed * 2;
+        speed = speed * 1;
 
         distancePlayer = 0;
         isJumping = true;
@@ -133,14 +137,13 @@ public class Player extends Character {
         int i = 0;
         int j = 0;
 
-        if (distancePlayer > 5) {
+        if (distancePlayer > 20) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
-                    if (collisionDistance <= 1) {
+                    if (collisionDistance <= 2.5) {
                         actualPath = i;
-                        speed = speed / 2;
-                        distanceSegment = 1;
+
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
                         actualSegmento = lpSegments.get(i).segments.get(j);
@@ -158,7 +161,7 @@ public class Player extends Character {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
-        if(!dead) {
+        if (!dead) {
             if (isJumping) {
                 detectCollision();
             }
@@ -170,24 +173,58 @@ public class Player extends Character {
 
             distancePlayer += speed * deltaTime;
         }
-        if (dead && !createdSegments) {
-            createdSegments = true;
-            createDestroyedSegments();
+        if (dead) {
+            if (!createdSegments) {
+                createdSegments = true;
+                createDestroyedSegments();
+            }
+            for (Line lin : destroyedSegments
+            ) {
+                lin.update(deltaTime);
+            }
         }
+
+
     }
 
     private void createDestroyedSegments() {
         Random r = new Random();
         float rnd1;
+        float rnd2;
+        int rnd3;
+        float randRot;
 
         for (int i = 0; i < 10; i++) {
             rnd1 = r.nextFloat();
-            if(rnd1 < 0.5)
-                destroyedSegments.add(new Segmento( logicX , logicY, logicX , logicY + 6 ,0));
+            rnd2 = r.nextFloat();
+            rnd3 = r.nextInt(4);
+            randRot = r.nextInt(100)- 50;
+            switch (rnd3){
+                case 0:
+                    rnd1 = -rnd1;
+                    rnd2 = -rnd2;
+                    destroyedSegments.add(new Line(logicX, logicY, 6, 0, new Vector2D(rnd1, rnd2)));
+                    break;
+                case 1:
+                    rnd1 = rnd1;
+                    rnd2 = -rnd2;
+                    destroyedSegments.add(new Line(logicX, logicY, 0, 6, new Vector2D(rnd1, rnd2)));
+                    break;
+                case 2:
+                    rnd1 = -rnd1;
+                    rnd2 = rnd2;
+                    destroyedSegments.add(new Line(logicX, logicY, 0, 6, new Vector2D(rnd1, rnd2)));
+                    break;
+                case 3:
+                    destroyedSegments.add(new Line(logicX, logicY, 6, 0, new Vector2D(rnd1, rnd2)));
+                    break;
+            }
 
-            else
-                destroyedSegments.add(new Segmento( logicX , logicY, logicX+6 , logicY ,0));
-            randDir.add( new Coordenada(r.nextFloat(),r.nextFloat()));
+
+
+
+            destroyedSegments.get(i).rotacion = randRot;
+
         }
     }
 
@@ -202,8 +239,7 @@ public class Player extends Character {
 
     public ArrayList<levelPathSegments> lpSegments = new ArrayList<levelPathSegments>();
 
-    public ArrayList<Segmento> destroyedSegments = new ArrayList<Segmento>();
-    public ArrayList<Coordenada> randDir = new ArrayList<Coordenada>();
+    public ArrayList<Line> destroyedSegments = new ArrayList<Line>();
 
     private boolean createdSegments = false;
 

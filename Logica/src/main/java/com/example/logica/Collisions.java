@@ -25,7 +25,6 @@ public class  Collisions {
         return p;
     }
 
-
     public static float sqrDistancePointSegment(Segmento seg, Coordenada p){
 
         float A = p.get_x() - seg.getVert1().get_x();
@@ -61,26 +60,12 @@ public class  Collisions {
         float dx = p.get_x() - xx;
         float dy = p.get_y() - yy;
         //Para que no detecte segmentos en la misma linea
-        if((G <= 1 && H <= 1) || (E <= 1 && F <= 1)){
+        if((G <= 1.2 && H <= 1.2) || (E <= 1.2 && F <= 1.2)){
             return 1000;
         }
         return (float) Math.sqrt(dx * dx + dy * dy);
     }
 
-    public static Segmento getPerpecticularSegment(Segmento seg, float x, float y) {
-
-        float angle = angle(seg.getVert1().get_x(),seg.getVert1().get_y(),seg.getVert2().get_x(),seg.getVert2().get_y());
-        float distance = 400;
-        float x1 = x + (float)Math.sin(angle) * distance;
-        float y1 = y + (float)Math.cos(angle) * distance;
-
-        float x2 = x + (float)Math.sin(angle) * -distance;
-        float y2 = y + (float)Math.cos(angle) * -distance;
-
-        Segmento retSegment = new Segmento(x1,y1,x2,y2,0);
-        return retSegment;
-
-    }
 
     public static Coordenada PerpendicularClockwise(float x1, float y1 , float x2, float y2)
     {
@@ -92,11 +77,5 @@ public class  Collisions {
         return new Coordenada(-(y2 - y1), (x2-x1));
     }
 
-    public static float angle (float x1, float y1, float x2, float y2) {
-        float xdiff = x1 - x2;
-        float ydiff = y1 - y2;
-        float atan = (float )Math.atan2(ydiff, xdiff);
-        return atan + (float) Math.PI/2;
-    }
 
 }

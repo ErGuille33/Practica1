@@ -154,7 +154,7 @@ public class Logica implements com.example.engine.Logica {
             }
         }else if(_waitSame){
             _waitTime += deltaTime;
-            if(_waitTime >= 3) {
+            if(_waitTime >= 2.2) {
                 pasaNivel(true);
                 _waitSame = false;
                 _waitTime = 0;
@@ -246,12 +246,12 @@ public class Logica implements com.example.engine.Logica {
     Segmento auxSegmento;
 
     float distCollision = 20;
-    float distEnemyCollision = (float) 1;
+    float distEnemyCollision = (float) 1.2;
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
 
-    int _level = 17;
+    int _level = 3;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;
