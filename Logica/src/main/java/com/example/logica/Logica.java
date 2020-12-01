@@ -21,7 +21,8 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        Nivel nivelActual = new Nivel(9, _engine);
+        System.out.println("Vidas: " + _lifes);
+        Nivel nivelActual = new Nivel(_level, _engine);
         nivelActual.cargaNivel();
 
         _enemy = new ArrayList<Enemy>(nivelActual.enemies.size());
@@ -84,12 +85,18 @@ public class Logica implements com.example.engine.Logica {
             }
         }
         if (player.isJumping) {
-        for (Enemy e : _enemy) {
-
+            for (Enemy e : _enemy) {
                 auxSegmento.setVert1(e._x, e._y);
                 auxSegmento.setVert2(e._fx, e._fy);
                 if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
-                    System.out.println("Ay mori nomaas");
+                    _lifes--;
+                    if(_lifes > 0) {
+                        pasaNivel(true);
+                        System.out.println("Vidas: " + _lifes);
+                    }
+                    else {
+                        System.out.println("Fin de la partida, vuelta al menu inicial supongo");
+                    }
                 }
             }
         }
@@ -101,10 +108,10 @@ public class Logica implements com.example.engine.Logica {
         }
     }
 
-    void compruebaVictoria() {
+    boolean compruebaVictoria() {
         if (monedasRecogidas >= nMonedas) {
-            System.out.println("Has ganau");
-        }
+            return true;
+        } else return false;
     }
 
 
@@ -120,12 +127,15 @@ public class Logica implements com.example.engine.Logica {
             _paths.get(i).update(deltaTime);
         }
         handleCollisions();
+
         player.update(deltaTime);
+        if(player._x > _engine.getGraphics().getWidth()/2 || player._x < -_engine.getGraphics().getWidth()/2 ||
+            player._y > _engine.getGraphics().getHeight()/2 || player._y < -_engine.getGraphics().getHeight()/2)
+            pasaNivel(true);
         destroyItems();
-        compruebaVictoria();
-
-
-        //Aqui destruimos los vectores si terminamos el nivel
+        if(compruebaVictoria()) {
+            pasaNivel(false);
+        }
     }
 
     public void render(Graphics g) throws Exception {
@@ -176,6 +186,25 @@ public class Logica implements com.example.engine.Logica {
         te.clear();
     }
 
+    public void pasaNivel(boolean same) {
+        _enemy.clear();
+        _coins.clear();
+        _paths.clear();
+        _deleteCoins.clear();
+        nMonedas = 0;
+        monedasRecogidas = 0;
+
+        if(!same) {
+            _level++;
+            if (_level > 20) System.out.println("Fin de la partida, vuelta al menu supongo");
+        }
+        try {
+            init();
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
     public void getEngine(Engine engine) {
         _engine = engine;
     }
@@ -195,5 +224,8 @@ public class Logica implements com.example.engine.Logica {
     float distEnemyCollision = 10;
     int monedasRecogidas = 0;
     int nMonedas;
+
+    int _level = 0;
+    int _lifes = 10;
 
 }
