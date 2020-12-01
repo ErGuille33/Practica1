@@ -221,7 +221,7 @@ public class Logica implements com.example.engine.Logica {
     Coordenada aux1;
     Segmento auxSegmento;
     float distCollision = 20;
-    float distEnemyCollision = 10;
+    float distEnemyCollision = 15;
     int monedasRecogidas = 0;
     int nMonedas;
 

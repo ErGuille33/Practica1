@@ -22,12 +22,31 @@ public class Segmento {
 
     }
 
+    public void setNextSegmento(Segmento seg){
+        nextSegmento = seg;
+    }
+
+    public void setPreSegmento(Segmento seg){
+        preSegmento = seg;
+    }
+
+    public Segmento getNextSegmento( ){
+       return nextSegmento;
+    }
+
+    public Segmento getPreSegmento( ){
+        return preSegmento ;
+    }
+
     public int getPath(){return path;}
 
     public Coordenada getVert2(){
         return vert2;
     }
+
     private Coordenada vert1;
     private Coordenada vert2;
+    private Segmento nextSegmento;
+    private Segmento preSegmento;
     private int path;
 }
