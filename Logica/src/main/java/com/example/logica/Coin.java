@@ -11,11 +11,18 @@ public class Coin extends Character {
         _rot2 = 0;
     }
 
+    @Override
     public void render(Graphics g) {
         g.setColor("yellow");
-        super.render(g);
         g.save();
         g.rotate((int)_rot2);
+        g.translate((int)(_x+_w/2), (int)(_y+_h/2));
+        g.rotate((int)_rot);
+        g.translate((int)(-_x-_w/2), (int)(-_y-_h/2));
+        g.drawLine((int)_x, (int)_y, (int)(_x + _w), (int)_y);
+        g.drawLine((int)(_x + _w), (int)_y, (int)(_x + _w), (int)(_y + _h));
+        g.drawLine((int)(_x + _w), (int)(_y + _h), (int)_x , (int)(_y + _h));
+        g.drawLine((int)_x , (int)(_y + _h), (int)_x, (int)_y);
         g.restore();
     }
 
@@ -38,8 +45,7 @@ public class Coin extends Character {
                 erase = true;
             }
         }
-        _rot2+=_angle*deltaTime;
-
+        _rot2+=_speed*deltaTime;
     }
     boolean destroyingCoin = false;
     private boolean erase = false;
