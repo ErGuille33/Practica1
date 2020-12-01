@@ -80,7 +80,6 @@ public class Logica implements com.example.engine.Logica {
             }
             if (c.finallyDestroy()) {
                 _deleteCoins.add(c);
-
             }
         }
             if(_enemy != null) {
@@ -89,6 +88,7 @@ public class Logica implements com.example.engine.Logica {
                     auxSegmento.setVert2(e._fx, e._fy);
                     if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
                         deadByEnemy =true;
+                        player.dead = true;
                         _lifes--;
                         if (_lifes > 0) {
                             System.out.println("Vidas: " + _lifes);
@@ -98,9 +98,7 @@ public class Logica implements com.example.engine.Logica {
                     }
                 }
             }
-            if(deadByEnemy){
-                pasaNivel(true);
-            }
+
     }
 
     void destroyItems() {
@@ -139,15 +137,27 @@ public class Logica implements com.example.engine.Logica {
             pasaNivel(true);
 
         destroyItems();
-        if(compruebaVictoria()) _wait = true;
-        if(_wait) {
+
+        if(compruebaVictoria()){
+            _waitNextlvl = true;
+        }
+        if(deadByEnemy){
+            _waitSame = true;
+        }
+        if(_waitNextlvl) {
             _waitTime += deltaTime;
             if(_waitTime >= 1) {
                 pasaNivel(false);
-                _wait = false;
+                _waitNextlvl = false;
                 _waitTime = 0;
             }
-
+        }else if(_waitSame){
+            _waitTime += deltaTime;
+            if(_waitTime >= 3) {
+                pasaNivel(true);
+                _waitSame = false;
+                _waitTime = 0;
+            }
         }
     }
 
@@ -233,16 +243,19 @@ public class Logica implements com.example.engine.Logica {
     Coordenada aux;
     Coordenada aux1;
     Segmento auxSegmento;
+
     float distCollision = 20;
     float distEnemyCollision = 3;
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
 
-    int _level = 4;
+    int _level = 5;
     int _lifes = 10;
 
-    boolean _wait = false;
+    boolean _waitNextlvl = false;
+    boolean _waitSame = false;
+
     float _waitTime = 0;
 
 }

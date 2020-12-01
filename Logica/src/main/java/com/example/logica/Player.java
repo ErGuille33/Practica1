@@ -4,6 +4,9 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import javax.swing.text.Segment;
 
 import static com.example.logica.Collisions.PerpendicularClockwise;
 import static com.example.logica.Collisions.PerpendicularCounterClockwise;
@@ -55,14 +58,32 @@ public class Player extends Character {
             }
         }
 
-            actualSegmento = lpSegments.get(actualPath).segments.get(lpSegments.get(0).segments.size() - 1);
+        actualSegmento = lpSegments.get(actualPath).segments.get(lpSegments.get(0).segments.size() - 1);
 
     }
 
 
     public void render(Graphics g) {
         g.setColor("blue");
-        super.render(g);
+        if (dead) {
+            //10 segmentos de 6 pixeles
+            g.save();
+            int i = 0;
+            for (Segmento s: destroyedSegments
+                 ) {
+
+                s.getVert1().set_x( s.getVert1().get_x() + randDir.get(i).get_x());
+                s.getVert1().set_y(s.getVert1().get_x() + randDir.get(i).get_y());
+
+                s.getVert2().set_x( s.getVert2().get_x() + randDir.get(i).get_x());
+                s.getVert2().set_y(s.getVert2().get_x() + randDir.get(i).get_y());
+                g.drawLine((int) (s.getVert1().get_x()), (int)(s.getVert1().get_y() ), (int) s.getVert2().get_x(), (int)( s.getVert2().get_y()));
+                i++;
+            }
+            g.restore();
+        } else {
+            super.render(g);
+        }
     }
 
     private void jump() {
@@ -80,18 +101,17 @@ public class Player extends Character {
         distancePlayer = 0;
         isJumping = true;
 
-
     }
 
     private void chooseNewSegmentAndDir() {
 
-            if (dirRegular == true) {
-                actualSegmento = actualSegmento.getNextSegmento();
+        if (dirRegular == true) {
+            actualSegmento = actualSegmento.getNextSegmento();
 
-            } else {
-                actualSegmento = actualSegmento.getPreSegmento();
-            }
-            setNewDir(actualSegmento);
+        } else {
+            actualSegmento = actualSegmento.getPreSegmento();
+        }
+        setNewDir(actualSegmento);
 
     }
 
@@ -105,12 +125,11 @@ public class Player extends Character {
     }
 
     private void setNewDir(Segmento seg) {
-        if(dirRegular) {
+        if (dirRegular) {
             _vel._x = actualSegmento.getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getVert2().get_y() - logicY;
             distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
-        }
-        else{
+        } else {
             _vel._x = actualSegmento.getInvertedSegmento().getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getInvertedSegmento().getVert2().get_y() - logicY;
             distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getInvertedSegmento().getVert2());
@@ -147,8 +166,6 @@ public class Player extends Character {
                 j = 0;
                 i++;
             }
-
-
         }
     }
 
@@ -164,6 +181,25 @@ public class Player extends Character {
         logicY += _vel._y * speed * deltaTime;
 
         distancePlayer += speed * deltaTime;
+        if (dead && !createdSegments) {
+            createdSegments = true;
+            createDestroyedSegments();
+        }
+    }
+
+    private void createDestroyedSegments() {
+        Random r = new Random();
+        float rnd1;
+
+        for (int i = 0; i < 10; i++) {
+            rnd1 = r.nextFloat();
+            if(rnd1 < 0.5)
+                destroyedSegments.add(new Segmento( logicX , logicY, logicX , logicY + 6 ,0));
+
+            else
+                destroyedSegments.add(new Segmento( logicX , logicY, logicX+6 , logicY ,0));
+            randDir.add( new Coordenada(r.nextFloat(),r.nextFloat()));
+        }
     }
 
     @Override
@@ -177,6 +213,11 @@ public class Player extends Character {
 
     public ArrayList<levelPathSegments> lpSegments = new ArrayList<levelPathSegments>();
 
+    public ArrayList<Segmento> destroyedSegments = new ArrayList<Segmento>();
+    public ArrayList<Coordenada> randDir = new ArrayList<Coordenada>();
+
+    private boolean createdSegments = false;
+
     private float distancePlayer = 0;
     private float distanceSegment = 0;
     public int speed = 250;
@@ -188,6 +229,8 @@ public class Player extends Character {
     private int actualPath;
 
     public boolean isJumping = false;
+
+    public boolean dead = false;
 
     private float collisionDistance = 0;
 
