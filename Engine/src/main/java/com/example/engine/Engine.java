@@ -14,6 +14,8 @@ public interface Engine {
 
     void render(Graphics g) throws Exception;
 
+    float getGrowthFactor();
+
     boolean running() throws Exception;
 
 }

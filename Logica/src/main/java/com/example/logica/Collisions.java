@@ -15,7 +15,7 @@ public class  Collisions {
 
         float s, t;
         s = (-s1_y * (s1.getVert1().get_x() - s2.getVert1().get_x()) + s1_x * (s1.getVert1().get_y() - s2.getVert1().get_y())) / (-s2_x * s1_y + s1_x * s2_y);
-        t = ( s2_x * (s1.getVert1().get_y() - s2.getVert1().get_y()) - s2_y * (s1.getVert1().get_y() - s2.getVert1().get_y())) / (-s2_x * s1_y + s1_x * s2_y);
+        t = ( s2_x * (s1.getVert1().get_y() - s2.getVert1().get_y()) - s2_y * (s1.getVert1().get_x() - s2.getVert1().get_x())) / (-s2_x * s1_y + s1_x * s2_y);
 
         if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
         {

@@ -33,6 +33,12 @@ public abstract class GameObject {
     public void setRot(float rot) {
         _rot = rot;
     }
+    public void setH(float h) {
+        _h = h;
+    }
+    public void setW(float w) {
+        _w= w;
+    }
 
     public abstract void render(Graphics g);
     public abstract void update(float deltaTime);

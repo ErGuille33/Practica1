@@ -11,6 +11,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Vector;
 
+import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
 import static com.example.logica.Collisions.sqrDistancePointSegment;
 
@@ -63,10 +64,11 @@ public class Logica implements com.example.engine.Logica {
 
         aux = new Coordenada(0, 0);
         aux1 = new Coordenada(0, 0);
+        pastAux = new Coordenada(0, 0);
 
     }
 
-    public void handleCollisions() {
+    public void handleCollisions(float deltaTime) {
 
         aux.set_x(player.logicX);
         aux.set_y(player.logicY);
@@ -74,20 +76,28 @@ public class Logica implements com.example.engine.Logica {
             if (player.isJumping) {
                 aux1.set_x(c.logicX);
                 aux1.set_y(c.logicY);
-                if (sqrDistancePointPoint(aux, aux1) < distCollision) {
+                if (sqrDistancePointPoint(aux, aux1) < distCollision && !c.destroyingCoin) {
                     c.destroyCoin();
                 }
+
+            }
+            if(c.destroyingCoin){
+                c.changeInSize += _engine.getGrowthFactor()*deltaTime;
+                c.setH(c._h + c.changeInSize);
+                c.setW(c._w + c.changeInSize);
             }
             if (c.finallyDestroy()) {
                 _deleteCoins.add(c);
             }
         }
             if(_enemy != null) {
+                collisionCoord = null  ;
                 for (Enemy e : _enemy) {
                     auxSegmento.setVert1(e._x1, e._y1);
                     auxSegmento.setVert2(e._x2, e._y2);
-                    if (sqrDistancePointSegment(auxSegmento, aux) < distEnemyCollision) {
-                        System.out.println(sqrDistancePointSegment(auxSegmento, aux));
+                    collisionCoord = segmentsIntersection(auxSegmento, new Segmento(aux.get_x(),aux.get_y(),player.lastCoord.get_x(),player.lastCoord.get_y(),0));
+                    if ( collisionCoord!= null && (collisionCoord.get_x()!= auxSegmento.getVert1().get_x() && collisionCoord.get_y() != auxSegmento.getVert1().get_y())
+                    && (collisionCoord.get_x()!= auxSegmento.getVert2().get_x() && collisionCoord.get_y() != auxSegmento.getVert2().get_y())) {
                         deadByEnemy =true;
                         player.dead = true;
                         _lifes--;
@@ -130,7 +140,7 @@ public class Logica implements com.example.engine.Logica {
         for (int i = 0; i < _paths.size(); i++) {
             _paths.get(i).update(deltaTime);
         }
-        handleCollisions();
+        handleCollisions(deltaTime);
 
         player.update(deltaTime);
         if(player._x > _engine.getGraphics().getWidth()/2 || player._x < -_engine.getGraphics().getWidth()/2 ||
@@ -243,15 +253,17 @@ public class Logica implements com.example.engine.Logica {
 
     Coordenada aux;
     Coordenada aux1;
+    Coordenada pastAux;
     Segmento auxSegmento;
 
     float distCollision = 20;
-    float distEnemyCollision = (float) 1.2;
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
+    Coordenada collisionCoord = null;
 
-    int _level = 3;
+
+    int _level = 5;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;

@@ -10,6 +10,7 @@ import javax.swing.text.Segment;
 
 import static com.example.logica.Collisions.PerpendicularClockwise;
 import static com.example.logica.Collisions.PerpendicularCounterClockwise;
+import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
 
 import static com.example.logica.Collisions.sqrDistancePointSegment;
@@ -21,6 +22,7 @@ public class Player extends Character {
         paths = path;
         actualPath = 0;
         distancePlayer = 0;
+        lastCoord = new Coordenada(x,y);
         setAllSegments();
         chooseNewSegmentAndDir();
     }
@@ -134,16 +136,19 @@ public class Player extends Character {
     public void detectCollision() {
 
         boolean coll = false;
+        Coordenada segmentCroos;
         int i = 0;
         int j = 0;
+        segmentCroos = null;
 
-        if (distancePlayer > 20) {
+        if (distancePlayer > 25) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
-                    collisionDistance = sqrDistancePointSegment(lpSegments.get(i).segments.get(j), new Coordenada(logicX, logicY));
-                    if (collisionDistance <= 2.5) {
+                    if (lpSegments.get(i).segments.get(j) != actualSegmento){
+                        segmentCroos = segmentsIntersection(new Segmento(lastCoord.get_x(), lastCoord.get_y(), logicX, logicY, 0), lpSegments.get(i).segments.get(j));
+                }
+                    if (segmentCroos != null) {
                         actualPath = i;
-
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
                         actualSegmento = lpSegments.get(i).segments.get(j);
@@ -168,6 +173,13 @@ public class Player extends Character {
             if (!isJumping && distancePlayer >= distanceSegment) {
                 chooseNewSegmentAndDir();
             }
+            collFrames++;
+            if(collFrames > 5) {
+                lastCoord.set_x(logicX);
+                lastCoord.set_y(logicY);
+                collFrames = 0;
+            }
+
             logicX += _vel._x * speed * deltaTime;
             logicY += _vel._y * speed * deltaTime;
 
@@ -252,12 +264,12 @@ public class Player extends Character {
     private Coordenada auxCoord;
 
     private int actualPath;
+    public Coordenada lastCoord;
 
     public boolean isJumping = false;
+    int collFrames = 0;
 
     public boolean dead = false;
-
-    private float collisionDistance = 0;
 
     //SI recorrera los vertices en sentido ascendente o descendente
     private boolean dirRegular = true;

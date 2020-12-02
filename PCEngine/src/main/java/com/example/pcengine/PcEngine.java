@@ -56,6 +56,11 @@ public class PcEngine implements Engine {
         logica.render(g);
     }
 
+    @Override
+    public float getGrowthFactor() {
+        return (float) 0.1;
+    }
+
     public void handleInput() {
         logica.handleInput(_input.getTouchEvents());
     }
@@ -94,11 +99,14 @@ public class PcEngine implements Engine {
                 _frame.getBufferStrategy().show();
             } while(_frame.getBufferStrategy().contentsLost());
 
+
         }
 
 
         return true;
     }
+
+
 
     protected PCGraphics _graphics;
     Logica logica;

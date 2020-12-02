@@ -57,6 +57,11 @@ public class AndroidEngine implements Engine, Runnable {
     }
 
     @Override
+    public float getGrowthFactor() {
+        return 10;
+    }
+
+    @Override
     public boolean running() throws Exception {
         // while
         _input = new AndroidInput();
