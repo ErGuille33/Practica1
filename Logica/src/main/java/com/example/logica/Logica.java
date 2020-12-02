@@ -263,7 +263,7 @@ public class Logica implements com.example.engine.Logica {
     Coordenada collisionCoord = null;
 
 
-    int _level = 5;
+    int _level = 12;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;
