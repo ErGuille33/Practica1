@@ -12,24 +12,31 @@ import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
 
 public class LogicaNiveles {
-    LogicaNiveles(Engine engine, Logica logica){
+    LogicaNiveles(Engine engine, Logica logica, int difficulty) {
         _engine = engine;
         _logica = logica;
 
+        _difficulty = difficulty;
+
+        if (difficulty == 0) {
+            _totalLifes = 10;
+        } else _totalLifes = 5;
+        _lifes = _totalLifes;
         _crosses = new ArrayList<Cross>(10);
         _squares = new ArrayList<Square>(10);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < _totalLifes; i++) {
             Cross cruz = new Cross((150) + 16 * i, (203), 12, 12, new Vector2D(0, 0));
             cruz.visible = false;
             _crosses.add(cruz);
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < _totalLifes; i++) {
             Square cuadrado = new Square(150 + 16 * i, 203, 12, 12, new Vector2D(0, 0));
 
             _squares.add(cuadrado);
         }
     }
+
     public void cargaNivel() throws Exception {
 
         System.out.println("Vidas: " + _lifes);
@@ -71,7 +78,7 @@ public class LogicaNiveles {
         }
 
         player = new Player(nivelActual.paths.get(0).vertices.get(0)._pos.get_x() - 4, nivelActual.paths.get(0).vertices.get(0)._pos.get_y() - 4,
-                8, 8, new Vector2D(0, 0), nivelActual.paths);
+                12, 12, new Vector2D(0, 0), nivelActual.paths, _difficulty);
 
         aux = new Coordenada(0, 0);
         aux1 = new Coordenada(0, 0);
@@ -111,7 +118,7 @@ public class LogicaNiveles {
                         && (collisionCoord.get_x() != auxSegmento.getVert2().get_x() || collisionCoord.get_y() != auxSegmento.getVert2().get_y()))) {
                     deadByEnemy = true;
                     player.dead = true;
-                    if(!playerDead) {
+                    if (!playerDead) {
                         substractLife();
                         playerDead = true;
                     }
@@ -158,6 +165,7 @@ public class LogicaNiveles {
         player.update(deltaTime);
         if (player._x > _engine.getGraphics().getWidth() / 2 || player._x < -_engine.getGraphics().getWidth() / 2 ||
                 player._y > _engine.getGraphics().getHeight() / 2 || player._y < -_engine.getGraphics().getHeight() / 2) {
+            playerDead = true;
             substractLife();
             pasaNivel(true);
         }
@@ -200,7 +208,7 @@ public class LogicaNiveles {
             fuente = g.newFont("BungeeHairline-Regular.ttf", 15, true);
         }
 
-        _engine.getGraphics().drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
+        g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
         for (int i = 0; i < _coins.size(); i++) {
             _coins.get(i).render(g);
@@ -262,14 +270,13 @@ public class LogicaNiveles {
         if (!same) {
             _level++;
             if (_level >= 20)
-            _logica.startMenu();
+                _logica.startMenu();
 
         }
-        if (_lifes <= 0){
+        if (_lifes <= 0) {
             _logica.startGameOverState();
 
-        }
-        else {
+        } else {
             try {
                 cargaNivel();
             } catch (Exception e) {
@@ -305,11 +312,14 @@ public class LogicaNiveles {
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 2;
-    int _lifes = 10;
+    int _level = 7;
+    int _lifes;
+    int _totalLifes;
 
     boolean _waitNextlvl = false;
     boolean _waitSame = false;
 
     float _waitTime = 0;
+
+    int _difficulty;
 }

@@ -17,8 +17,13 @@ import static com.example.logica.Collisions.sqrDistancePointSegment;
 
 
 public class Player extends Character {
-    public Player(float x, float y, int w, int h, Vector2D vel, ArrayList<Nivel.Paths> path) {
+    public Player(float x, float y, int w, int h, Vector2D vel, ArrayList<Nivel.Paths> path, int difficulty) {
         super(x, y, w, h, vel);
+        if(difficulty == 0){
+            baseSpeed =250;
+        }
+        else baseSpeed = 400;
+        speed = baseSpeed;
         paths = path;
         actualPath = 0;
         distancePlayer = 0;
@@ -89,7 +94,7 @@ public class Player extends Character {
 
         setNewDir(auxCoord);
 
-        speed = speed * 1;
+        speed = 1500;
 
         distancePlayer = 0;
         isJumping = true;
@@ -151,6 +156,7 @@ public class Player extends Character {
                         actualPath = i;
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
+                        speed = baseSpeed;
                         actualSegmento = lpSegments.get(i).segments.get(j);
                         setNewDir(actualSegmento);
                         isJumping = false;
@@ -174,7 +180,7 @@ public class Player extends Character {
                 chooseNewSegmentAndDir();
             }
             collFrames++;
-            if(collFrames > 1) {
+            if(collFrames > 2) {
                 lastCoord.set_x(logicX);
                 lastCoord.set_y(logicY);
                 collFrames = 0;
@@ -231,12 +237,7 @@ public class Player extends Character {
                     destroyedSegments.add(new Line(logicX, logicY, 6, 0, new Vector2D(rnd1, rnd2)));
                     break;
             }
-
-
-
-
             destroyedSegments.get(i).rotacion = randRot;
-
         }
     }
 
@@ -257,7 +258,8 @@ public class Player extends Character {
 
     private float distancePlayer = 0;
     private float distanceSegment = 0;
-    public int speed = 250;
+    public int speed;
+    public int baseSpeed;
 
     private Segmento actualSegmento;
 

@@ -60,7 +60,7 @@ public class Logica implements com.example.engine.Logica {
         levelState = true;
         gameOverState = false;
         menuState = false;
-        logicaNiveles = new LogicaNiveles(_engine, this);
+        logicaNiveles = new LogicaNiveles(_engine, this,1);
         try {
             initGame();
         } catch (Exception e) {
