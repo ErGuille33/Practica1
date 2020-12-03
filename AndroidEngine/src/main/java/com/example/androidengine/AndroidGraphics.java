@@ -16,10 +16,10 @@ public class AndroidGraphics implements Graphics {
     }
 
     public Font newFont(String filename, float size, boolean isBold)throws Exception {
-        com.example.androidengine.Font font = new com.example.androidengine.Font("Fuentes/BungeeHairline-Regular.ttf",size,isBold,context);
+        font = new com.example.androidengine.Font("Fuentes/BungeeHairline-Regular.ttf",size,isBold,context);
         _p.setTypeface(font.f);
         _p.setFakeBoldText(true);
-        setColor("black");
+
         _p.setTextSize(size);
         return font;
     }
@@ -88,7 +88,10 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void drawText(String text, int x, int y) {
+        setColor("white");
+        _c.scale(1, -1);
         _c.drawText(text, (int) x, y, _p);
+        _c.scale(1, -1);
     }
 
     public float getWidth() {
@@ -119,6 +122,7 @@ public class AndroidGraphics implements Graphics {
         context = _context;
     }
 
+    com.example.androidengine.Font font;
     Canvas _c;
     Context context;
     Paint _p = new Paint();

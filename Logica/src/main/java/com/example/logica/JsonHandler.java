@@ -135,6 +135,10 @@ public class JsonHandler {
             if(nivel.get("time") != null) {
                 nivelActual.pushTickBack(Integer.parseInt((String) nivel.get("time")));
             }
+
+            if(nivel.get("name") != null){
+                nivelActual._name =(String) nivel.get("name");
+            }
             is.close();
 
         }

@@ -69,13 +69,14 @@ public class PcEngine implements Engine {
 
     @Override
     public boolean running() throws Exception {
-        logica.init();
+
         _graphics = new PCGraphics(_frame);
         _input = new PcInput();
         _frame.addMouseListener(_input._handler);
         boolean _running = true;
 
         long lastTime = System.nanoTime();
+        logica.init();
         while(_running){
             long currentTime = System.nanoTime();
             double nanoElapsedTime = currentTime - lastTime;

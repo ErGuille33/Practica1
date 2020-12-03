@@ -1,6 +1,7 @@
 package com.example.logica;
 
 import com.example.engine.Engine;
+import com.example.engine.Font;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
 
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Vector;
+
+import sun.awt.windows.WFontConfiguration;
 
 import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
@@ -23,7 +26,7 @@ public class Logica implements com.example.engine.Logica {
 
     public void init() throws Exception {
         System.out.println("Vidas: " + _lifes);
-        Nivel nivelActual = new Nivel(_level, _engine);
+        nivelActual = new Nivel(_level, _engine);
         nivelActual.cargaNivel();
 
         _enemy = new ArrayList<Enemy>(nivelActual.enemies.size());
@@ -65,6 +68,9 @@ public class Logica implements com.example.engine.Logica {
         aux = new Coordenada(0, 0);
         aux1 = new Coordenada(0, 0);
         pastAux = new Coordenada(0, 0);
+
+
+
 
     }
 
@@ -176,9 +182,16 @@ public class Logica implements com.example.engine.Logica {
 
         g.setColor("black");
         g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
+
         g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
 
         g.scale(g.calculateSize());
+
+        if (fuente == null) {
+            fuente = g.newFont("BungeeHairline-Regular.ttf", 15, true);
+        }
+
+        _engine.getGraphics().drawText("Level " + _level + " - " + nivelActual._name,(int)(-300),(int)(-203));
 
         for (int i = 0; i < _coins.size(); i++) {
             _coins.get(i).render(g);
@@ -255,15 +268,17 @@ public class Logica implements com.example.engine.Logica {
     Coordenada aux1;
     Coordenada pastAux;
     Segmento auxSegmento;
+    Nivel nivelActual;
 
     float distCollision = 20;
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
     Coordenada collisionCoord = null;
+    Font fuente;
 
 
-    int _level = 12;
+    int _level = 5;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;

@@ -17,10 +17,13 @@ public class PCGraphics implements Graphics {
 
     public void setGraphics(java.awt.Graphics graphics) {
         _graphics = graphics;
+        if(_font != null) {
+            _graphics.setFont(_font.f);
+        }
     }
 
     public com.example.pcengine.Font newFont(String filename, float size, boolean isBold) throws Exception {
-        com.example.pcengine.Font _font = new com.example.pcengine.Font(filename,size,isBold);
+         _font = new com.example.pcengine.Font(filename,size,isBold);
         _graphics.setFont(_font.f);
         return _font;
     }
@@ -38,6 +41,7 @@ public class PCGraphics implements Graphics {
     public void scale(float x) {
         ((Graphics2D) _graphics).scale(x, -x);
     }
+
     public void rotate(int angle) {
         ((Graphics2D) _graphics).rotate((Math.toRadians(angle)));
     }
@@ -92,13 +96,14 @@ public class PCGraphics implements Graphics {
 
     public void drawText(String text, int x, int y) {
         try {
-            setColor("blue");
+            setColor("white");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        ((Graphics2D) _graphics).scale(1, -1);
         _graphics.drawString(text, x, y);
+        ((Graphics2D) _graphics).scale(1, -1);
 
     }
 
@@ -125,6 +130,7 @@ public class PCGraphics implements Graphics {
         else return aux2;
     }
 
+    com.example.pcengine.Font _font;
     JFrame _frame;
     java.awt.Graphics _graphics;
     AffineTransform _state;
