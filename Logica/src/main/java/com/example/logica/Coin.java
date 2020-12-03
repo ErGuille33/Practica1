@@ -5,10 +5,14 @@ import com.example.engine.Graphics;
 public class Coin extends Character {
     public Coin(float x, float y, int w, int h, float radius, float speed, float angle) {
         super(x + radius*(float)Math.cos(Math.toRadians(angle)), y + radius*(float)Math.sin(Math.toRadians(angle)), w, h, new Vector2D(0,0));
+        _inix = x;
+        _iniy = y;
         _radius = radius+1;
         _speed = speed+1;
         _angle = angle+1;
         _rot2 = 0;
+        _x1 = x + radius*(float)Math.cos(Math.toRadians(angle));
+        _y1 = y + radius*(float)Math.sin(Math.toRadians(angle));
     }
 
     @Override
@@ -24,6 +28,11 @@ public class Coin extends Character {
         g.drawLine((int)(_x + _w), (int)(_y + _h), (int)_x , (int)(_y + _h));
         g.drawLine((int)_x , (int)(_y + _h), (int)_x, (int)_y);
         g.restore();
+        g.setColor("green");
+        g.drawLine((int)_x1, (int)_y1, (int)(_x1 + _w), (int)_y1);
+        g.drawLine((int)(_x1 + _w), (int)_y1, (int)(_x1 + _w), (int)(_y1 + _h));
+        g.drawLine((int)(_x1 + _w), (int)(_y1 + _h), (int)_x1 , (int)(_y1 + _h));
+        g.drawLine((int)_x1 , (int)(_y1 + _h), (int)_x1, (int)_y1);
     }
 
     public void destroyCoin(){
@@ -40,10 +49,9 @@ public class Coin extends Character {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
+        _x1 = _inix + _radius*(float)Math.cos(Math.toRadians(_rot2 + _angle));
+        _y1 = _iniy + _radius*(float)Math.sin(Math.toRadians(_rot2 + _angle));
         if(destroyingCoin){
-
-
-
             if(_w > 30){
                 erase = true;
             }
@@ -55,6 +63,8 @@ public class Coin extends Character {
     public boolean picked = false;
     float changeInSize = 0;
 
+    float _x1, _y1;
+    float _inix, _iniy;
 
     float _radius;
     float _speed;
