@@ -59,7 +59,7 @@ public class PcEngine implements Engine {
     @Override
     //Método que devuelve el factor de cambio de tamaño a multiplicar por deltatime, que resulta no ser el mismo en android y Pc
     public float getGrowthFactor() {
-        return (float) 0.1;
+        return (float) 0.2;
     }
 
     public void handleInput() {
@@ -100,15 +100,9 @@ public class PcEngine implements Engine {
                 } while(_frame.getBufferStrategy().contentsRestored());
                 _frame.getBufferStrategy().show();
             } while(_frame.getBufferStrategy().contentsLost());
-
-
         }
-
-
         return true;
     }
-
-
 
     protected PCGraphics _graphics;
     Logica logica;
