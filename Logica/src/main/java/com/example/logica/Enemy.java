@@ -19,28 +19,29 @@ public class Enemy extends GameObject {
         _vel.setY(_fy - _y);
         if(_vel.getX()!=0 && _vel.getY()!=0) _vel.normalize();
 
-        _x1 = _x + (_length/2)*(float)Math.cos(_angle);
-        _y1 = _y + (_length/2)*(float)Math.sin(_angle);
-        _x2 = _x - (_length/2)*(float)Math.cos(_angle);
-        _y2 = _y - (_length/2)*(float)Math.sin(_angle);
+        _x1 = _x + (_length/2)*(float)Math.cos(Math.toRadians(_angle));
+        _y1 = _y + (_length/2)*(float)Math.sin(Math.toRadians(_angle));
+        _x2 = _x - (_length/2)*(float)Math.cos(Math.toRadians(_angle));
+        _y2 = _y - (_length/2)*(float)Math.sin(Math.toRadians(_angle));
 
     }
 
     public void render(Graphics g) {
         g.setColor("red");
+        g.drawLine((int)_x1, (int)_y1, (int)_x2, (int)_y2);
         g.save();
         g.translate((int)_x, (int)_y);
         g.rotate((int)_angle + (int)_rot);
-        g.drawLine((int)-_length/2, 0, (int)_length/2, 0);
         g.restore();
     }
 
     public void update(float deltaTime) {
         _rot+=(_speed)*deltaTime;
-        _x1 = _x + (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
-        _y1 = _y + (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
-        _x2 = _x - (_length/2)*(float)Math.cos(Math.toRadians(_rot)+_angle);
-        _y2 = _y - (_length/2)*(float)Math.sin(Math.toRadians(_rot)+_angle);
+
+        _x1 = _x + (_length / 2) * (float) Math.cos(Math.toRadians(_rot + _angle));
+        _y1 = _y + (_length / 2) * (float) Math.sin(Math.toRadians(_rot + _angle));
+        _x2 = _x - (_length / 2) * (float) Math.cos(Math.toRadians(_rot + _angle));
+        _y2 = _y - (_length / 2) * (float) Math.sin(Math.toRadians(_rot + _angle));
 
         if(!_stop) {
             _x -= _vel.getX() * deltaTime * (Math.abs(_inix - _fx) / _time) * _dir;
