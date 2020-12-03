@@ -44,9 +44,11 @@ public abstract class GameObject {
     public abstract void update(float deltaTime);
     public abstract void handleInput(Input.TouchEvent e);
 
+
     float _x, _y;
     float _w, _h;
     float _rot;
     Vector2D _vel;
+    boolean visible = true;
 
 }

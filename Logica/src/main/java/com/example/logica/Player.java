@@ -174,7 +174,7 @@ public class Player extends Character {
                 chooseNewSegmentAndDir();
             }
             collFrames++;
-            if(collFrames > 5) {
+            if(collFrames > 1) {
                 lastCoord.set_x(logicX);
                 lastCoord.set_y(logicY);
                 collFrames = 0;

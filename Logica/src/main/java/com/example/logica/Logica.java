@@ -25,6 +25,24 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
+        cargaNivel();
+        _crosses = new ArrayList<Cross>(10);
+        _squares = new ArrayList<Square>(10);
+        for (int i = 0; i < 10; i++) {
+            Cross cruz = new Cross((150) + 16 * i, (203), 12, 12, new Vector2D(0, 0));
+            cruz.visible = false;
+            _crosses.add(cruz);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Square cuadrado = new Square(150 + 16 * i, 203, 12, 12, new Vector2D(0, 0));
+
+            _squares.add(cuadrado);
+        }
+
+    }
+
+    public void cargaNivel() throws Exception {
         System.out.println("Vidas: " + _lifes);
         nivelActual = new Nivel(_level, _engine);
         nivelActual.cargaNivel();
@@ -34,6 +52,7 @@ public class Logica implements com.example.engine.Logica {
         _coins = new ArrayList<Coin>(nivelActual.items.size());
         _paths = new ArrayList<Path>(nivelActual.paths.size());
         _deleteCoins = new ArrayList<Coin>(nivelActual.items.size());
+
 
         auxSegmento = new Segmento(0, 0, 0, 0, 0);
 
@@ -70,8 +89,6 @@ public class Logica implements com.example.engine.Logica {
         pastAux = new Coordenada(0, 0);
 
 
-
-
     }
 
     public void handleCollisions(float deltaTime) {
@@ -87,8 +104,8 @@ public class Logica implements com.example.engine.Logica {
                 }
 
             }
-            if(c.destroyingCoin){
-                c.changeInSize += _engine.getGrowthFactor()*deltaTime;
+            if (c.destroyingCoin) {
+                c.changeInSize += _engine.getGrowthFactor() * deltaTime;
                 c.setH(c._h + c.changeInSize);
                 c.setW(c._w + c.changeInSize);
             }
@@ -96,31 +113,38 @@ public class Logica implements com.example.engine.Logica {
                 _deleteCoins.add(c);
             }
         }
-            if(_enemy != null) {
-                collisionCoord = null  ;
-                for (Enemy e : _enemy) {
-                    auxSegmento.setVert1(e._x1, e._y1);
-                    auxSegmento.setVert2(e._x2, e._y2);
-                    collisionCoord = segmentsIntersection(auxSegmento, new Segmento(aux.get_x(),aux.get_y(),player.lastCoord.get_x(),player.lastCoord.get_y(),0));
-                    if ( collisionCoord!= null && (collisionCoord.get_x()!= auxSegmento.getVert1().get_x() && collisionCoord.get_y() != auxSegmento.getVert1().get_y())
-                    && (collisionCoord.get_x()!= auxSegmento.getVert2().get_x() && collisionCoord.get_y() != auxSegmento.getVert2().get_y())) {
-                        deadByEnemy =true;
-                        player.dead = true;
-                        _lifes--;
-                        if (_lifes > 0) {
-                            System.out.println("Vidas: " + _lifes);
-                        } else {
-                            System.out.println("Fin de la partida, vuelta al menu inicial supongo");
-                        }
+        if (_enemy != null) {
+
+            for (Enemy e : _enemy) {
+                collisionCoord = null;
+                auxSegmento.setVert1(e._x1, e._y1);
+                auxSegmento.setVert2(e._x2, e._y2);
+                collisionCoord = segmentsIntersection(auxSegmento, new Segmento(aux.get_x(), aux.get_y(), player.lastCoord.get_x(), player.lastCoord.get_y(), 0));
+                if (collisionCoord != null && ((collisionCoord.get_x() != auxSegmento.getVert1().get_x() || collisionCoord.get_y() != auxSegmento.getVert1().get_y())
+                        && (collisionCoord.get_x() != auxSegmento.getVert2().get_x() || collisionCoord.get_y() != auxSegmento.getVert2().get_y()))) {
+                    deadByEnemy = true;
+                    player.dead = true;
+                    if(!playerDead) {
+                        substractLife();
+                        playerDead = true;
                     }
+
                 }
             }
+        }
+
+    }
+
+    void substractLife() {
+        _lifes--;
+        _crosses.get(_lifes).visible = true;
+        _squares.get(_lifes).visible = false;
 
     }
 
     void destroyItems() {
         for (Coin c : _deleteCoins) {
-            if(!c.picked) {
+            if (!c.picked) {
                 monedasRecogidas += 1;
                 c.pickedCoin();
             }
@@ -149,28 +173,28 @@ public class Logica implements com.example.engine.Logica {
         handleCollisions(deltaTime);
 
         player.update(deltaTime);
-        if(player._x > _engine.getGraphics().getWidth()/2 || player._x < -_engine.getGraphics().getWidth()/2 ||
-            player._y > _engine.getGraphics().getHeight()/2 || player._y < -_engine.getGraphics().getHeight()/2)
+        if (player._x > _engine.getGraphics().getWidth() / 2 || player._x < -_engine.getGraphics().getWidth() / 2 ||
+                player._y > _engine.getGraphics().getHeight() / 2 || player._y < -_engine.getGraphics().getHeight() / 2)
             pasaNivel(true);
 
         destroyItems();
 
-        if(compruebaVictoria()){
+        if (compruebaVictoria()) {
             _waitNextlvl = true;
         }
-        if(deadByEnemy){
+        if (deadByEnemy) {
             _waitSame = true;
         }
-        if(_waitNextlvl) {
+        if (_waitNextlvl) {
             _waitTime += deltaTime;
-            if(_waitTime >= 1) {
+            if (_waitTime >= 1) {
                 pasaNivel(false);
                 _waitNextlvl = false;
                 _waitTime = 0;
             }
-        }else if(_waitSame){
+        } else if (_waitSame) {
             _waitTime += deltaTime;
-            if(_waitTime >= 2.2) {
+            if (_waitTime >= 2.2) {
                 pasaNivel(true);
                 _waitSame = false;
                 _waitTime = 0;
@@ -191,7 +215,7 @@ public class Logica implements com.example.engine.Logica {
             fuente = g.newFont("BungeeHairline-Regular.ttf", 15, true);
         }
 
-        _engine.getGraphics().drawText("Level " + _level + " - " + nivelActual._name,(int)(-300),(int)(-203));
+        _engine.getGraphics().drawText("Level " + _level + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
         for (int i = 0; i < _coins.size(); i++) {
             _coins.get(i).render(g);
@@ -202,6 +226,14 @@ public class Logica implements com.example.engine.Logica {
         for (int i = 0; i < _paths.size(); i++) {
             _paths.get(i).render(g);
         }
+
+        for (int i = 0; i < _crosses.size(); i++) {
+            _crosses.get(i).render(g);
+        }
+        for (int i = 0; i < _squares.size(); i++) {
+            _squares.get(i).render(g);
+        }
+
         player.render(g);
 
     }
@@ -240,15 +272,20 @@ public class Logica implements com.example.engine.Logica {
         _deleteCoins.clear();
         nMonedas = 0;
         monedasRecogidas = 0;
+        playerDead = false;
         deadByEnemy = false;
-        if(!same) {
+        if (!same) {
             _level++;
             if (_level > 20) System.out.println("Fin de la partida, vuelta al menu supongo");
+
         }
-        try {
-            init();
-        } catch (Exception e){
-            System.out.println(e);
+        if (_lifes <= 0) System.out.println("Has perdido, imbecil");
+        else {
+            try {
+                cargaNivel();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 
@@ -262,6 +299,9 @@ public class Logica implements com.example.engine.Logica {
     ArrayList<Path> _paths;
     ArrayList<Coin> _deleteCoins;
 
+    ArrayList<Cross> _crosses;
+    ArrayList<Square> _squares;
+
     Player player;
 
     Coordenada aux;
@@ -274,6 +314,7 @@ public class Logica implements com.example.engine.Logica {
     int monedasRecogidas = 0;
     int nMonedas;
     boolean deadByEnemy = false;
+    boolean playerDead = false;
     Coordenada collisionCoord = null;
     Font fuente;
 
