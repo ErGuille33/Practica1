@@ -6,14 +6,10 @@ import com.example.engine.Input;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.text.Segment;
-
 import static com.example.logica.Collisions.PerpendicularClockwise;
-import static com.example.logica.Collisions.PerpendicularCounterClockwise;
+
 import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.sqrDistancePointPoint;
-
-import static com.example.logica.Collisions.sqrDistancePointSegment;
 
 
 public class Player extends Character {
@@ -146,7 +142,7 @@ public class Player extends Character {
         int j = 0;
         segmentCroos = null;
 
-        if (distancePlayer > 10) {
+        if (distancePlayer > 30) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     if (lpSegments.get(i).segments.get(j) != actualSegmento){
@@ -180,7 +176,7 @@ public class Player extends Character {
                 chooseNewSegmentAndDir();
             }
             collFrames++;
-            if(collFrames > 1) {
+            if(collFrames > 0) {
                 lastCoord.set_x(logicX);
                 lastCoord.set_y(logicY);
                 collFrames = 0;

@@ -17,9 +17,10 @@ public class AndroidInput implements Input {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            Input.TouchEvent aux = new Input.TouchEvent(event.getActionIndex(), Input.TouchEvent.Type.PULSACION, (int)event.getX(), (int)event.getY());
-            _touchEvents.add(aux);
-            return true;
+            if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                Input.TouchEvent aux = new Input.TouchEvent(event.getActionIndex(), Input.TouchEvent.Type.PULSACION, (int) event.getX(), (int) event.getY());
+                _touchEvents.add(aux);
+            }return true;
         }
     }
 
