@@ -28,11 +28,7 @@ public class Coin extends Character {
         g.drawLine((int)(_x + _w), (int)(_y + _h), (int)_x , (int)(_y + _h));
         g.drawLine((int)_x , (int)(_y + _h), (int)_x, (int)_y);
         g.restore();
-        g.setColor("green");
-        g.drawLine((int)_x1, (int)_y1, (int)(_x1 + _w), (int)_y1);
-        g.drawLine((int)(_x1 + _w), (int)_y1, (int)(_x1 + _w), (int)(_y1 + _h));
-        g.drawLine((int)(_x1 + _w), (int)(_y1 + _h), (int)_x1 , (int)(_y1 + _h));
-        g.drawLine((int)_x1 , (int)(_y1 + _h), (int)_x1, (int)_y1);
+
     }
 
     public void destroyCoin(){

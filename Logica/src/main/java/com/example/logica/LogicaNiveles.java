@@ -85,8 +85,8 @@ public class LogicaNiveles {
         aux.set_y(player.logicY);
         for (Coin c : _coins) {
             if (player.isJumping) {
-                aux1.set_x(c.logicX);
-                aux1.set_y(c.logicY);
+                aux1.set_x(c._x1);
+                aux1.set_y(c._y1);
                 if (sqrDistancePointPoint(aux, aux1) < distCollision && !c.destroyingCoin) {
                     c.destroyCoin();
                 }
@@ -261,11 +261,11 @@ public class LogicaNiveles {
         deadByEnemy = false;
         if (!same) {
             _level++;
-            if (_level >= 20) ;
+            if (_level >= 20)
             _logica.startMenu();
 
         }
-        else if (_lifes <= 0){
+        if (_lifes <= 0){
             _logica.startGameOverState();
 
         }
@@ -305,7 +305,7 @@ public class LogicaNiveles {
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 19;
+    int _level = 2;
     int _lifes = 10;
 
     boolean _waitNextlvl = false;
