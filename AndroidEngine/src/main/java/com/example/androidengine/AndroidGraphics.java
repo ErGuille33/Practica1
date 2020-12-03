@@ -49,6 +49,12 @@ public class AndroidGraphics implements Graphics {
 
     public void setColor(String color) {
         switch (color.toLowerCase()) {
+            case "enemy":
+                _p.setARGB(255,255, 0,0);
+                break;
+            case "player":
+                _p.setARGB(255, 0, 136,255);
+                break;
             case "black":
                 _p.setColor(Color.BLACK);
                 break;

@@ -27,7 +27,7 @@ public class Enemy extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor("red");
+        g.setColor("enemy");
         g.drawLine((int)_x1, (int)_y1, (int)_x2, (int)_y2);
         g.save();
         g.translate((int)_x, (int)_y);

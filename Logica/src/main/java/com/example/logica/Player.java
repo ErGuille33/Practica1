@@ -71,7 +71,7 @@ public class Player extends Character {
 
 
     public void render(Graphics g) {
-        g.setColor("cyan");
+        g.setColor("player");
         if (dead) {
             for (Line lin : destroyedSegments
             ) {
@@ -146,7 +146,7 @@ public class Player extends Character {
         int j = 0;
         segmentCroos = null;
 
-        if (distancePlayer > 25) {
+        if (distancePlayer > 10) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     if (lpSegments.get(i).segments.get(j) != actualSegmento){
@@ -180,7 +180,7 @@ public class Player extends Character {
                 chooseNewSegmentAndDir();
             }
             collFrames++;
-            if(collFrames > 2) {
+            if(collFrames > 1) {
                 lastCoord.set_x(logicX);
                 lastCoord.set_y(logicY);
                 collFrames = 0;

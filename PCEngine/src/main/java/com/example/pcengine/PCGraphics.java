@@ -55,6 +55,12 @@ public class PCGraphics implements Graphics {
     public void setColor(String color) {
         Color c = Color.white;
         switch (color.toLowerCase()) {
+            case "enemy":
+                c = new Color((float) 255/255,(float) 0,(float)0 );
+                break;
+            case "player":
+                c = new Color((float) 0,(float) 136/255,(float) 255/255);
+                break;
             case "black":
                 c = Color.BLACK;
                 break;

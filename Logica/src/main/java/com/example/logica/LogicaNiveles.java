@@ -312,7 +312,7 @@ public class LogicaNiveles {
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 7;
+    int _level = 8;
     int _lifes;
     int _totalLifes;
 
