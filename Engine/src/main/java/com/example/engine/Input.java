@@ -18,6 +18,9 @@ public interface Input {
             posY = y;
         }
 
+        public int getPosX(){return posX;}
+        public int getPosY(){return posY;}
+
         int id;
         Type type;
         int posX;
