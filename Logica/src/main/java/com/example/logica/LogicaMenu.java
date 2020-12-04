@@ -16,7 +16,6 @@ public class LogicaMenu {
     }
 
     public void init() throws Exception {
-
     }
 
     public void render(Graphics g) throws Exception {

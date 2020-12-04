@@ -10,6 +10,7 @@ import java.util.List;
 
 import static com.example.logica.Collisions.segmentsIntersection;
 import static com.example.logica.Collisions.distancePointPoint;
+import static com.example.logica.Collisions.sqrDistancePointSegment;
 
 public class LogicaNiveles {
     LogicaNiveles(Engine engine, Logica logica, int difficulty) {
@@ -128,7 +129,7 @@ public class LogicaNiveles {
                 auxSegmento.setVert1(e._x1, e._y1);
                 auxSegmento.setVert2(e._x2, e._y2);
                 collisionCoord = segmentsIntersection(auxSegmento, new Segmento(aux.get_x(), aux.get_y(), player.lastCoord.get_x(), player.lastCoord.get_y(), 0));
-                if (collisionCoord != null && ((collisionCoord.get_x() != auxSegmento.getVert1().get_x() || collisionCoord.get_y() != auxSegmento.getVert1().get_y())
+                if ( collisionCoord != null && ((collisionCoord.get_x() != auxSegmento.getVert1().get_x() || collisionCoord.get_y() != auxSegmento.getVert1().get_y())
                         && (collisionCoord.get_x() != auxSegmento.getVert2().get_x() || collisionCoord.get_y() != auxSegmento.getVert2().get_y()))) {
                     deadByEnemy = true;
                     player.dead = true;

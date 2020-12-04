@@ -101,9 +101,14 @@ public class Player extends Character {
 
         if (dirRegular == true) {
             actualSegmento = actualSegmento.getNextSegmento();
+            logicX = actualSegmento.getVert1().get_x();
+            logicY = actualSegmento.getVert1().get_y();
+
 
         } else {
             actualSegmento = actualSegmento.getPreSegmento();
+            logicX = actualSegmento.getInvertedSegmento().getVert1().get_x();
+            logicY = actualSegmento.getInvertedSegmento().getVert1().get_y();
         }
         setNewDir(actualSegmento);
 
@@ -123,10 +128,12 @@ public class Player extends Character {
             _vel._x = actualSegmento.getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getVert2().get_y() - logicY;
             distanceSegment = distancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
+
         } else {
             _vel._x = actualSegmento.getInvertedSegmento().getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getInvertedSegmento().getVert2().get_y() - logicY;
             distanceSegment = distancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getInvertedSegmento().getVert2());
+
         }
 
         _vel.normalize();
