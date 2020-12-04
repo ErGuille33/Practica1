@@ -94,7 +94,7 @@ public class LogicaNiveles {
             if (player.isJumping) {
                 aux1.set_x(c._x1);
                 aux1.set_y(c._y1);
-                if (sqrDistancePointPoint(aux, aux1) < distCollision && !c.destroyingCoin) {
+                if (sqrDistancePointPoint(aux, aux1)  < Math.pow(distCollision,2)  && !c.destroyingCoin) {
                     c.destroyCoin();
                 }
             }
@@ -204,10 +204,8 @@ public class LogicaNiveles {
 
         g.scale(g.calculateSize());
 
-        if (fuente == null) {
-            fuente = g.newFont("BungeeHairline-Regular.ttf", 15, true);
-        }
-
+        g.newFont("BungeeHairline-Regular.ttf", 15, true,0);
+        g.setColor("white");
         g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
         for (int i = 0; i < _coins.size(); i++) {
@@ -312,7 +310,7 @@ public class LogicaNiveles {
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 8;
+    int _level = 0;
     int _lifes;
     int _totalLifes;
 

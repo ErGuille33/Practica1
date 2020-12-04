@@ -114,7 +114,7 @@ public class Player extends Character {
         _vel._y = auxCoord.get_y();
 
         _vel.normalize();
-        distanceSegment = sqrDistancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
+        distanceSegment =  sqrDistancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
         distancePlayer = 0;
     }
 
@@ -172,7 +172,7 @@ public class Player extends Character {
             if (isJumping) {
                 detectCollision();
             }
-            if (!isJumping && distancePlayer >= distanceSegment) {
+            if (!isJumping && Math.pow(distancePlayer,2) >=  distanceSegment) {
                 chooseNewSegmentAndDir();
             }
             collFrames++;

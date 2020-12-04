@@ -13,7 +13,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        startLevelState();
+        startMenu();
     }
 
     public void initGame() throws Exception {
@@ -73,6 +73,11 @@ public class Logica implements com.example.engine.Logica {
         levelState = false;
         menuState = false;
         logicaGameOver = new LogicaGameOver(_engine, this);
+        try {
+            logicaGameOver.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void startMenu() {
@@ -80,6 +85,11 @@ public class Logica implements com.example.engine.Logica {
         levelState = false;
         gameOverState = false;
         logicaMenu = new LogicaMenu(_engine, this);
+        try {
+            logicaMenu.init();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     Engine _engine;

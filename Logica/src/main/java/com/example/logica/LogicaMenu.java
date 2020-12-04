@@ -9,34 +9,47 @@ import java.util.List;
 
 public class LogicaMenu {
 
-        LogicaMenu(Engine engine, Logica logica){
-            _engine = engine;
-            _logica = logica;
-        }
-        public void init(){
+    LogicaMenu(Engine engine, Logica logica) {
+        _engine = engine;
+        _logica = logica;
 
-        }
-        public void render(Graphics g) throws Exception {
-            g.setColor("black");
-            g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
+    }
 
-            g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+    public void init() throws Exception {
 
-            g.scale(g.calculateSize());
+    }
 
-            if (fuente == null) {
-                fuente = g.newFont("Bungee-Regular.ttf", 30, true);
-            }
+    public void render(Graphics g) throws Exception {
+        g.setColor("black");
+        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
 
-            _engine.getGraphics().drawText("Esto es un menu", (int) (-300), (int) (-0));
-        }
-        public void handleInput(List<Input.TouchEvent> te) {
+        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
 
-        }
-        public void update(float deltaTime) {
-        }
+        g.scale(g.calculateSize());
 
-        Font fuente;
-        Logica _logica;
-        Engine _engine;
+        g.newFont("Bungee-Regular.ttf", 10, true, 0);
+        g.setColor("blue");
+        g.drawText("A GAME COPIED TO BRYAN PERFETTO", (int) (-300), (int) (-100));
+
+        g.newFont("Bungee-Regular.ttf", 30, true, 1);
+        g.setColor("blue");
+        g.drawText("OFF THE LINE", (int) (-300), (int) (-175));
+
+
+
+
+    }
+
+    public void handleInput(List<Input.TouchEvent> te) {
+
+    }
+
+    public void update(float deltaTime) {
+
+    }
+
+    Font fuente1;
+    Font fuente2;
+    Logica _logica;
+    Engine _engine;
 }

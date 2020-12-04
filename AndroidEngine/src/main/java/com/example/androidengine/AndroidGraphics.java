@@ -13,15 +13,17 @@ public class AndroidGraphics implements Graphics {
 
     public void setCanvas(Canvas canvas) {
         _c = canvas;
+        _font = new com.example.androidengine.Font[25];
     }
 
-    public Font newFont(String filename, float size, boolean isBold)throws Exception {
-        font = new com.example.androidengine.Font("Fuentes/BungeeHairline-Regular.ttf",size,isBold,context);
-        _p.setTypeface(font.f);
+    @Override
+    public Font newFont(String filename, float size, boolean isBold, int numFont) throws Exception {
+        if (_font[numFont] == null)
+            _font[numFont] = new com.example.androidengine.Font("Fuentes/"+ filename,size,isBold,context);
+        _p.setTypeface(_font[numFont].f);
         _p.setFakeBoldText(true);
-
         _p.setTextSize(size);
-        return font;
+        return _font[numFont];
     }
 
     public void clear(String color) {
@@ -94,7 +96,6 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void drawText(String text, int x, int y) {
-        setColor("white");
         _c.scale(1, -1);
         _c.drawText(text, (int) x, y, _p);
         _c.scale(1, -1);
@@ -128,7 +129,7 @@ public class AndroidGraphics implements Graphics {
         context = _context;
     }
 
-    com.example.androidengine.Font font;
+    com.example.androidengine.Font[] _font;
     Canvas _c;
     Context context;
     Paint _p = new Paint();

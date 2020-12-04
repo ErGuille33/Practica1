@@ -17,9 +17,9 @@ import java.io.InputStream;
 
 public class AndroidEngine implements Engine, Runnable {
 
-    public AndroidEngine(Logica _logic, SurfaceView sv){
+    public AndroidEngine(Logica _logic, SurfaceView sv) {
 
-        logica =_logic;
+        logica = _logic;
         _sv = sv;
 
         _holder = sv.getHolder();
@@ -44,7 +44,7 @@ public class AndroidEngine implements Engine, Runnable {
 
     @Override
     public void update(double deltaTime) {
-        logica.update((float)deltaTime);
+        logica.update((float) deltaTime);
     }
 
     public void handleInput() {
@@ -64,7 +64,7 @@ public class AndroidEngine implements Engine, Runnable {
 
     @Override
     public boolean running() throws Exception {
-        // while
+
         _input = new AndroidInput();
         _ag = new AndroidGraphics();
         _ag.getContext(context);
@@ -72,8 +72,8 @@ public class AndroidEngine implements Engine, Runnable {
         _running = true;
         double lastTime = System.nanoTime();
         _sv.setOnTouchListener(_input._listener);
-        while(_running) {
-            Canvas canvas = _holder.lockCanvas();
+        while (_running) {
+            canvas = _holder.lockCanvas();
             _ag.setCanvas(canvas);
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
@@ -84,11 +84,14 @@ public class AndroidEngine implements Engine, Runnable {
                 ;
 
             try {
-                render(_ag);
+                if (canvas != null) {
+                    render(_ag);
+                    _holder.unlockCanvasAndPost(canvas);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            _holder.unlockCanvasAndPost(canvas);
+
 
             lastTime = currentTime;
         }
@@ -97,27 +100,28 @@ public class AndroidEngine implements Engine, Runnable {
     }
 
 
-    public void getContext(Context _context){
+    public void getContext(Context _context) {
         context = _context;
     }
 
 
     @Override
-    public void run()  {
+    public void run() {
 
         if (_renderThread != Thread.currentThread()) {
             throw new RuntimeException("run() should not be called directly");
         }
 
-        while(_running && _sv.getWidth() == 0);
+        while (_running && _sv.getWidth() == 0) {
+        }
 
         System.out.println("Runeando aki el android gente");
 
-            try {
-                running();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            running();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void pause() {
@@ -144,11 +148,11 @@ public class AndroidEngine implements Engine, Runnable {
     }
 
 
-
     Thread _renderThread;
 
     boolean _running = false;
 
+    Canvas canvas;
     Context context;
     Logica logica;
     AndroidGraphics _ag;

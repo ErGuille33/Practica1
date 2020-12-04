@@ -1,7 +1,7 @@
 package com.example.engine;
 
 public interface Graphics {
-    public Font newFont(String filename, float size, boolean isBold)throws Exception;
+    public Font newFont(String filename, float size, boolean isBold,int numFont)throws Exception;
 
     public void clear(String color);
     public void translate(int x,int y);
@@ -9,6 +9,7 @@ public interface Graphics {
     public void rotate(int angle);
     public void save();
     public void restore();
+
 
     public void setColor(String color);
     public void drawLine(int x1, int y1, int x2, int y2);
@@ -21,5 +22,6 @@ public interface Graphics {
     public int getBaseWidth();
     public int getBaseHeight();
     public float calculateSize();
+
 
 }
