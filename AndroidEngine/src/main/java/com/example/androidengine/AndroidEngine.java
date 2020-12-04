@@ -19,6 +19,7 @@ public class AndroidEngine implements Engine, Runnable {
 
     public AndroidEngine(Logica _logic, SurfaceView sv) {
 
+
         logica = _logic;
         _sv = sv;
 

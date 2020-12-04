@@ -41,6 +41,7 @@ public class LogicaNiveles {
 
     public void cargaNivel() throws Exception {
 
+
         System.out.println("Vidas: " + _lifes);
         nivelActual = new Nivel(_level, _engine);
         nivelActual.cargaNivel();
@@ -86,6 +87,15 @@ public class LogicaNiveles {
         aux1 = new Coordenada(0, 0);
         pastAux = new Coordenada(0, 0);
 
+
+
+        _waitSame = false;
+        _waitTime = 0;
+        _waitNextlvl = false;
+        _waitTime = 0;
+
+
+
     }
 
     public void handleCollisions(float deltaTime) {
@@ -101,11 +111,13 @@ public class LogicaNiveles {
                 }
             }
             if (c.destroyingCoin) {
+
                 c.changeInSize += _engine.getGrowthFactor() * deltaTime;
                 c.setH(c._h + c.changeInSize);
                 c.setW(c._w + c.changeInSize);
             }
             if (c.finallyDestroy()) {
+                restaMonedas = true;
                 _deleteCoins.add(c);
             }
         }
@@ -132,6 +144,8 @@ public class LogicaNiveles {
 
     void substractLife() {
         _lifes--;
+        totalMonedas -= monedasRecogidas;
+        monedasRecogidas = 0;
         _crosses.get(_lifes).visible = true;
         _squares.get(_lifes).visible = false;
     }
@@ -139,9 +153,11 @@ public class LogicaNiveles {
     void destroyItems() {
         for (Coin c : _deleteCoins) {
             if (!c.picked) {
-                monedasRecogidas += 1;
-                totalMonedas++;
-                c.pickedCoin();
+                if(!playerDead) {
+                    monedasRecogidas += 1;
+                    totalMonedas += 1;
+                    c.pickedCoin();
+                }
             }
             _coins.remove(c);
         }
@@ -172,6 +188,7 @@ public class LogicaNiveles {
                     player._y > _engine.getGraphics().getHeight() / 2 || player._y < -_engine.getGraphics().getHeight() / 2) {
                 playerDead = true;
                 substractLife();
+
                 pasaNivel(true);
             }
 
@@ -179,23 +196,24 @@ public class LogicaNiveles {
 
             if (compruebaVictoria()) {
                 _waitNextlvl = true;
+
             }
             if (deadByEnemy) {
                 _waitSame = true;
             }
-            if (_waitNextlvl) {
-                _waitTime += deltaTime;
-                if (_waitTime >= 1) {
-                    pasaNivel(false);
-                    _waitNextlvl = false;
-                    _waitTime = 0;
-                }
-            } else if (_waitSame) {
+            if (_waitSame) {
                 _waitTime += deltaTime;
                 if (_waitTime >= 2.2) {
                     pasaNivel(true);
-                    _waitSame = false;
-                    _waitTime = 0;
+
+                }
+            }
+            else if (_waitNextlvl) {
+                _waitTime += deltaTime;
+                if (_waitTime >= 1) {
+
+                    pasaNivel(false);
+
                 }
             }
         }
@@ -233,6 +251,10 @@ public class LogicaNiveles {
 
             player.render(g);
             if(gameOver){
+
+                g.setColor("darkGray");
+                g.fillRect(-500, 50, 500, 180);
+
                 g.newFont("Bungee-Regular.ttf", 50, true, 1);
                 g.setColor("red");
                 g.drawText("Game Over", (int) (-150), (int) (-130));
@@ -249,12 +271,8 @@ public class LogicaNiveles {
                 g.newFont("Bungee-Regular.ttf", 20, true, 2);
                 g.setColor("white");
 
-                g.drawText("SCORE: " + totalMonedas, (int) (-35), (int) (-60));
-
-
+                g.drawText("SCORE: " + (totalMonedas), (int) (-35), (int) (-60));
             }
-
-
     }
 
     public void handleInput(List<Input.TouchEvent> te) {
@@ -287,30 +305,33 @@ public class LogicaNiveles {
     }
 
     public void pasaNivel(boolean same) {
-        _enemy.clear();
-        _coins.clear();
-        _paths.clear();
-        _deleteCoins.clear();
+
         nMonedas = 0;
-        auxMonedas = monedasRecogidas;
+
+        System.out.println("Monedas recogidas este nivel yas" + monedasRecogidas);
+        System.out.println("Monedas recogidas total" + totalMonedas);
+
         monedasRecogidas = 0;
+        restaMonedas = false;
         playerDead = false;
         deadByEnemy = false;
+
         if (!same) {
             _level++;
             if (_level >= 20)
                 _logica.startMenu();
-
         }
 
         if (_lifes <= 0) {
-            totalMonedas -= auxMonedas;
-            auxMonedas = 0;
+
             gameOver = true;
 
         } else {
             try {
-
+                _enemy.clear();
+                _coins.clear();
+                _paths.clear();
+                _deleteCoins.clear();
                 cargaNivel();
             } catch (Exception e) {
                 System.out.println(e);
@@ -341,7 +362,7 @@ public class LogicaNiveles {
     int monedasRecogidas = 0;
     int nMonedas;
     int totalMonedas = 0;
-    int auxMonedas = 0;
+    boolean restaMonedas;
 
 
     boolean deadByEnemy = false;
@@ -349,7 +370,7 @@ public class LogicaNiveles {
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 3;
+    int _level = 0;
     int _lifes;
     int _totalLifes;
 

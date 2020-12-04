@@ -13,7 +13,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
-        startLevelState();
+        startMenu();
     }
 
     public void initGame() throws Exception {
@@ -24,19 +24,15 @@ public class Logica implements com.example.engine.Logica {
     public void update(float deltaTime) {
         if (levelState)
             logicaNiveles.update(deltaTime);
-        else if (gameOverState) {
-            logicaGameOver.update(deltaTime);
-        } else if (menuState) {
-            logicaMenu.update(deltaTime);
+        else if (menuState)
+           logicaMenu.update(deltaTime);
         }
-    }
+
 
     public void render(Graphics g) throws Exception {
         if (levelState)
             logicaNiveles.render(g);
-        else if (gameOverState) {
-            logicaGameOver.render(g);
-        } else if (menuState) {
+         else if (menuState) {
             logicaMenu.render(g);
         }
 
@@ -45,9 +41,7 @@ public class Logica implements com.example.engine.Logica {
     public void handleInput(List<Input.TouchEvent> te) {
         if (levelState)
             logicaNiveles.handleInput(te);
-        else if (gameOverState) {
-            logicaGameOver.handleInput(te);
-        } else if (menuState) {
+        else if (menuState) {
             logicaMenu.handleInput(te);
         }
     }
@@ -58,9 +52,8 @@ public class Logica implements com.example.engine.Logica {
 
     public void startLevelState() {
         levelState = true;
-        gameOverState = false;
         menuState = false;
-        logicaNiveles = new LogicaNiveles(_engine, this,1);
+        logicaNiveles = new LogicaNiveles(_engine, this, 1);
         try {
             initGame();
         } catch (Exception e) {
@@ -68,22 +61,10 @@ public class Logica implements com.example.engine.Logica {
         }
     }
 
-    public void startGameOverState() {
-        gameOverState = true;
-        levelState = false;
-        menuState = false;
-        logicaGameOver = new LogicaGameOver(_engine, this);
-        try {
-            logicaGameOver.init();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void startMenu() {
         menuState = true;
         levelState = false;
-        gameOverState = false;
         logicaMenu = new LogicaMenu(_engine, this);
         try {
             logicaMenu.init();
@@ -95,11 +76,11 @@ public class Logica implements com.example.engine.Logica {
     Engine _engine;
 
     LogicaNiveles logicaNiveles;
-    LogicaGameOver logicaGameOver;
+
     LogicaMenu logicaMenu;
 
     boolean levelState = false;
-    boolean gameOverState = false;
+
     boolean menuState = false;
 
 

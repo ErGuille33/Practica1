@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         _surface = new SurfaceView(this);
-
         setContentView(_surface);
 
         _logic = new Logica();
