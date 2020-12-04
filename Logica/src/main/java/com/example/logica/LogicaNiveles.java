@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.logica.Collisions.segmentsIntersection;
-import static com.example.logica.Collisions.sqrDistancePointPoint;
+import static com.example.logica.Collisions.distancePointPoint;
 
 public class LogicaNiveles {
     LogicaNiveles(Engine engine, Logica logica, int difficulty) {
@@ -35,6 +35,8 @@ public class LogicaNiveles {
 
             _squares.add(cuadrado);
         }
+        gameOver = false;
+        totalMonedas = 0;
     }
 
     public void cargaNivel() throws Exception {
@@ -94,7 +96,7 @@ public class LogicaNiveles {
             if (player.isJumping) {
                 aux1.set_x(c._x1);
                 aux1.set_y(c._y1);
-                if (sqrDistancePointPoint(aux, aux1)  < Math.pow(distCollision,2)  && !c.destroyingCoin) {
+                if (distancePointPoint(aux, aux1) < Math.pow(distCollision, 2) && !c.destroyingCoin) {
                     c.destroyCoin();
                 }
             }
@@ -138,6 +140,7 @@ public class LogicaNiveles {
         for (Coin c : _deleteCoins) {
             if (!c.picked) {
                 monedasRecogidas += 1;
+                totalMonedas++;
                 c.pickedCoin();
             }
             _coins.remove(c);
@@ -151,109 +154,136 @@ public class LogicaNiveles {
     }
 
     public void update(float deltaTime) {
-        for (int i = 0; i < _coins.size(); i++) {
-            _coins.get(i).update(deltaTime);
-        }
-        for (int i = 0; i < _enemy.size(); i++) {
-            _enemy.get(i).update(deltaTime);
-        }
-        for (int i = 0; i < _paths.size(); i++) {
-            _paths.get(i).update(deltaTime);
-        }
-        handleCollisions(deltaTime);
+        if (!gameOver) {
 
-        player.update(deltaTime);
-        if (player._x > _engine.getGraphics().getWidth() / 2 || player._x < -_engine.getGraphics().getWidth() / 2 ||
-                player._y > _engine.getGraphics().getHeight() / 2 || player._y < -_engine.getGraphics().getHeight() / 2) {
-            playerDead = true;
-            substractLife();
-            pasaNivel(true);
-        }
-
-        destroyItems();
-
-        if (compruebaVictoria()) {
-            _waitNextlvl = true;
-        }
-        if (deadByEnemy) {
-            _waitSame = true;
-        }
-        if (_waitNextlvl) {
-            _waitTime += deltaTime;
-            if (_waitTime >= 1) {
-                pasaNivel(false);
-                _waitNextlvl = false;
-                _waitTime = 0;
+            for (int i = 0; i < _coins.size(); i++) {
+                _coins.get(i).update(deltaTime);
             }
-        } else if (_waitSame) {
-            _waitTime += deltaTime;
-            if (_waitTime >= 2.2) {
+            for (int i = 0; i < _enemy.size(); i++) {
+                _enemy.get(i).update(deltaTime);
+            }
+            for (int i = 0; i < _paths.size(); i++) {
+                _paths.get(i).update(deltaTime);
+            }
+            handleCollisions(deltaTime);
+
+            player.update(deltaTime);
+            if (player._x > _engine.getGraphics().getWidth() / 2 || player._x < -_engine.getGraphics().getWidth() / 2 ||
+                    player._y > _engine.getGraphics().getHeight() / 2 || player._y < -_engine.getGraphics().getHeight() / 2) {
+                playerDead = true;
+                substractLife();
                 pasaNivel(true);
-                _waitSame = false;
-                _waitTime = 0;
+            }
+
+            destroyItems();
+
+            if (compruebaVictoria()) {
+                _waitNextlvl = true;
+            }
+            if (deadByEnemy) {
+                _waitSame = true;
+            }
+            if (_waitNextlvl) {
+                _waitTime += deltaTime;
+                if (_waitTime >= 1) {
+                    pasaNivel(false);
+                    _waitNextlvl = false;
+                    _waitTime = 0;
+                }
+            } else if (_waitSame) {
+                _waitTime += deltaTime;
+                if (_waitTime >= 2.2) {
+                    pasaNivel(true);
+                    _waitSame = false;
+                    _waitTime = 0;
+                }
             }
         }
     }
 
     public void render(Graphics g) throws Exception {
 
-        g.setColor("black");
-        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
+            g.setColor("black");
+            g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
 
-        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+            g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
 
-        g.scale(g.calculateSize());
+            g.scale(g.calculateSize());
 
-        g.newFont("BungeeHairline-Regular.ttf", 15, true,0);
-        g.setColor("white");
-        g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
+            g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
+            g.setColor("white");
+            g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
-        for (int i = 0; i < _coins.size(); i++) {
-            _coins.get(i).render(g);
-        }
-        for (int i = 0; i < _enemy.size(); i++) {
-            _enemy.get(i).render(g);
-        }
-        for (int i = 0; i < _paths.size(); i++) {
-            _paths.get(i).render(g);
-        }
+            for (int i = 0; i < _coins.size(); i++) {
+                _coins.get(i).render(g);
+            }
+            for (int i = 0; i < _enemy.size(); i++) {
+                _enemy.get(i).render(g);
+            }
+            for (int i = 0; i < _paths.size(); i++) {
+                _paths.get(i).render(g);
+            }
 
-        for (int i = 0; i < _crosses.size(); i++) {
-            _crosses.get(i).render(g);
-        }
-        for (int i = 0; i < _squares.size(); i++) {
-            _squares.get(i).render(g);
-        }
+            for (int i = 0; i < _crosses.size(); i++) {
+                _crosses.get(i).render(g);
+            }
+            for (int i = 0; i < _squares.size(); i++) {
+                _squares.get(i).render(g);
+            }
 
-        player.render(g);
+            player.render(g);
+            if(gameOver){
+                g.newFont("Bungee-Regular.ttf", 50, true, 1);
+                g.setColor("red");
+                g.drawText("Game Over", (int) (-150), (int) (-130));
+
+                g.newFont("Bungee-Regular.ttf", 20, true, 2);
+                g.setColor("white");
+                if(_difficulty == 0) {
+                    g.drawText("EASY MODE", (int) (-50), (int) (-90));
+                }
+                else{
+                    g.drawText("HARD MODE", (int) (-50), (int) (-90));
+                }
+
+                g.newFont("Bungee-Regular.ttf", 20, true, 2);
+                g.setColor("white");
+
+                g.drawText("SCORE: " + totalMonedas, (int) (-35), (int) (-60));
+
+
+            }
+
 
     }
 
     public void handleInput(List<Input.TouchEvent> te) {
-        for (int i = 0; i < _coins.size(); i++) {
+        if(!gameOver) {
+            for (int i = 0; i < _coins.size(); i++) {
+                for (int j = 0; j < te.size(); j++) {
+                    Input.TouchEvent e = te.get(j);
+                    _coins.get(i).handleInput(e);
+                }
+            }
+            for (int i = 0; i < _enemy.size(); i++) {
+                for (int j = 0; j < te.size(); j++) {
+                    Input.TouchEvent e = te.get(j);
+                    _enemy.get(i).handleInput(e);
+                }
+            }
+            for (int i = 0; i < _paths.size(); i++) {
+                for (int j = 0; j < te.size(); j++) {
+                    Input.TouchEvent e = te.get(j);
+                    _paths.get(i).handleInput(e);
+                }
+            }
             for (int j = 0; j < te.size(); j++) {
                 Input.TouchEvent e = te.get(j);
-                _coins.get(i).handleInput(e);
+                player.handleInput(e);
             }
-        }
-        for (int i = 0; i < _enemy.size(); i++) {
-            for (int j = 0; j < te.size(); j++) {
-                Input.TouchEvent e = te.get(j);
-                _enemy.get(i).handleInput(e);
-            }
-        }
-        for (int i = 0; i < _paths.size(); i++) {
-            for (int j = 0; j < te.size(); j++) {
-                Input.TouchEvent e = te.get(j);
-                _paths.get(i).handleInput(e);
-            }
-        }
-        for (int j = 0; j < te.size(); j++) {
-            Input.TouchEvent e = te.get(j);
-            player.handleInput(e);
-        }
 
-        te.clear();
+            te.clear();
+        }
     }
 
     public void pasaNivel(boolean same) {
@@ -262,6 +292,7 @@ public class LogicaNiveles {
         _paths.clear();
         _deleteCoins.clear();
         nMonedas = 0;
+        auxMonedas = monedasRecogidas;
         monedasRecogidas = 0;
         playerDead = false;
         deadByEnemy = false;
@@ -271,11 +302,15 @@ public class LogicaNiveles {
                 _logica.startMenu();
 
         }
+
         if (_lifes <= 0) {
-            _logica.startGameOverState();
+            totalMonedas -= auxMonedas;
+            auxMonedas = 0;
+            gameOver = true;
 
         } else {
             try {
+
                 cargaNivel();
             } catch (Exception e) {
                 System.out.println(e);
@@ -305,17 +340,22 @@ public class LogicaNiveles {
     float distCollision = 20;
     int monedasRecogidas = 0;
     int nMonedas;
+    int totalMonedas = 0;
+    int auxMonedas = 0;
+
+
     boolean deadByEnemy = false;
     boolean playerDead = false;
     Coordenada collisionCoord = null;
     Font fuente;
 
-    int _level = 0;
+    int _level = 3;
     int _lifes;
     int _totalLifes;
 
     boolean _waitNextlvl = false;
     boolean _waitSame = false;
+    boolean gameOver = false;
 
     float _waitTime = 0;
 

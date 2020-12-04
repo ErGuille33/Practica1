@@ -9,7 +9,7 @@ import java.util.Random;
 import static com.example.logica.Collisions.PerpendicularClockwise;
 
 import static com.example.logica.Collisions.segmentsIntersection;
-import static com.example.logica.Collisions.sqrDistancePointPoint;
+import static com.example.logica.Collisions.distancePointPoint;
 
 
 public class Player extends Character {
@@ -114,7 +114,7 @@ public class Player extends Character {
         _vel._y = auxCoord.get_y();
 
         _vel.normalize();
-        distanceSegment =  sqrDistancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
+        distanceSegment =  distancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
         distancePlayer = 0;
     }
 
@@ -122,11 +122,11 @@ public class Player extends Character {
         if (dirRegular) {
             _vel._x = actualSegmento.getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getVert2().get_y() - logicY;
-            distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
+            distanceSegment = distancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getVert2());
         } else {
             _vel._x = actualSegmento.getInvertedSegmento().getVert2().get_x() - logicX;
             _vel._y = actualSegmento.getInvertedSegmento().getVert2().get_y() - logicY;
-            distanceSegment = sqrDistancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getInvertedSegmento().getVert2());
+            distanceSegment = distancePointPoint(new Coordenada(logicX, logicY), actualSegmento.getInvertedSegmento().getVert2());
         }
 
         _vel.normalize();
@@ -153,6 +153,8 @@ public class Player extends Character {
                         distancePlayer = 0;
                         dirRegular = !dirRegular;
                         speed = baseSpeed;
+                        logicX = segmentCroos.get_x();
+                        logicY = segmentCroos.get_y();
                         actualSegmento = lpSegments.get(i).segments.get(j);
                         setNewDir(actualSegmento);
                         isJumping = false;

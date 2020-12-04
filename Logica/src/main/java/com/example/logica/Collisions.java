@@ -1,7 +1,7 @@
 package com.example.logica;
 
 public class  Collisions {
-    public static float sqrDistancePointPoint(Coordenada p1, Coordenada p2){
+    public static float distancePointPoint(Coordenada p1, Coordenada p2){
         float ret = 0.0f;
         ret = (float) (Math.pow(p1.get_x() - p2.get_x(), 2) + Math.pow(p1.get_y() - p2.get_y(), 2));
         return ret;
