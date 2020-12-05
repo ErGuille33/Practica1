@@ -158,10 +158,7 @@ public class Player extends Character {
         if (distancePlayer > 30) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
-                    //Que no colisione consigo mismo
-                    if (lpSegments.get(i).segments.get(j) != actualSegmento) {
-                        segmentCroos = segmentsIntersection(new Segmento(lastCoord.get_x(), lastCoord.get_y(), logicX, logicY, 0), lpSegments.get(i).segments.get(j));
-                    }
+                    segmentCroos = segmentsIntersection(new Segmento(lastCoord.get_x(), lastCoord.get_y(), logicX, logicY, 0), lpSegments.get(i).segments.get(j));
                     //Si el segmento descrito por la trayectoria del jugador intersecciona con uno de los paths
                     if (segmentCroos != null) {
                         actualPath = i;
