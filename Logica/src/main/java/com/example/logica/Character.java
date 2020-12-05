@@ -26,7 +26,7 @@ public class Character extends GameObject {
     }
 
     public void update(float deltaTime) {
-        _rot += 70f*deltaTime;
+        _rot += 180f*deltaTime;
         _x = logicX - _w/2;
         _y = logicY - _h/2;
     }
