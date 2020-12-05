@@ -229,7 +229,7 @@ public class LogicaNiveles {
 
             g.scale(g.calculateSize());
 
-            g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
+            g.newFont("BungeeHairline-Regular.ttf", 15, false, 0);
             g.setColor("white");
             g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
@@ -268,8 +268,6 @@ public class LogicaNiveles {
                 else{
                     g.drawText("HARD MODE", (int) (-50), (int) (-90));
                 }
-
-                g.newFont("Bungee-Regular.ttf", 20, true, 2);
                 g.setColor("white");
 
                 g.drawText("SCORE: " + (totalMonedas), (int) (-35), (int) (-60));
@@ -303,9 +301,7 @@ public class LogicaNiveles {
 
             te.clear();
         }
-        else {
-            _logica.startMenu();
-        }
+
     }
 
     public void pasaNivel(boolean same) {
