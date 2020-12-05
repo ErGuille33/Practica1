@@ -12,20 +12,23 @@ public class Boton extends GameObject {
         _action = action;
         _logic = logic;
 
-        _scale = calculateSize();
     }
 
     public void render(Graphics g) {
-
-    }
-
-    public void update(float deltaTime) {
+        //Actualizamos la escala en cada frame para comprobar el tamaño de ventana nuevo (si lo hay)
         _scale = calculateSize();
     }
 
+    public void update(float deltaTime) {
+
+    }
+
     public void handleInput(Input.TouchEvent te) {
+        //Transformamos las coordenadas del raton a las coordenadas transformadas y escaladas
         float _ratonx = (te.getPosX() - _logic._engine.getGraphics().getWidth()/2)*(1.0f/_scale);
         float _ratony = (_logic._engine.getGraphics().getHeight()/2 - te.getPosY())*(1.0f/_scale);
+
+        //Y actualizamos tambien la altura y anchura del boton logico
         float _dx = _x + (_w*_scale);
         float _dy = _y - (_h*_scale);
 
@@ -35,6 +38,7 @@ public class Boton extends GameObject {
     }
 
     float calculateSize() {
+        //Metodo para obtener la escala
         float aux1 = 0;
         float aux2 = 0;
 

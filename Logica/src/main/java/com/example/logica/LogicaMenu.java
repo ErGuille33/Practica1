@@ -58,6 +58,10 @@ public class LogicaMenu {
         g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150));
         g.restore();
 
+
+        for(int i = 0; i < _buttons.size(); i++) {
+            _buttons.get(i).render(g);
+        }
     }
 
     //Input de los botones
