@@ -1,10 +1,8 @@
 package com.example.logica;
-
 import com.example.engine.Engine;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
+//Clase donde guardamos toda la informacion necesaria del nivel
 public class Nivel {
 
     Nivel(int nLevel, Engine _engine){
@@ -13,34 +11,8 @@ public class Nivel {
     }
 
     public void cargaNivel() throws Exception{
-
         jsonHandler = new JsonHandler();
         jsonHandler.JsonParseLevel(_nLevel,this);
-
-        System.out.println(" Nivel " + _nLevel);
-        System.out.println( " Paths: ");
-        for(int i = 0; i < paths.size(); i++) {
-            for(int j = 0; j < paths.get(i).vertices.size(); j++) {
-                System.out.print(" x: " + paths.get(i).vertices.get(j)._pos.get_x() + " y: " + paths.get(i).vertices.get(j)._pos.get_y());
-            }
-
-            for(int j = 0; j < paths.get(i).directions.size(); j++) {
-                System.out.print(" x: " + paths.get(i).directions.get(j)._pos.get_x() + " y: " + paths.get(i).directions.get(j)._pos.get_y());
-            }
-        }
-        System.out.println( " Items: ");
-        for(int i = 0; i < items.size(); i++) {
-
-                System.out.print(" x: " + items.get(i)._pos.get_x() + " y: " + items.get(i)._pos.get_y() + " radius " + items.get(i)._radius + " speed " + items.get(i)._speed + " angle " + items.get(i)._angle);
-        }
-        System.out.println( " Enemigos: " );
-        for(int i = 0; i < enemies.size(); i++) {
-
-            System.out.print(" x: " + enemies.get(i)._pos.get_x() + " y: " + enemies.get(i)._pos.get_y() + " length " +  enemies.get(i)._length + " angle " + enemies.get(i)._angle+ " speed " + enemies.get(i)._speed
-                    + "time1 " + enemies.get(i)._time1 + "time2" + enemies.get(i)._time2 + "offetx:" + enemies.get(i)._offset.get_x() + "offsety: " + enemies.get(i)._offset.get_y() );
-        }
-        System.out.println( " Tiempo: " + _time);
-
     }
 
     //Atributos

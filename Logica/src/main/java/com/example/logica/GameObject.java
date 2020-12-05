@@ -2,7 +2,7 @@ package com.example.logica;
 
 import com.example.engine.Graphics;
 import com.example.engine.Input;
-
+//Clase Gameobject. Cuenta unicamente con posición, dimensiones, velocidad y rotacion
 public abstract class GameObject {
 
     public GameObject(float x, float y, float w, float h, Vector2D vel) {

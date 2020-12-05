@@ -17,15 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        //Creamos el surfaceView
         _surface = new SurfaceView(this);
         setContentView(_surface);
 
+        //Creamos logica y engine
         _logic = new Logica();
-
         engine = new AndroidEngine(_logic, _surface);
         engine.getContext(this);
-
         _logic.getEngine(engine);
 
     }
@@ -43,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         engine.pause();
 
     }
+
+    //Todo el codigo de de abajo sirve exclusivamente para poner la pantalla completa en Android. No se usa en PC ya que así se puede
+    //cambiar la resolucion facilmente
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {

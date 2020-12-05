@@ -6,6 +6,7 @@ import com.example.engine.Input;
 import java.util.ArrayList;
 
 public class Path extends GameObject {
+    //Clase consistente unicamente en los paths y su renderizado
     public Path(ArrayList<Nivel.Vertice> vertex) {
         super(0,0,0,0, new Vector2D(0,0));
         _vertex = vertex;

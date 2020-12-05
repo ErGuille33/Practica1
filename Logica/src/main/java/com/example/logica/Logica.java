@@ -6,6 +6,7 @@ import com.example.engine.Input;
 
 import java.util.List;
 
+//Clase anterior a la logica concreta de los niveles y del menu. Consiste simplemente en decidir en cual de los dos estados estamos, y crearlos.
 public class Logica implements com.example.engine.Logica {
 
     public Logica() {
@@ -25,14 +26,14 @@ public class Logica implements com.example.engine.Logica {
         if (levelState)
             logicaNiveles.update(deltaTime);
         else if (menuState)
-           logicaMenu.update(deltaTime);
-        }
+            logicaMenu.update(deltaTime);
+    }
 
 
     public void render(Graphics g) throws Exception {
         if (levelState)
             logicaNiveles.render(g);
-         else if (menuState) {
+        else if (menuState) {
             logicaMenu.render(g);
         }
 
@@ -50,6 +51,7 @@ public class Logica implements com.example.engine.Logica {
         _engine = engine;
     }
 
+    //Creamos e iniciamos el estado del juego principal
     public void startLevelState(int dif) {
         levelState = true;
         menuState = false;
@@ -61,7 +63,7 @@ public class Logica implements com.example.engine.Logica {
         }
     }
 
-
+    //Creamos e iniciamos el estado del menu
     public void startMenu() {
         menuState = true;
         levelState = false;
@@ -73,6 +75,7 @@ public class Logica implements com.example.engine.Logica {
         }
     }
 
+    //Para servir de transicion entre el menu y el comienzo del juego
     public void processButton(String action) {
         switch (action) {
             case "menu":

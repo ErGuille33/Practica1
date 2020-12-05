@@ -2,7 +2,7 @@ package com.example.logica;
 
 import com.example.engine.Graphics;
 import com.example.engine.Input;
-
+//Clase que dibuja y administra la logica de las lineas enemigas
 public class Enemy extends GameObject {
     public Enemy(float x, float y, float fx, float fy, float speed, float length, float angle, float time, float time2) {
         super(x, y, 0, 0, new Vector2D(0,0));

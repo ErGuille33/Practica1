@@ -3,6 +3,8 @@ package com.example.logica;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
 
+//De esta clase heredaran la moneda y el jugador, ya que renderiza y actualiza su movimiento y rotacion
+//ya que ambos comparten forma y comportamientos
 public class Character extends GameObject {
 
     public Character(float x, float y, float w, float h, Vector2D vel) {
@@ -30,8 +32,6 @@ public class Character extends GameObject {
     }
 
     public void handleInput(Input.TouchEvent e) {
-
-
     }
 
     public float logicX ;

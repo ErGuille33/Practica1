@@ -2,7 +2,7 @@ package com.example.logica;
 
 import com.example.engine.Graphics;
 import com.example.engine.Input;
-
+//Cruces que indican las vidas perdidas
 public class Cross extends GameObject{
 
     public Cross(float x, float y, float w, float h, Vector2D vel) {

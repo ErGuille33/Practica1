@@ -13,21 +13,22 @@ import static com.example.logica.Collisions.distancePointPoint;
 
 
 public class Player extends Character {
+    //Ponemos la velocidad en funcion de la dificultad que vayamos a usar, inicializamos algunas variables y comenzamos la marcha del jugador
     public Player(float x, float y, int w, int h, Vector2D vel, ArrayList<Nivel.Paths> path, int difficulty) {
         super(x, y, w, h, vel);
-        if(difficulty == 0){
-            baseSpeed =250;
-        }
-        else baseSpeed = 400;
+        if (difficulty == 0) {
+            baseSpeed = 250;
+        } else baseSpeed = 400;
         speed = baseSpeed;
         paths = path;
         actualPath = 0;
         distancePlayer = 0;
-        lastCoord = new Coordenada(x,y);
+        lastCoord = new Coordenada(x, y);
         setAllSegments();
         chooseNewSegmentAndDir();
     }
 
+    //Guardamos todos los segmentos de los paths del nivel en el que nos encontramos
     private void setAllSegments() {
 
         for (int i = 0; i < paths.size(); i++) {
@@ -80,8 +81,9 @@ public class Player extends Character {
         }
     }
 
+    //Metodo de salto
     private void jump() {
-
+        //Decidimos si usamos el segmento perpenticular o la direccion asignada
         if (paths.get(actualPath).directions.size() <= 0) {
             auxCoord = PerpendicularClockwise(actualSegmento.getVert1().get_x(), actualSegmento.getVert1().get_y(), actualSegmento.getVert2().get_x(), actualSegmento.getVert2().get_y());
         } else {
@@ -97,6 +99,7 @@ public class Player extends Character {
 
     }
 
+    //Elegimos el proximo segmento al que se dirige el jugador al llegar a un vertice
     private void chooseNewSegmentAndDir() {
 
         if (dirRegular == true) {
@@ -114,15 +117,17 @@ public class Player extends Character {
 
     }
 
+    //Cambiamos la direccion del jugador para que vaya hacia un punto en concreto (usado en el salto)
     private void setNewDir(Coordenada coor) {
         _vel._x = auxCoord.get_x();
         _vel._y = auxCoord.get_y();
 
         _vel.normalize();
-        distanceSegment =  distancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
+        distanceSegment = distancePointPoint(actualSegmento.getVert1(), actualSegmento.getVert2());
         distancePlayer = 0;
     }
 
+    //Cambiamos la direccion del jugador para que vaya hacia un segmento en concreto (usado para seguir el camino)
     private void setNewDir(Segmento seg) {
         if (dirRegular) {
             _vel._x = actualSegmento.getVert2().get_x() - logicX;
@@ -141,6 +146,7 @@ public class Player extends Character {
         distancePlayer = 0;
     }
 
+    //Este metodo sirve para detectar la colision del jugador con un segmento tras saltar
     public void detectCollision() {
 
         boolean coll = false;
@@ -148,13 +154,15 @@ public class Player extends Character {
         int i = 0;
         int j = 0;
         segmentCroos = null;
-
-        if (distancePlayer > 30) {
+        //Distancia minima para empezar a detectar
+        if (distancePlayer > 10) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
-                    if (lpSegments.get(i).segments.get(j) != actualSegmento){
+                    //Que no colisione consigo mismo
+                    if (lpSegments.get(i).segments.get(j) != actualSegmento) {
                         segmentCroos = segmentsIntersection(new Segmento(lastCoord.get_x(), lastCoord.get_y(), logicX, logicY, 0), lpSegments.get(i).segments.get(j));
-                }
+                    }
+                    //Si el segmento descrito por la trayectoria del jugador intersecciona con uno de los paths
                     if (segmentCroos != null) {
                         actualPath = i;
                         distancePlayer = 0;
@@ -177,15 +185,16 @@ public class Player extends Character {
 
     public void update(float deltaTime) {
         super.update(deltaTime);
+        //Si el jugador sigue vivo
         if (!dead) {
             if (isJumping) {
                 detectCollision();
             }
-            if (!isJumping && Math.pow(distancePlayer,2) >=  distanceSegment) {
+            if (!isJumping && Math.pow(distancePlayer, 2) >= distanceSegment) {
                 chooseNewSegmentAndDir();
             }
             collFrames++;
-            if(collFrames > 0) {
+            if (collFrames > 0) {
                 lastCoord.set_x(logicX);
                 lastCoord.set_y(logicY);
                 collFrames = 0;
@@ -196,6 +205,7 @@ public class Player extends Character {
 
             distancePlayer += speed * deltaTime;
         }
+        //Si esta muerto
         if (dead) {
             if (!createdSegments) {
                 createdSegments = true;
@@ -210,6 +220,7 @@ public class Player extends Character {
 
     }
 
+    //Metodo usado para crear las lineas con rotacion y direccion aletorias al morir el jugador
     private void createDestroyedSegments() {
         Random r = new Random();
         float rnd1;
@@ -221,8 +232,8 @@ public class Player extends Character {
             rnd1 = r.nextFloat();
             rnd2 = r.nextFloat();
             rnd3 = r.nextInt(4);
-            randRot = r.nextInt(100)- 50;
-            switch (rnd3){
+            randRot = r.nextInt(100) - 50;
+            switch (rnd3) {
                 case 0:
                     rnd1 = -rnd1;
                     rnd2 = -rnd2;
@@ -253,34 +264,32 @@ public class Player extends Character {
         }
     }
 
+    //Array de paths para ser convertidos a segmentos
     public ArrayList<Nivel.Paths> paths = new ArrayList<Nivel.Paths>();
-
+    //Array de segmentos
     public ArrayList<levelPathSegments> lpSegments = new ArrayList<levelPathSegments>();
-
+    //Array de lineas para cuando el jugador esta muerto
     public ArrayList<Line> destroyedSegments = new ArrayList<Line>();
 
-    private boolean createdSegments = false;
+    //Booleanos usados
+    private boolean dirRegular = true; //Direccion del jugador a la hora de seguir el path
+    private boolean createdSegments = false; //Han sido creados los segmentos del jugador muerto
+    public boolean dead = false; //Esta muerto
+    public boolean isJumping = false; //Se encuentra saltando
 
     private float distancePlayer = 0;
     private float distanceSegment = 0;
     public int speed;
     public int baseSpeed;
-
-    private Segmento actualSegmento;
-
-    private Coordenada auxCoord;
-
     private int actualPath;
+    int collFrames = 0; //Contador de frames para detectar colisiones
+
+    //Segmentos y puntos
+    private Segmento actualSegmento;
+    private Coordenada auxCoord;
     public Coordenada lastCoord;
 
-    public boolean isJumping = false;
-    int collFrames = 0;
-
-    public boolean dead = false;
-
-    //SI recorrera los vertices en sentido ascendente o descendente
-    private boolean dirRegular = true;
-
+    //Clase auxiliar para poder acceder facilmente a los distintos segmentos de cada path
     class levelPathSegments {
         public ArrayList<Segmento> segments = new ArrayList<Segmento>();
     }
