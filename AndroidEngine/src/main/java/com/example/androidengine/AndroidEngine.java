@@ -18,13 +18,9 @@ import java.io.InputStream;
 public class AndroidEngine implements Engine, Runnable {
 
     public AndroidEngine(Logica _logic, SurfaceView sv) {
-
-
         logica = _logic;
         _sv = sv;
-
         _holder = sv.getHolder();
-
     }
 
     @Override
@@ -64,8 +60,9 @@ public class AndroidEngine implements Engine, Runnable {
     }
 
     @Override
+    //Bucle principal
     public boolean running() throws Exception {
-
+        //Inicializamos varialbes y clases que usaremos
         _input = new AndroidInput();
         _ag = new AndroidGraphics();
         _ag.getContext(context);
@@ -78,13 +75,15 @@ public class AndroidEngine implements Engine, Runnable {
             _ag.setCanvas(canvas);
             double currentTime = System.nanoTime();
             double deltaTime = (currentTime - lastTime) / 1e9;
+
             update(deltaTime);
             handleInput();
 
             while (!_holder.getSurface().isValid())
                 ;
-
             try {
+                //Realizamos esta comprovación ya que es posible que en alguna ocasion que la app se inicialice muy rapido y realice el render antes de haber finalizado el canvas.
+                //Nos parecio una mejor alternativa a hacer un wait().
                 if (canvas != null) {
                     render(_ag);
                     _holder.unlockCanvasAndPost(canvas);
@@ -92,7 +91,6 @@ public class AndroidEngine implements Engine, Runnable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
             lastTime = currentTime;
         }
@@ -107,6 +105,8 @@ public class AndroidEngine implements Engine, Runnable {
 
 
     @Override
+
+    //Sistema de threads y ejecuta el runnning()
     public void run() {
 
         if (_renderThread != Thread.currentThread()) {
@@ -125,6 +125,7 @@ public class AndroidEngine implements Engine, Runnable {
         }
     }
 
+    //Pausa
     public void pause() {
         if (_running) {
             _running = false;

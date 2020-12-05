@@ -1,17 +1,14 @@
 package com.example.logica;
 
-import com.example.engine.Engine;
-
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-
+//Parseos
 public class JsonHandler {
     JsonHandler() {
     }

@@ -3,6 +3,8 @@ package com.example.logica;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
 
+//Clase consistente en una simple linea. Se usa para dibujar los trozos del jugador al destruirse
+// y para dibujar las cruces que indican las vidas perdidas
 public class Line extends GameObject{
     public Line(float x, float y, float w, float h, Vector2D vel) {
         super(x, y, w, h, vel);

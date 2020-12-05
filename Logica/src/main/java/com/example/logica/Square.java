@@ -4,13 +4,14 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 
 public class Square extends GameObject {
+    //Los cuadrados que usaremos para indicar las vidas al jugador
     public Square(float x, float y, float w, float h, Vector2D vel) {
         super(x, y, w, h, vel);
     }
 
     @Override
     public void render(Graphics g) {
-        if(visible) {
+        if (visible) {
             g.save();
             g.setColor("player");
             g.drawLine((int) _x, (int) _y, (int) (_x + _w), (int) _y);

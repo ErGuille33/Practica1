@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -23,10 +22,11 @@ public class PCGraphics implements Graphics {
 
     }
 
+    //Creamos una nueva fuente si esta no ha sido creada ya y la aplicamos
     public com.example.pcengine.Font newFont(String filename, float size, boolean isBold, int numFont) throws Exception {
 
         if (_font[numFont] == null)
-            _font[numFont]= new com.example.pcengine.Font(filename, size, isBold);
+            _font[numFont] = new com.example.pcengine.Font(filename, size, isBold);
 
         _graphics.setFont(_font[numFont].f);
         return _font[(numFont)];
@@ -59,6 +59,8 @@ public class PCGraphics implements Graphics {
         ((Graphics2D) _graphics).setTransform(_state);
     }
 
+    //Elegimos en un principio introducir un string del color en vez de su valor directamente ya que consideramos
+    //que de esta manera nos facilitaria el trabajo a la hora de escoger el color adecuado desde la logica.
     public void setColor(String color) {
         Color c = Color.white;
         switch (color.toLowerCase()) {
@@ -132,6 +134,7 @@ public class PCGraphics implements Graphics {
     }
 
     @Override
+    //Metodo util para el correcto reescalado de la pantalla. Devuelve el el ancho o el alto dependiendo de cual es mayor
     public float calculateSize() {
         float aux1 = 0;
         float aux2 = 0;
@@ -144,6 +147,7 @@ public class PCGraphics implements Graphics {
         else return aux2;
     }
 
+    //Array de fuentes creadas
     com.example.pcengine.Font[] _font;
     JFrame _frame;
     java.awt.Graphics _graphics;

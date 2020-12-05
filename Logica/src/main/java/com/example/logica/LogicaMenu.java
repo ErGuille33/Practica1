@@ -16,6 +16,7 @@ public class LogicaMenu {
         _buttons = new ArrayList();
     }
 
+    //Iniciamos los botones
     public void init() throws Exception {
         Boton easyGame = new Boton(-305, 90, 305, 50, "game", _logica);
         _buttons.add(easyGame);
@@ -23,6 +24,7 @@ public class LogicaMenu {
         _buttons.add(diffGame);
     }
 
+    //Renderizamos todo el texto
     public void render(Graphics g) throws Exception {
         g.setColor("black");
         g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
@@ -57,9 +59,10 @@ public class LogicaMenu {
 
     }
 
+    //Input de los botones
     public void handleInput(List<Input.TouchEvent> te) {
-        for(int i = 0; i < _buttons.size(); i++) {
-            for(int j = 0; j < te.size(); j++) {
+        for (int i = 0; i < _buttons.size(); i++) {
+            for (int j = 0; j < te.size(); j++) {
                 _buttons.get(i).handleInput(te.get(j));
             }
         }
@@ -67,13 +70,10 @@ public class LogicaMenu {
     }
 
     public void update(float deltaTime) {
-
     }
 
     List<Boton> _buttons;
 
-    Font fuente1;
-    Font fuente2;
     Logica _logica;
     Engine _engine;
 }

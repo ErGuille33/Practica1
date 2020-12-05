@@ -5,11 +5,7 @@ import com.example.engine.Graphics;
 import com.example.engine.Input;
 import com.example.engine.Logica;
 
-import java.awt.BorderLayout;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.swing.JFrame;
@@ -17,8 +13,8 @@ import javax.swing.JFrame;
 
 public class PcEngine implements Engine {
 
-    public PcEngine(Logica _logic, JFrame frame){
-        logica=_logic;
+    public PcEngine(Logica _logic, JFrame frame) {
+        logica = _logic;
         _frame = frame;
     }
 
@@ -33,9 +29,8 @@ public class PcEngine implements Engine {
     public InputStream openInputStream(String filename) {
         InputStream is = null;
         try {
-             is = new FileInputStream("assets/" +filename);
-        }
-        catch (Exception e) {
+            is = new FileInputStream("assets/" + filename);
+        } catch (Exception e) {
             System.err.println("Error cargando el archivo: " + e);
             return null;
         }
@@ -43,10 +38,9 @@ public class PcEngine implements Engine {
     }
 
 
-
     @Override
     public void update(double deltaTime) {
-        logica.update((float)deltaTime);
+        logica.update((float) deltaTime);
     }
 
 
@@ -68,6 +62,7 @@ public class PcEngine implements Engine {
 
 
     @Override
+    //Bucle principal del juego
     public boolean running() throws Exception {
 
         _graphics = new PCGraphics(_frame);
@@ -77,7 +72,7 @@ public class PcEngine implements Engine {
 
         long lastTime = System.nanoTime();
         logica.init();
-        while(_running){
+        while (_running) {
             long currentTime = System.nanoTime();
             double nanoElapsedTime = currentTime - lastTime;
             double deltaTime = nanoElapsedTime / 1e9;
@@ -97,9 +92,9 @@ public class PcEngine implements Engine {
                     } finally {
                         graphicsAwt.dispose();
                     }
-                } while(_frame.getBufferStrategy().contentsRestored());
+                } while (_frame.getBufferStrategy().contentsRestored());
                 _frame.getBufferStrategy().show();
-            } while(_frame.getBufferStrategy().contentsLost());
+            } while (_frame.getBufferStrategy().contentsLost());
         }
         return true;
     }
@@ -107,7 +102,6 @@ public class PcEngine implements Engine {
     protected PCGraphics _graphics;
     Logica logica;
     protected PcInput _input;
-    boolean _exit = false;
     java.awt.Graphics graphicsAwt;
 
     JFrame _frame;

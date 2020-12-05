@@ -1,5 +1,6 @@
 package com.example.logica;
 
+//Clase consistente unicamente en un punto
 public class Coordenada {
     Coordenada(float x, float y){
         _x = x;
