@@ -229,7 +229,7 @@ public class LogicaNiveles {
 
             g.scale(g.calculateSize());
 
-            g.newFont("BungeeHairline-Regular.ttf", 15, false, 0);
+            g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
             g.setColor("white");
             g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
@@ -270,7 +270,7 @@ public class LogicaNiveles {
                 }
                 g.setColor("white");
 
-                g.drawText("SCORE: " + (totalMonedas), (int) (-35), (int) (-60));
+                g.drawText("SCORE: " + (totalMonedas), (int) (-38), (int) (-60));
             }
     }
 
