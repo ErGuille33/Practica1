@@ -17,16 +17,16 @@ public class LogicaMenu {
     }
 
     public void init() throws Exception {
-        Boton easyGame = new Boton(-305, 90, 305, 50, "game", _logica);
+        Boton easyGame = new Boton(-305, 90, 400, 30, "game", _logica);
         _buttons.add(easyGame);
-        Boton diffGame = new Boton(-305, 150, 305, 50, "diffgame", _logica);
+        Boton diffGame = new Boton(-305, 150, 400, 30, "diffgame", _logica);
         _buttons.add(diffGame);
     }
 
     public void render(Graphics g) throws Exception {
         g.setColor("black");
         g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
-
+        g.save();
         g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
 
         g.scale(g.calculateSize());
@@ -54,6 +54,7 @@ public class LogicaMenu {
         g.newFont("Bungee-Regular.ttf", 15, false, 8);
         g.setColor("gray");
         g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150));
+        g.restore();
 
     }
 
@@ -67,7 +68,9 @@ public class LogicaMenu {
     }
 
     public void update(float deltaTime) {
-
+        for(int i = 0; i < _buttons.size(); i++) {
+            _buttons.get(i).update(deltaTime);
+        }
     }
 
     List<Boton> _buttons;
