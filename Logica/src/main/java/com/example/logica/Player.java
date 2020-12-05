@@ -155,7 +155,7 @@ public class Player extends Character {
         int j = 0;
         segmentCroos = null;
         //Distancia minima para empezar a detectar
-        if (distancePlayer > 10) {
+        if (distancePlayer > 30) {
             while (!coll && i < lpSegments.size()) {
                 while (!coll && j < lpSegments.get(i).segments.size()) {
                     //Que no colisione consigo mismo
