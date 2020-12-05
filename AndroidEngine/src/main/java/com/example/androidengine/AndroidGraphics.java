@@ -14,6 +14,7 @@ public class AndroidGraphics implements Graphics {
     public void setCanvas(Canvas canvas) {
         _c = canvas;
         _font = new com.example.androidengine.Font[25];
+        _p.setStrokeWidth((float) 1.5);
     }
 
     @Override
@@ -88,6 +89,7 @@ public class AndroidGraphics implements Graphics {
     }
     public void drawLine(int x1, int y1, int x2, int y2) {
         _c.drawLine(x1, y1, x2, y2, _p);
+
     }
     public void fillRect(int x1, int y1, int x2, int y2) {
         Rect r = new Rect(x1, y1, x2, y2);
