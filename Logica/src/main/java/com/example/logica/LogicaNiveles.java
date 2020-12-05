@@ -316,6 +316,7 @@ public class LogicaNiveles {
         else {
             for (int j = 0; j < te.size(); j++) {
                 _logica.startMenu();
+                te.clear();
             }
         }
 
