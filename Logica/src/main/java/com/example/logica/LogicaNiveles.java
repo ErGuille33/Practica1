@@ -303,6 +303,9 @@ public class LogicaNiveles {
 
             te.clear();
         }
+        else {
+            _logica.startMenu();
+        }
     }
 
     public void pasaNivel(boolean same) {

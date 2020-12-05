@@ -50,10 +50,10 @@ public class Logica implements com.example.engine.Logica {
         _engine = engine;
     }
 
-    public void startLevelState() {
+    public void startLevelState(int dif) {
         levelState = true;
         menuState = false;
-        logicaNiveles = new LogicaNiveles(_engine, this, 0);
+        logicaNiveles = new LogicaNiveles(_engine, this, dif);
         try {
             initGame();
         } catch (Exception e) {
@@ -70,6 +70,20 @@ public class Logica implements com.example.engine.Logica {
             logicaMenu.init();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void processButton(String action) {
+        switch (action) {
+            case "menu":
+                startMenu();
+                break;
+            case "game":
+                startLevelState(0);
+                break;
+            case "diffgame":
+                startLevelState(1);
+                break;
         }
     }
 

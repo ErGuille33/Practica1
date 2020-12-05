@@ -5,6 +5,7 @@ import com.example.engine.Font;
 import com.example.engine.Graphics;
 import com.example.engine.Input;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LogicaMenu {
@@ -12,10 +13,14 @@ public class LogicaMenu {
     LogicaMenu(Engine engine, Logica logica) {
         _engine = engine;
         _logica = logica;
-
+        _buttons = new ArrayList();
     }
 
     public void init() throws Exception {
+        Boton easyGame = new Boton(-305, 90, 305, 50, "game", _logica);
+        _buttons.add(easyGame);
+        Boton diffGame = new Boton(-305, 150, 305, 50, "diffgame", _logica);
+        _buttons.add(diffGame);
     }
 
     public void render(Graphics g) throws Exception {
@@ -25,6 +30,7 @@ public class LogicaMenu {
         g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
 
         g.scale(g.calculateSize());
+
         g.newFont("Bungee-Regular.ttf", 50, true, 1);
         g.setColor("player");
         g.drawText("OFF THE LINE", (int) (-310), (int) (-150));
@@ -49,16 +55,22 @@ public class LogicaMenu {
         g.setColor("gray");
         g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150));
 
-
     }
 
     public void handleInput(List<Input.TouchEvent> te) {
-
+        for(int i = 0; i < _buttons.size(); i++) {
+            for(int j = 0; j < te.size(); j++) {
+                _buttons.get(i).handleInput(te.get(j));
+            }
+        }
+        te.clear();
     }
 
     public void update(float deltaTime) {
 
     }
+
+    List<Boton> _buttons;
 
     Font fuente1;
     Font fuente2;
