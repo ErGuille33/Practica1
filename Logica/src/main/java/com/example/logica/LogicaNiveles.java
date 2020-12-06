@@ -182,7 +182,7 @@ public class LogicaNiveles {
 
     public void update(float deltaTime) {
         //Si no ha acabado la partida
-        if (!gameOver) {
+        if (!gameOver && !win) {
 
             for (int i = 0; i < _coins.size(); i++) {
                 _coins.get(i).update(deltaTime);
@@ -229,6 +229,16 @@ public class LogicaNiveles {
 
                 }
             }
+            //Update solo si se ha completado el juego
+        } else if (win) {
+            colorWin += deltaTime;
+
+
+            if (colorWin > 1){
+                colorWin = 0;
+            }
+
+
         }
     }
 
@@ -283,11 +293,38 @@ public class LogicaNiveles {
             g.setColor("white");
 
             g.drawText("SCORE: " + (totalMonedas), (int) (-38), (int) (-60));
+            //Renderizar solo si hemos ganado el juego
+        } else if (win) {
+            g.setColor("darkGray");
+            g.fillRect(-500, 50, 500, 180);
+
+            g.newFont("Bungee-Regular.ttf", 50, true, 1);
+            if (colorWin < .5) {
+                g.setColor("red");
+            } else {
+                g.setColor("yellow");
+
+            }
+
+
+            g.drawText("Congratulations", (int) (-250), (int) (-130));
+
+            g.newFont("Bungee-Regular.ttf", 20, true, 2);
+            g.setColor("white");
+            if (_difficulty == 0) {
+                g.drawText("EASY MODE COMPLETE", (int) (-130), (int) (-90));
+            } else {
+                g.drawText("HARD MODE COMPLETE", (int) (-130), (int) (-90));
+            }
+            g.setColor("white");
+
+            g.drawText("CICK TO QUIT TO MAIN MENU", (int) (-160), (int) (-60));
         }
     }
 
+
     public void handleInput(List<Input.TouchEvent> te) {
-        if (!gameOver) {
+        if (!gameOver && !win) {
             for (int i = 0; i < _coins.size(); i++) {
                 for (int j = 0; j < te.size(); j++) {
                     Input.TouchEvent e = te.get(j);
@@ -312,8 +349,8 @@ public class LogicaNiveles {
             }
 
             te.clear();
-        }
-        else {
+
+        } else { //Solo si se ha perdido o completado el juego
             for (int j = 0; j < te.size(); j++) {
                 _logica.startMenu();
                 te.clear();
@@ -333,8 +370,10 @@ public class LogicaNiveles {
         //Si pasamos de nivel
         if (!same) {
             _level++;
-            if (_level >= 20)
-                _logica.startMenu();
+            if (_level >= 20) {
+                win = true;
+                _level--;
+            }
         }
 
         //Si nos quedamos sin vidas
@@ -391,6 +430,8 @@ public class LogicaNiveles {
     boolean _waitNextlvl = false;
     boolean _waitSame = false;
     boolean gameOver = false;
+    boolean win = false;
+    float colorWin = 0;
 
     //Variables necesarias para la logica
     int _difficulty;
