@@ -18,9 +18,9 @@ public class LogicaMenu {
 
     //Iniciamos los botones
     public void init() throws Exception {
-        Boton easyGame = new Boton(-305, 90, 400, 30, "game", _logica);
+        Boton easyGame = new Boton(-305, 90, 400, 20, "game", _logica);
         _buttons.add(easyGame);
-        Boton diffGame = new Boton(-305, 150, 400, 30, "diffgame", _logica);
+        Boton diffGame = new Boton(-305, 150, 400, 20, "diffgame", _logica);
         _buttons.add(diffGame);
     }
 
