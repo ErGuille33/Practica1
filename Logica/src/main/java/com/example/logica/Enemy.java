@@ -19,6 +19,7 @@ public class Enemy extends GameObject {
         _vel.setY(_fy - _y);
         if(_vel.getX()!=0 && _vel.getY()!=0) _vel.normalize();
 
+        //Actualizar la posicion logica de los extremos
         _x1 = _x + (_length/2)*(float)Math.cos(Math.toRadians(_angle));
         _y1 = _y + (_length/2)*(float)Math.sin(Math.toRadians(_angle));
         _x2 = _x - (_length/2)*(float)Math.cos(Math.toRadians(_angle));
@@ -38,6 +39,7 @@ public class Enemy extends GameObject {
     public void update(float deltaTime) {
         _rot+=(_speed)*deltaTime;
 
+        //Actualizar la posicion logica de los extremos
         _x1 = _x + (_length / 2) * (float) Math.cos(Math.toRadians(_rot + _angle));
         _y1 = _y + (_length / 2) * (float) Math.sin(Math.toRadians(_rot + _angle));
         _x2 = _x - (_length / 2) * (float) Math.cos(Math.toRadians(_rot + _angle));

@@ -9,6 +9,7 @@ public class Character extends GameObject {
 
     public Character(float x, float y, float w, float h, Vector2D vel) {
         super(x, y, w, h, vel);
+        //Para que la xy logica este en el centro del cuadrado
         logicX =_x + _w/2;
         logicY = _y + _h/2;
     }
