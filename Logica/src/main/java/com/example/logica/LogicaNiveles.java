@@ -16,7 +16,7 @@ import static com.example.logica.Collisions.distancePointPoint;
 //conveniente de hacerlo para que se siga renderizando el nivel detras.
 
 public class LogicaNiveles {
-    LogicaNiveles(Engine engine, Logica logica, int difficulty) {
+    LogicaNiveles(Engine engine, Logica logica, int difficulty) throws Exception {
         //Inicializamos las variables que seran globales durante el transcurso de toda la partida y los datos de entrada.
 
         _engine = engine;
@@ -43,6 +43,11 @@ public class LogicaNiveles {
         }
         gameOver = false;
         totalMonedas = 0;
+
+        _fonts[0] = _engine.getGraphics().newFont("Fuentes/BungeeHairline-Regular.ttf", 15, true);
+        _fonts[1] = _engine.getGraphics().newFont("Fuentes/Bungee-Regular.ttf", 20, true);
+        _fonts[2] = _engine.getGraphics().newFont("Fuentes/Bungee-Regular.ttf", 50, true);
+
     }
 
     //Cargamos el nivel concreto en el que se encuentra el jugador
@@ -246,7 +251,7 @@ public class LogicaNiveles {
 
         g.clear(0xFF000000);
 
-        g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
+        g.setFont(_fonts[0]);
         g.setColor(0xFFFFFFFF);
         g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
@@ -274,11 +279,11 @@ public class LogicaNiveles {
             g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
-            g.newFont("Bungee-Regular.ttf", 50, true, 1);
+            g.setFont(_fonts[2]);
             g.setColor(0xFFFF0000);
             g.drawText("Game Over", (int) (-150), (int) (-130));
 
-            g.newFont("Bungee-Regular.ttf", 20, true, 2);
+            g.setFont(_fonts[1]);
             g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE", (int) (-50), (int) (-90));
@@ -293,7 +298,7 @@ public class LogicaNiveles {
             g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
-            g.newFont("Bungee-Regular.ttf", 50, true, 1);
+            g.setFont(_fonts[2]);
             if (colorWin < .5) {
                 g.setColor(0xFFFF0000);
             } else {
@@ -304,7 +309,7 @@ public class LogicaNiveles {
 
             g.drawText("Congratulations", (int) (-250), (int) (-130));
 
-            g.newFont("Bungee-Regular.ttf", 20, true, 2);
+            g.setFont(_fonts[1]);
             g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE COMPLETE", (int) (-130), (int) (-90));
@@ -408,6 +413,8 @@ public class LogicaNiveles {
     Coordenada pastAux;
     Coordenada collisionCoord = null;
     Segmento auxSegmento;
+
+    Font _fonts[] = new Font[6];
 
     //Datos del nivel actual
     Nivel nivelActual;

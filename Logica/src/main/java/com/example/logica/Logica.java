@@ -87,7 +87,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     //Para servir de transicion entre el menu y el comienzo del juego
-    public void processButton(String action) {
+    public void processButton(String action) throws Exception {
         switch (action) {
             case "menu":
                 startMenu();

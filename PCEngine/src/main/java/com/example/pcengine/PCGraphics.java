@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import java.awt.geom.AffineTransform;
+import java.io.InputStream;
 
 import javax.swing.JFrame;
 
@@ -22,16 +23,18 @@ public class PCGraphics implements Graphics {
 
     }
 
-    //Creamos una nueva fuente si esta no ha sido creada ya y la aplicamos
-    public com.example.pcengine.Font newFont(String filename, float size, boolean isBold, int numFont) throws Exception {
+    //Creamos una nueva fuente y la aplicamos
 
-        if (_font[numFont] == null)
-            _font[numFont] = new com.example.pcengine.Font(filename, size, isBold);
-
-        _graphics.setFont(_font[numFont].f);
-        return _font[(numFont)];
+    @Override
+    public com.example.engine.Font newFont(String filename, float size, boolean isBold) throws Exception {
+        return new com.example.pcengine.Font(filename, size, isBold);
     }
 
+    @Override
+    public void setFont(com.example.engine.Font font) {
+        Font f = (Font)font;
+        _graphics.setFont(f.getFont());
+    }
 
     public void clear(int color) {
         setColor(color);

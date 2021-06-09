@@ -1,7 +1,8 @@
 package com.example.engine;
 
 public interface Graphics {
-    public Font newFont(String filename, float size, boolean isBold,int numFont)throws Exception;
+    public Font newFont(String filename, float size, boolean isBold)throws Exception;
+    public void setFont(Font font);
 
     public void clear(int color);
     public void translate(int x,int y);
