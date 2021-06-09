@@ -14,6 +14,8 @@ public class Logica implements com.example.engine.Logica {
     }
 
     public void init() throws Exception {
+        _engine.getGraphics().setBaseWidth(640);
+        _engine.getGraphics().setBaseHeight(480);
         startMenu();
     }
 

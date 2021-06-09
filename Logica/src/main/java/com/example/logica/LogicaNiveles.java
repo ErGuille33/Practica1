@@ -245,11 +245,7 @@ public class LogicaNiveles {
     public void render(Graphics g) throws Exception {
 
         g.setColor(0xFF000000);
-        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
-
-        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
-
-        g.scale(g.calculateSize());
+        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
 
         g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
         g.setColor(0xFFFFFFFF);

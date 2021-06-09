@@ -27,11 +27,9 @@ public class LogicaMenu {
     //Renderizamos todo el texto
     public void render(Graphics g) throws Exception {
         g.setColor(0xFF000000);
-        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
-        g.save();
-        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
 
-        g.scale(g.calculateSize());
+        g.save();
 
         g.newFont("Bungee-Regular.ttf", 50, true, 3);
         g.setColor(0xFF00EEFF);

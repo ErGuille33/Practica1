@@ -23,6 +23,9 @@ public interface Graphics {
     public float getBaseWidth();
     public float getBaseHeight();
 
+    public void setBaseWidth(float w);
+    public void setBaseHeight(float h);
+
     public float calculateSize();
 
 

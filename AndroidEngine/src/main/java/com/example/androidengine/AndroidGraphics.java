@@ -88,12 +88,12 @@ public class AndroidGraphics implements Graphics {
         return _c.getHeight();
     }
 
-    public int getBaseWidth() {
-        return 640;
+    public float getBaseWidth() {
+        return width_;
     }
 
-    public int getBaseHeight() {
-        return 480;
+    public float getBaseHeight() {
+        return height_;
     }
 
     //Metodo util para el correcto reescalado de la pantalla. Devuelve el el ancho o el alto dependiendo de cual es mayor
@@ -109,10 +109,25 @@ public class AndroidGraphics implements Graphics {
         else return aux2;
     }
 
+    @Override
+    public void setBaseWidth(float w) {
+        width_ = w;
+    }
+
+    @Override
+    public void setBaseHeight(float h) {
+        height_ = h;
+    }
+
+
     public void getContext(Context _context) {
         context = _context;
     }
 
+
+
+    float width_;
+    float height_;
     //Array de fuentes creadas
     com.example.androidengine.Font[] _font;
     Canvas _c;

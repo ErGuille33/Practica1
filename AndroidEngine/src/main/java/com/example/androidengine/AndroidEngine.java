@@ -48,6 +48,10 @@ public class AndroidEngine implements Engine, Runnable {
     }
 
     public void render(Graphics g) throws Exception {
+        //calculateSize
+        _ag.clear(0xFF000000);
+        _ag.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+        _ag.scale(g.calculateSize());
         logica.render(g);
     }
 

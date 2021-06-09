@@ -89,14 +89,6 @@ public class PCGraphics implements Graphics {
         return _frame.getHeight();
     }
 
-    public float getBaseWidth() {
-        return 640;
-    }
-
-    public float getBaseHeight() {
-        return 480;
-    }
-
     @Override
     //Metodo util para el correcto reescalado de la pantalla. Devuelve el el ancho o el alto dependiendo de cual es mayor
     public float calculateSize() {
@@ -110,6 +102,29 @@ public class PCGraphics implements Graphics {
             return aux1;
         else return aux2;
     }
+
+    @Override
+    public void setBaseWidth(float w) {
+        width_ = w;
+    }
+
+    @Override
+    public void setBaseHeight(float h) {
+        height_ = h;
+    }
+
+    @Override
+    public float getBaseWidth() {
+        return width_;
+    }
+
+    @Override
+    public float getBaseHeight() {
+        return height_;
+    }
+
+    float width_;
+    float height_;
 
     //Array de fuentes creadas
     com.example.pcengine.Font[] _font;
