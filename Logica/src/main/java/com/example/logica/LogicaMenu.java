@@ -31,12 +31,10 @@ public class LogicaMenu {
 
     //Renderizamos todo el texto
     public void render(Graphics g) throws Exception {
-        g.setColor("black");
-        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
-        g.save();
-        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+        g.setColor(0xFF000000);
+        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
 
-        g.scale(g.calculateSize());
+        g.save();
 
         g.setFont(_fonts[0]);
         g.setColor("player");
@@ -60,7 +58,7 @@ public class LogicaMenu {
 
         g.setFont(_fonts[3]);
         g.setColor("gray");
-        g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150));
+        g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150)); 
         g.restore();
 
 

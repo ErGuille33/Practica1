@@ -33,7 +33,7 @@ public class AndroidGraphics implements Graphics {
         _p.setTextSize(f._size);
     }
 
-    public void clear(String color) {
+    public void clear(int color) {
         setColor(color);
         fillRect(0, 0, _c.getWidth(), _c.getHeight());
     }
@@ -61,42 +61,8 @@ public class AndroidGraphics implements Graphics {
 
     //Elegimos en un principio introducir un string del color en vez de su valor RGBA directamente ya que consideramos
     //que de esta manera nos facilitaria el trabajo a la hora de escoger el color adecuado desde la logica.
-    public void setColor(String color) {
-        switch (color.toLowerCase()) {
-            case "enemy":
-                _p.setARGB(255, 255, 0, 0);
-                break;
-            case "player":
-                _p.setARGB(255, 0, 136, 255);
-                break;
-            case "black":
-                _p.setColor(Color.BLACK);
-                break;
-            case "blue":
-                _p.setColor(Color.BLUE);
-                break;
-            case "cyan":
-                _p.setColor(Color.CYAN);
-                break;
-            case "darkgray":
-                _p.setColor(Color.DKGRAY);
-                break;
-            case "gray":
-                _p.setColor(Color.GRAY);
-                break;
-            case "green":
-                _p.setColor(Color.GREEN);
-                break;
-            case "yellow":
-                _p.setColor(Color.YELLOW);
-                break;
-            case "red":
-                _p.setColor(Color.RED);
-                break;
-            case "white":
-                _p.setColor(Color.WHITE);
-                break;
-        }
+    public void setColor(int color) {
+        _p.setColor(color);
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
@@ -126,12 +92,12 @@ public class AndroidGraphics implements Graphics {
         return _c.getHeight();
     }
 
-    public int getBaseWidth() {
-        return 640;
+    public float getBaseWidth() {
+        return width_;
     }
 
-    public int getBaseHeight() {
-        return 480;
+    public float getBaseHeight() {
+        return height_;
     }
 
     //Metodo util para el correcto reescalado de la pantalla. Devuelve el el ancho o el alto dependiendo de cual es mayor
@@ -147,10 +113,25 @@ public class AndroidGraphics implements Graphics {
         else return aux2;
     }
 
+    @Override
+    public void setBaseWidth(float w) {
+        width_ = w;
+    }
+
+    @Override
+    public void setBaseHeight(float h) {
+        height_ = h;
+    }
+
+
     public void getContext(Context _context) {
         context = _context;
     }
 
+
+
+    float width_;
+    float height_;
     //Array de fuentes creadas
     com.example.androidengine.Font[] _font;
     Canvas _c;

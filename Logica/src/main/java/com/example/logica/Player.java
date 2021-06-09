@@ -68,7 +68,7 @@ public class Player extends Character {
 
 
     public void render(Graphics g) {
-        g.setColor("player");
+        g.setColor(0xFF00EEFF);
         if (dead) {
             for (Line lin : destroyedSegments
             ) {

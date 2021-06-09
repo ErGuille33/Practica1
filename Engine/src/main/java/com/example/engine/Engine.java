@@ -10,12 +10,6 @@ public interface Engine {
     Input getInput();
     InputStream openInputStream(String filename) throws IOException;
 
-    void update(double deltaTime);
-
-    void render(Graphics g) throws Exception;
-
     float getGrowthFactor();
-
-    boolean running() throws Exception;
 
 }

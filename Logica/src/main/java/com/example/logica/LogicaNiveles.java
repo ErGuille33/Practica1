@@ -249,12 +249,8 @@ public class LogicaNiveles {
 
     public void render(Graphics g) throws Exception {
 
-        g.setColor("black");
-        g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
-
-        g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
-
-        g.scale(g.calculateSize());
+        g.setColor(0xFF000000);
+        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
 
         g.setFont(_fonts[0]);
         g.setColor("white");
@@ -281,7 +277,7 @@ public class LogicaNiveles {
         //Renderizar solo si hemos perdido el juego
         if (gameOver) {
 
-            g.setColor("darkGray");
+            g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
             g.setFont(_fonts[2]);
@@ -295,19 +291,19 @@ public class LogicaNiveles {
             } else {
                 g.drawText("HARD MODE", (int) (-50), (int) (-90));
             }
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
 
             g.drawText("SCORE: " + (totalMonedas), (int) (-38), (int) (-60));
             //Renderizar solo si hemos ganado el juego
         } else if (win) {
-            g.setColor("darkGray");
+            g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
             g.setFont(_fonts[2]);
             if (colorWin < .5) {
-                g.setColor("red");
+                g.setColor(0xFFFF0000);
             } else {
-                g.setColor("yellow");
+                g.setColor(0xFFFFFF00);
 
             }
 
@@ -321,7 +317,7 @@ public class LogicaNiveles {
             } else {
                 g.drawText("HARD MODE COMPLETE", (int) (-130), (int) (-90));
             }
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
 
             g.drawText("CICK TO QUIT TO MAIN MENU", (int) (-160), (int) (-60));
         }

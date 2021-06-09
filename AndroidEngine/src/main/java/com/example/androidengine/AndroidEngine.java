@@ -39,7 +39,6 @@ public class AndroidEngine implements Engine, Runnable {
         return context.getAssets().open(filename);
     }
 
-    @Override
     public void update(double deltaTime) {
         logica.update((float) deltaTime);
     }
@@ -48,8 +47,11 @@ public class AndroidEngine implements Engine, Runnable {
         logica.handleInput(_input.getTouchEvents());
     }
 
-    @Override
     public void render(Graphics g) throws Exception {
+        //calculateSize
+        _ag.clear(0xFF000000);
+        _ag.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
+        _ag.scale(g.calculateSize());
         logica.render(g);
     }
 
@@ -59,7 +61,6 @@ public class AndroidEngine implements Engine, Runnable {
         return 10;
     }
 
-    @Override
     //Bucle principal
     public boolean running() throws Exception {
         //Inicializamos varialbes y clases que usaremos
@@ -116,7 +117,6 @@ public class AndroidEngine implements Engine, Runnable {
         while (_running && _sv.getWidth() == 0) {
         }
 
-        System.out.println("Runeando aki el android gente");
 
         try {
             running();

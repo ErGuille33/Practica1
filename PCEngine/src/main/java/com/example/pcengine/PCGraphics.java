@@ -36,7 +36,7 @@ public class PCGraphics implements Graphics {
         _graphics.setFont(f.getFont());
     }
 
-    public void clear(String color) {
+    public void clear(int color) {
         setColor(color);
         _graphics.clearRect(0, 0, (int) getWidth(), (int) getHeight());
     }
@@ -64,44 +64,8 @@ public class PCGraphics implements Graphics {
 
     //Elegimos en un principio introducir un string del color en vez de su valor directamente ya que consideramos
     //que de esta manera nos facilitaria el trabajo a la hora de escoger el color adecuado desde la logica.
-    public void setColor(String color) {
-        Color c = Color.white;
-        switch (color.toLowerCase()) {
-            case "enemy":
-                c = new Color((float) 255 / 255, (float) 0, (float) 0);
-                break;
-            case "player":
-                c = new Color((float) 0, (float) 136 / 255, (float) 255 / 255);
-                break;
-            case "black":
-                c = Color.BLACK;
-                break;
-            case "blue":
-                c = Color.BLUE;
-                break;
-            case "cyan":
-                c = Color.CYAN;
-                break;
-            case "darkgray":
-                c = Color.DARK_GRAY;
-                break;
-            case "gray":
-                c = Color.GRAY;
-                break;
-            case "green":
-                c = Color.GREEN;
-                break;
-            case "yellow":
-                c = Color.YELLOW;
-                break;
-            case "red":
-                c = Color.RED;
-                break;
-            case "white":
-                c = Color.WHITE;
-                break;
-        }
-        _graphics.setColor(c);
+    public void setColor(int color) {
+        _graphics.setColor(new Color(color));
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
@@ -128,14 +92,6 @@ public class PCGraphics implements Graphics {
         return _frame.getHeight();
     }
 
-    public int getBaseWidth() {
-        return 640;
-    }
-
-    public int getBaseHeight() {
-        return 480;
-    }
-
     @Override
     //Metodo util para el correcto reescalado de la pantalla. Devuelve el el ancho o el alto dependiendo de cual es mayor
     public float calculateSize() {
@@ -149,6 +105,29 @@ public class PCGraphics implements Graphics {
             return aux1;
         else return aux2;
     }
+
+    @Override
+    public void setBaseWidth(float w) {
+        width_ = w;
+    }
+
+    @Override
+    public void setBaseHeight(float h) {
+        height_ = h;
+    }
+
+    @Override
+    public float getBaseWidth() {
+        return width_;
+    }
+
+    @Override
+    public float getBaseHeight() {
+        return height_;
+    }
+
+    float width_;
+    float height_;
 
     //Array de fuentes creadas
     com.example.pcengine.Font[] _font;
