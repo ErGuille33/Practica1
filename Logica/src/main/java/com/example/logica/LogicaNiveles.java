@@ -253,7 +253,7 @@ public class LogicaNiveles {
         g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
 
         g.setFont(_fonts[0]);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
         for (int i = 0; i < _coins.size(); i++) {
@@ -281,11 +281,11 @@ public class LogicaNiveles {
             g.fillRect(-500, 50, 500, 180);
 
             g.setFont(_fonts[2]);
-            g.setColor("red");
+            g.setColor(0xFFFF0000);
             g.drawText("Game Over", (int) (-150), (int) (-130));
 
             g.setFont(_fonts[1]);
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE", (int) (-50), (int) (-90));
             } else {
@@ -311,7 +311,7 @@ public class LogicaNiveles {
             g.drawText("Congratulations", (int) (-250), (int) (-130));
 
             g.setFont(_fonts[1]);
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE COMPLETE", (int) (-130), (int) (-90));
             } else {

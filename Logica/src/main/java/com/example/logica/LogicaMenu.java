@@ -37,27 +37,27 @@ public class LogicaMenu {
         g.save();
 
         g.setFont(_fonts[0]);
-        g.setColor("player");
+        g.setColor(0xFF00EEFF);
         g.drawText("OFF THE LINE", (int) (-310), (int) (-150));
 
         g.setFont(_fonts[2]);
-        g.setColor("player");
+        g.setColor(0xFF00EEFF);
         g.drawText("A GAME COPIED TO BRYAN PERFETTO", (int) (-305), (int) (-120));
 
         g.setFont(_fonts[1]);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("EASY MODE", (int) (-305), (int) (90));
 
         g.setFont(_fonts[1]);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("HARD MODE", (int) (-305), (int) (150));
 
         g.setFont(_fonts[3]);
-        g.setColor("gray");
+        g.setColor(0xFF808080);
         g.drawText("(SLOW SPEED, 10 LIVES)", (int) (-115), (int) (90));
 
         g.setFont(_fonts[3]);
-        g.setColor("gray");
+        g.setColor(0xFF808080);
         g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150)); 
         g.restore();
 
