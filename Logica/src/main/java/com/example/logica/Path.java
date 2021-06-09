@@ -13,7 +13,7 @@ public class Path extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         for(int i = 0; i < _vertex.size(); i++) {
             if(i != _vertex.size()-1)
                 g.drawLine((int)_vertex.get(i)._pos.get_x(), (int)_vertex.get(i)._pos.get_y(),

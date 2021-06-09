@@ -38,19 +38,16 @@ public class PcEngine implements Engine {
     }
 
 
-    @Override
     public void update(double deltaTime) {
         logica.update((float) deltaTime);
     }
 
 
-    @Override
     public void render(Graphics g) throws Exception {
 
         logica.render(g);
     }
 
-    @Override
     //Método que devuelve el factor de cambio de tamaño a multiplicar por deltatime, que resulta no ser el mismo en android y Pc
     public float getGrowthFactor() {
         return (float) 0.2;
@@ -61,7 +58,6 @@ public class PcEngine implements Engine {
     }
 
 
-    @Override
     //Bucle principal del juego
     public boolean running() throws Exception {
 

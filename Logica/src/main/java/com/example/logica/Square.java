@@ -13,7 +13,7 @@ public class Square extends GameObject {
     public void render(Graphics g) {
         if (visible) {
             g.save();
-            g.setColor("player");
+            g.setColor(0xFF00EEFF);
             g.drawLine((int) _x, (int) _y, (int) (_x + _w), (int) _y);
             g.drawLine((int) (_x + _w), (int) _y, (int) (_x + _w), (int) (_y + _h));
             g.drawLine((int) (_x + _w), (int) (_y + _h), (int) _x, (int) (_y + _h));

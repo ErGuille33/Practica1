@@ -18,7 +18,7 @@ public class Coin extends Character {
 
     @Override
     public void render(Graphics g) {
-        g.setColor("yellow");
+        g.setColor(0xFFFFFF00);
         g.save();
         g.rotate((int) _rot2);
         g.translate((int) (_x + _w / 2), (int) (_y + _h / 2));

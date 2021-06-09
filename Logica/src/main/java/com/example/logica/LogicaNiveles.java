@@ -244,7 +244,7 @@ public class LogicaNiveles {
 
     public void render(Graphics g) throws Exception {
 
-        g.setColor("black");
+        g.setColor(0xFF000000);
         g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
 
         g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
@@ -252,7 +252,7 @@ public class LogicaNiveles {
         g.scale(g.calculateSize());
 
         g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("Level " + (_level + 1) + " - " + nivelActual._name, (int) (-300), (int) (-203));
 
         for (int i = 0; i < _coins.size(); i++) {
@@ -276,33 +276,33 @@ public class LogicaNiveles {
         //Renderizar solo si hemos perdido el juego
         if (gameOver) {
 
-            g.setColor("darkGray");
+            g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
             g.newFont("Bungee-Regular.ttf", 50, true, 1);
-            g.setColor("red");
+            g.setColor(0xFFFF0000);
             g.drawText("Game Over", (int) (-150), (int) (-130));
 
             g.newFont("Bungee-Regular.ttf", 20, true, 2);
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE", (int) (-50), (int) (-90));
             } else {
                 g.drawText("HARD MODE", (int) (-50), (int) (-90));
             }
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
 
             g.drawText("SCORE: " + (totalMonedas), (int) (-38), (int) (-60));
             //Renderizar solo si hemos ganado el juego
         } else if (win) {
-            g.setColor("darkGray");
+            g.setColor(0xFF808080);
             g.fillRect(-500, 50, 500, 180);
 
             g.newFont("Bungee-Regular.ttf", 50, true, 1);
             if (colorWin < .5) {
-                g.setColor("red");
+                g.setColor(0xFFFF0000);
             } else {
-                g.setColor("yellow");
+                g.setColor(0xFFFFFF00);
 
             }
 
@@ -310,13 +310,13 @@ public class LogicaNiveles {
             g.drawText("Congratulations", (int) (-250), (int) (-130));
 
             g.newFont("Bungee-Regular.ttf", 20, true, 2);
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
             if (_difficulty == 0) {
                 g.drawText("EASY MODE COMPLETE", (int) (-130), (int) (-90));
             } else {
                 g.drawText("HARD MODE COMPLETE", (int) (-130), (int) (-90));
             }
-            g.setColor("white");
+            g.setColor(0xFFFFFFFF);
 
             g.drawText("CICK TO QUIT TO MAIN MENU", (int) (-160), (int) (-60));
         }

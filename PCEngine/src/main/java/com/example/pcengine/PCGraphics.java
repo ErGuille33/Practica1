@@ -33,7 +33,7 @@ public class PCGraphics implements Graphics {
     }
 
 
-    public void clear(String color) {
+    public void clear(int color) {
         setColor(color);
         _graphics.clearRect(0, 0, (int) getWidth(), (int) getHeight());
     }
@@ -61,44 +61,8 @@ public class PCGraphics implements Graphics {
 
     //Elegimos en un principio introducir un string del color en vez de su valor directamente ya que consideramos
     //que de esta manera nos facilitaria el trabajo a la hora de escoger el color adecuado desde la logica.
-    public void setColor(String color) {
-        Color c = Color.white;
-        switch (color.toLowerCase()) {
-            case "enemy":
-                c = new Color((float) 255 / 255, (float) 0, (float) 0);
-                break;
-            case "player":
-                c = new Color((float) 0, (float) 136 / 255, (float) 255 / 255);
-                break;
-            case "black":
-                c = Color.BLACK;
-                break;
-            case "blue":
-                c = Color.BLUE;
-                break;
-            case "cyan":
-                c = Color.CYAN;
-                break;
-            case "darkgray":
-                c = Color.DARK_GRAY;
-                break;
-            case "gray":
-                c = Color.GRAY;
-                break;
-            case "green":
-                c = Color.GREEN;
-                break;
-            case "yellow":
-                c = Color.YELLOW;
-                break;
-            case "red":
-                c = Color.RED;
-                break;
-            case "white":
-                c = Color.WHITE;
-                break;
-        }
-        _graphics.setColor(c);
+    public void setColor(int color) {
+        _graphics.setColor(new Color(color));
     }
 
     public void drawLine(int x1, int y1, int x2, int y2) {
@@ -125,11 +89,11 @@ public class PCGraphics implements Graphics {
         return _frame.getHeight();
     }
 
-    public int getBaseWidth() {
+    public float getBaseWidth() {
         return 640;
     }
 
-    public int getBaseHeight() {
+    public float getBaseHeight() {
         return 480;
     }
 

@@ -26,7 +26,7 @@ public class LogicaMenu {
 
     //Renderizamos todo el texto
     public void render(Graphics g) throws Exception {
-        g.setColor("black");
+        g.setColor(0xFF000000);
         g.fillRect(0, 0, (int) g.getWidth(), (int) g.getHeight());
         g.save();
         g.translate((int) g.getWidth() / 2, (int) g.getHeight() / 2);
@@ -34,27 +34,27 @@ public class LogicaMenu {
         g.scale(g.calculateSize());
 
         g.newFont("Bungee-Regular.ttf", 50, true, 3);
-        g.setColor("player");
+        g.setColor(0xFF00EEFF);
         g.drawText("OFF THE LINE", (int) (-310), (int) (-150));
 
         g.newFont("Bungee-Regular.ttf", 20, false, 4);
-        g.setColor("player");
+        g.setColor(0xFF00EEFF);
         g.drawText("A GAME COPIED TO BRYAN PERFETTO", (int) (-305), (int) (-120));
 
         g.newFont("Bungee-Regular.ttf", 30, false, 5);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("EASY MODE", (int) (-305), (int) (90));
 
         g.newFont("Bungee-Regular.ttf", 30, false, 6);
-        g.setColor("white");
+        g.setColor(0xFFFFFFFF);
         g.drawText("HARD MODE", (int) (-305), (int) (150));
 
         g.newFont("Bungee-Regular.ttf", 15, false, 7);
-        g.setColor("gray");
+        g.setColor(0xFF808080);
         g.drawText("(SLOW SPEED, 10 LIVES)", (int) (-115), (int) (90));
 
         g.newFont("Bungee-Regular.ttf", 15, false, 8);
-        g.setColor("gray");
+        g.setColor(0xFF808080);
         g.drawText("(FAST SPEED, 5 LIVES)", (int) (-115), (int) (150));
         g.restore();
 

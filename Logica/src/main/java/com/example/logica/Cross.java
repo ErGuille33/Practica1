@@ -15,7 +15,7 @@ public class Cross extends GameObject{
     @Override
     public void render(Graphics g) {
         if(visible) {
-            g.setColor("red");
+            g.setColor(0xFFFF0000);
             l1.render(g);
             l2.render(g);
         }

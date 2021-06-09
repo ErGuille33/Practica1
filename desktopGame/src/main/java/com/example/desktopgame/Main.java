@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class Main {
     public static void main(String[] args) throws Exception {
         //Creamos los 3 elementos necesarios : Motor, graficos y logica
-        Engine engine;
+        PcEngine engine;
         PCGraphics _graphics;
         Logica _logic;
         boolean _exit = false;
