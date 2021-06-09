@@ -1,6 +1,7 @@
 package com.example.engine;
 
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Input {
@@ -21,11 +22,15 @@ public interface Input {
         public int getPosX(){return posX;}
         public int getPosY(){return posY;}
 
+        public Type getType(){return type;}
+
+        public int getId(){return id;}
+
         int id;
         Type type;
         int posX;
         int posY;
     }
 
-    List<TouchEvent> getTouchEvents();
+    ArrayList<TouchEvent> getTouchEvents();
 }

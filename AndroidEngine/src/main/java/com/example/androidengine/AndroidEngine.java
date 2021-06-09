@@ -55,12 +55,6 @@ public class AndroidEngine implements Engine, Runnable {
         logica.render(g);
     }
 
-    @Override
-    //Método que devuelve el factor de cambio de tamaño a multiplicar por deltatime, que resulta no ser el mismo en android y Pc
-    public float getGrowthFactor() {
-        return 10;
-    }
-
     //Bucle principal
     public boolean running() throws Exception {
         //Inicializamos varialbes y clases que usaremos

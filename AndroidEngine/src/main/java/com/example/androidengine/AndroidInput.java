@@ -26,13 +26,11 @@ public class AndroidInput implements Input {
         }
     }
 
-    public int getEvents() {
-        return _touchEvents.size();
-    }
-
     @Override
-    public List<Input.TouchEvent> getTouchEvents() {
-        return _touchEvents;
+    public ArrayList<Input.TouchEvent> getTouchEvents() {
+        ArrayList<Input.TouchEvent> aux = new ArrayList<Input.TouchEvent>(_touchEvents);
+        _touchEvents.clear();
+        return aux;
     }
 
     AndroidInput() {

@@ -26,9 +26,7 @@ public class LogicaMenu {
 
     //Renderizamos todo el texto
     public void render(Graphics g) throws Exception {
-        g.setColor(0xFF000000);
-        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
-
+        g.clear(0xFF000000);
         g.save();
 
         g.newFont("Bungee-Regular.ttf", 50, true, 3);
@@ -69,7 +67,6 @@ public class LogicaMenu {
                 _buttons.get(i).handleInput(te.get(j));
             }
         }
-        te.clear();
     }
 
     public void update(float deltaTime) {

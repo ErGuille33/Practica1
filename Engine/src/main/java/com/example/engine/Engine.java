@@ -10,6 +10,4 @@ public interface Engine {
     Input getInput();
     InputStream openInputStream(String filename) throws IOException;
 
-    float getGrowthFactor();
-
 }

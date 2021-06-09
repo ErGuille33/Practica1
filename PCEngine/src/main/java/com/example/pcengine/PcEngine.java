@@ -51,15 +51,9 @@ public class PcEngine implements Engine {
         logica.render(g);
     }
 
-    //Método que devuelve el factor de cambio de tamaño a multiplicar por deltatime, que resulta no ser el mismo en android y Pc
-    public float getGrowthFactor() {
-        return (float) 0.2;
-    }
-
     public void handleInput() {
         logica.handleInput(_input.getTouchEvents());
     }
-
 
     //Bucle principal del juego
     public boolean running() throws Exception {

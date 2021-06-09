@@ -31,7 +31,7 @@ public class AndroidGraphics implements Graphics {
 
     public void clear(int color) {
         setColor(color);
-        fillRect(0, 0, _c.getWidth(), _c.getHeight());
+        fillRect(-_c.getWidth()/2, -_c.getHeight()/2, _c.getWidth(), _c.getHeight());
     }
 
     public void translate(int x, int y) {

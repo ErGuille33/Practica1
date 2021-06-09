@@ -116,7 +116,7 @@ public class LogicaNiveles {
             }
             if (c.destroyingCoin) {
                 //Crecimiento de la moneda
-                c.changeInSize += _engine.getGrowthFactor() * deltaTime;
+                c.changeInSize += deltaTime;
                 c.setH(c._h + c.changeInSize);
                 c.setW(c._w + c.changeInSize);
             }
@@ -244,8 +244,7 @@ public class LogicaNiveles {
 
     public void render(Graphics g) throws Exception {
 
-        g.setColor(0xFF000000);
-        g.fillRect((int)-g.getWidth()/2, (int)-g.getHeight()/2, (int) g.getWidth(), (int) g.getHeight());
+        g.clear(0xFF000000);
 
         g.newFont("BungeeHairline-Regular.ttf", 15, true, 0);
         g.setColor(0xFFFFFFFF);
@@ -288,7 +287,7 @@ public class LogicaNiveles {
             }
             g.setColor(0xFFFFFFFF);
 
-            g.drawText("SCORE: " + (totalMonedas), (int) (-38), (int) (-60));
+            g.drawText("SCORE: " + (_level), (int) (-38), (int) (-60));
             //Renderizar solo si hemos ganado el juego
         } else if (win) {
             g.setColor(0xFF808080);
@@ -344,12 +343,9 @@ public class LogicaNiveles {
                 player.handleInput(e);
             }
 
-            te.clear();
-
         } else { //Solo si se ha perdido o completado el juego
             for (int j = 0; j < te.size(); j++) {
                 _logica.startMenu();
-                te.clear();
             }
         }
 

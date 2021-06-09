@@ -35,7 +35,7 @@ public class PCGraphics implements Graphics {
 
     public void clear(int color) {
         setColor(color);
-        _graphics.clearRect(0, 0, (int) getWidth(), (int) getHeight());
+        fillRect((int)-getWidth()/2, (int)-getHeight()/2, (int) getWidth(), (int) getHeight());
     }
 
     public void translate(int x, int y) {

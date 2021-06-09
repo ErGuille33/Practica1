@@ -9,6 +9,8 @@ import java.util.List;
 //Clase anterior a la logica concreta de los niveles y del menu. Consiste simplemente en decidir en cual de los dos estados estamos, y crearlos.
 public class Logica implements com.example.engine.Logica {
 
+    enum GameState {MENU, LEVEL};
+
     public Logica() {
 
     }
@@ -25,27 +27,36 @@ public class Logica implements com.example.engine.Logica {
 
     @Override
     public void update(float deltaTime) {
-        if (levelState)
-            logicaNiveles.update(deltaTime);
-        else if (menuState)
-            logicaMenu.update(deltaTime);
+        switch (_state) {
+            case MENU:
+                logicaMenu.update(deltaTime);
+                break;
+            case LEVEL:
+                logicaNiveles.update(deltaTime);
+                break;
+        }
     }
 
 
     public void render(Graphics g) throws Exception {
-        if (levelState)
-            logicaNiveles.render(g);
-        else if (menuState) {
-            logicaMenu.render(g);
+        switch (_state) {
+            case MENU:
+                logicaMenu.render(g);
+                break;
+            case LEVEL:
+                logicaNiveles.render(g);
+                break;
         }
-
     }
 
     public void handleInput(List<Input.TouchEvent> te) {
-        if (levelState)
-            logicaNiveles.handleInput(te);
-        else if (menuState) {
-            logicaMenu.handleInput(te);
+        switch (_state) {
+            case MENU:
+                logicaMenu.handleInput(te);
+                break;
+            case LEVEL:
+                logicaNiveles.handleInput(te);
+                break;
         }
     }
 
@@ -55,8 +66,7 @@ public class Logica implements com.example.engine.Logica {
 
     //Creamos e iniciamos el estado del juego principal
     public void startLevelState(int dif) {
-        levelState = true;
-        menuState = false;
+        _state = GameState.LEVEL;
         logicaNiveles = new LogicaNiveles(_engine, this, dif);
         try {
             initGame();
@@ -67,8 +77,7 @@ public class Logica implements com.example.engine.Logica {
 
     //Creamos e iniciamos el estado del menu
     public void startMenu() {
-        menuState = true;
-        levelState = false;
+        _state = GameState.MENU;
         logicaMenu = new LogicaMenu(_engine, this);
         try {
             logicaMenu.init();
@@ -98,9 +107,7 @@ public class Logica implements com.example.engine.Logica {
 
     LogicaMenu logicaMenu;
 
-    boolean levelState = false;
-
-    boolean menuState = false;
+    GameState _state;
 
 
 }

@@ -41,13 +41,11 @@ public class PcInput implements Input {
         _touchEvents = new ArrayList();
     }
 
-    public int getEvents() {
-        return _touchEvents.size();
-    }
-
     @Override
-    public List<TouchEvent> getTouchEvents() {
-        return _touchEvents;
+    synchronized public ArrayList<TouchEvent> getTouchEvents() {
+        ArrayList<TouchEvent> aux = new ArrayList<TouchEvent>(_touchEvents);
+        _touchEvents.clear();
+        return aux;
     }
 
     MouseEventHandler _handler;
