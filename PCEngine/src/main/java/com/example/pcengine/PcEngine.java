@@ -56,7 +56,7 @@ public class PcEngine implements Engine {
         return (float) 0.2;
     }
 
-    public void handleInput() {
+    public void handleInput() throws Exception {
         logica.handleInput(_input.getTouchEvents());
     }
 

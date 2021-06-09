@@ -39,7 +39,7 @@ public class Logica implements com.example.engine.Logica {
 
     }
 
-    public void handleInput(List<Input.TouchEvent> te) {
+    public void handleInput(List<Input.TouchEvent> te) throws Exception {
         if (levelState)
             logicaNiveles.handleInput(te);
         else if (menuState) {
@@ -52,7 +52,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     //Creamos e iniciamos el estado del juego principal
-    public void startLevelState(int dif) {
+    public void startLevelState(int dif) throws Exception {
         levelState = true;
         menuState = false;
         logicaNiveles = new LogicaNiveles(_engine, this, dif);
@@ -76,7 +76,7 @@ public class Logica implements com.example.engine.Logica {
     }
 
     //Para servir de transicion entre el menu y el comienzo del juego
-    public void processButton(String action) {
+    public void processButton(String action) throws Exception {
         switch (action) {
             case "menu":
                 startMenu();

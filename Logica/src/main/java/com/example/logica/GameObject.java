@@ -42,7 +42,7 @@ public abstract class GameObject {
 
     public abstract void render(Graphics g);
     public abstract void update(float deltaTime);
-    public abstract void handleInput(Input.TouchEvent e);
+    public abstract void handleInput(Input.TouchEvent e) throws Exception;
 
 
     float _x, _y;

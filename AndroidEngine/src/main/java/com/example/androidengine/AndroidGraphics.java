@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import com.example.engine.Font;
+
 import com.example.engine.Graphics;
 
 public class AndroidGraphics implements Graphics {
@@ -20,13 +20,17 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     //Creamos una nueva fuente, si esta no ha sido creada ya y la aplicamos
-    public Font newFont(String filename, float size, boolean isBold, int numFont) throws Exception {
-        if (_font[numFont] == null)
-            _font[numFont] = new com.example.androidengine.Font("Fuentes/" + filename, size, isBold, context);
-        _p.setTypeface(_font[numFont].f);
-        _p.setFakeBoldText(true);
-        _p.setTextSize(size);
-        return _font[numFont];
+    public Font newFont(String filename, float size, boolean isBold) throws Exception {
+        Font ret = new Font(filename, size, isBold, context);
+        return ret;
+    }
+
+    @Override public void setFont(com.example.engine.Font font)
+    {
+        Font f = (Font)font;
+        _p.setTypeface(f.f);
+        _p.setFakeBoldText(f._isBold);
+        _p.setTextSize(f._size);
     }
 
     public void clear(String color) {

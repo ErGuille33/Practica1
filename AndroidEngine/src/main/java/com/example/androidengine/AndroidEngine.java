@@ -44,7 +44,7 @@ public class AndroidEngine implements Engine, Runnable {
         logica.update((float) deltaTime);
     }
 
-    public void handleInput() {
+    public void handleInput() throws Exception {
         logica.handleInput(_input.getTouchEvents());
     }
 
