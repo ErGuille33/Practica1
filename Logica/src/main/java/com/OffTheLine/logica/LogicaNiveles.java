@@ -217,10 +217,10 @@ public class LogicaNiveles {
             if (deadByEnemy) {
                 _waitSame = true;
             }
-            //Esperaremos 2.2 segundos si el jugador ha sido destruido y comenzaremos el mismo nivel
+            //Esperaremos 1.2 segundos si el jugador ha sido destruido y comenzaremos el mismo nivel
             if (_waitSame) {
                 _waitTime += deltaTime;
-                if (_waitTime >= 2.2) {
+                if (_waitTime >= 1.2) {
                     pasaNivel(true);
 
                 }
